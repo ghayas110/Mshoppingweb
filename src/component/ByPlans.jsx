@@ -133,17 +133,21 @@ export default function ClippedDrawer(props) {
             </ListItem>
           </List>
           <List>
-            <ListItem button>
+            <ListItem button   onClick={() => {
+                props.history.push("ByPlans");
+              }}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"By Plans"} />
+              <ListItemText primary={"Buy Plans"} />
             </ListItem>
           </List>
           <Divider />
 
           <List>
-            <ListItem button>
+            <ListItem button  onClick={() => {
+                props.history.push("");
+              }}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
@@ -164,9 +168,13 @@ export default function ClippedDrawer(props) {
       <main className={classes.content}>
         <Toolbar />
         <br />
-        <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
-          <Grid item xs={6} style={{ float: "left" }}>
-            <div className="pricing-item">
+        <Grid container className={classes.root2} spacing={2}>
+        <Grid item xs={12}>
+        <Grid container justify="center" spacing={2}>
+         
+            <Grid  item >
+            
+              <Paper className={classes.paper} >  <div className="pricing-item">
               <div className="pricing-item-inner">
                 <div className="pricing-item-content">
                   <div className="pricing-item-header center-content">
@@ -178,10 +186,10 @@ export default function ClippedDrawer(props) {
                   </div>
                   <div className="pricing-item-features">
                     <ul className="pricing-item-features-list">
-                      <li className="is-checked">Term: 24</li>
-                      <li className="is-checked">Roi 3</li>
-                      <li className="is-checked">Start Date : 01/01/21</li>
-                      <li className="is-checked">End Date : 12/31/25</li>
+                    <li className="is-checked">Term : 24</li>
+                      <li className="is-checked">Roi : 3</li>
+                      <li className="is-checked">Start Date: 01/01/21</li>
+                      <li className="is-checked">End Date: 12/31/25</li>
                       <li className="is-checked">Status : Active</li>
                       <li className="">Subscription : NO</li>
                       <li className="is-checked">Levels : 5</li>
@@ -189,16 +197,17 @@ export default function ClippedDrawer(props) {
                   </div>
                 </div>
                 <div className="pricing-item-cta">
-                  <a className="button" href="http://cruip.com/">
+                <a className="button"  onClick={() => {props.history.push("Checkout")}}>
                     Buy Now
                   </a>
                 </div>
               </div>
-            </div>
-          </Grid>
-
-          <Grid elevation={3} item xs={6} style={{ marginLeft: "auto", marginRight: "auto" }}>
-            <div className="pricing-item">
+            </div></Paper>
+              
+            </Grid>
+            <Grid  item >
+            
+            <Paper className={classes.paper} >  <div className="pricing-item">
               <div className="pricing-item-inner">
                 <div className="pricing-item-content">
                   <div className="pricing-item-header center-content">
@@ -210,10 +219,10 @@ export default function ClippedDrawer(props) {
                   </div>
                   <div className="pricing-item-features">
                     <ul className="pricing-item-features-list">
-                      <li className="is-checked">Term : 24</li>
-                      <li className="is-checked">Roi : 10</li>
-                      <li className="is-checked">Start Date : 01/01/21</li>
-                      <li className="is-checked">End Date : 12/31/25</li>
+                    <li className="is-checked">Term : 24</li>
+                      <li className="is-checked">Roi : 5</li>
+                      <li className="is-checked">Start Date: 01/01/21</li>
+                      <li className="is-checked">End Date: 12/31/25</li>
                       <li className="is-checked">Status : Active</li>
                       <li className="is-checked">Subscription : Yes</li>
                       <li className="is-checked">Levels : 10</li>
@@ -221,21 +230,17 @@ export default function ClippedDrawer(props) {
                   </div>
                 </div>
                 <div className="pricing-item-cta">
-                  <a className="button" href="http://cruip.com/">
+                <a className="button"  onClick={() => {props.history.push("Checkout")}}>
                     Buy Now
                   </a>
                 </div>
               </div>
-            </div>
-          </Grid>
-          </Grid>
-
-
-          <Grid item xs ={12} style={{marginRight:"auto",marginLeft:"auto"}}>
-
+            </div></Paper>
             
-          <Grid item xs={3} style={{ float:"left", }}>
-            <div className="pricing-item">
+          </Grid>
+          <Grid  item >
+            
+            <Paper className={classes.paper} >  <div className="pricing-item">
               <div className="pricing-item-inner">
                 <div className="pricing-item-content">
                   <div className="pricing-item-header center-content">
@@ -249,8 +254,8 @@ export default function ClippedDrawer(props) {
                     <ul className="pricing-item-features-list">
                     <li className="is-checked">Term : 24</li>
                       <li className="is-checked">Roi : 10</li>
-                      <li className="is-checked">Start Date : 01/01/21</li>
-                      <li className="is-checked">End Date : 12/31/25</li>
+                      <li className="is-checked">Start Date: 01/01/21</li>
+                      <li className="is-checked">End Date: 12/31/25</li>
                       <li className="is-checked">Status : Active</li>
                       <li className="is-checked">Subscription : Yes</li>
                       <li className="is-checked">Levels : 10</li>
@@ -258,15 +263,17 @@ export default function ClippedDrawer(props) {
                   </div>
                 </div>
                 <div className="pricing-item-cta">
-                  <a className="button" href="http://cruip.com/">
+                <a className="button"  onClick={() => {props.history.push("Checkout")}}>
                     Buy Now
                   </a>
                 </div>
               </div>
-            </div>
+            </div></Paper>
+            
           </Grid>
-          <Grid item xs={3} style={{ marginRight: "auto", marginLeft: "auto", }}>
-            <div className="pricing-item">
+          <Grid  item >
+            
+            <Paper className={classes.paper} >  <div className="pricing-item">
               <div className="pricing-item-inner">
                 <div className="pricing-item-content">
                   <div className="pricing-item-header center-content">
@@ -280,8 +287,8 @@ export default function ClippedDrawer(props) {
                     <ul className="pricing-item-features-list">
                     <li className="is-checked">Term : 24</li>
                       <li className="is-checked">Roi : 20</li>
-                      <li className="is-checked">Start Date : 01/01/21</li>
-                      <li className="is-checked">End Date : 12/31/25</li>
+                      <li className="is-checked">Start Date: 01/01/21</li>
+                      <li className="is-checked">End Date: 12/31/25</li>
                       <li className="is-checked">Status : Active</li>
                       <li className="is-checked">Subscription : Yes</li>
                       <li className="is-checked">Levels : 20</li>
@@ -289,14 +296,19 @@ export default function ClippedDrawer(props) {
                   </div>
                 </div>
                 <div className="pricing-item-cta">
-                  <a className="button" href="http://cruip.com/">
+                  <a className="button"  onClick={() => {props.history.push("Checkout")}}>
                     Buy Now
                   </a>
                 </div>
               </div>
-            </div>
+            </div></Paper>
+            
           </Grid>
+              
         </Grid>
+      </Grid>
+      </Grid>
+
       </main>
     </div>
   );

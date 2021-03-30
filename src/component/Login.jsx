@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import ReactWhatsapp from 'react-whatsapp';
+import { render } from 'react-dom';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -25,6 +26,13 @@ function Copyright() {
     </Typography>
   );
 }
+
+// const App = () => (
+//   <ReactWhatsapp number="+18323874234" message="This Message is Sent From Website" 
+//   element="button"
+//   />
+// );
+// render(<App />, document.getElementById('root'));
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,8 +56,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (props) => {
   const classes = useStyles();
+ 
 
   return (
+    
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -92,7 +102,7 @@ const Login = (props) => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => {props.history.push("home")}}
+            onClick={() => {props.history.push("UserPanel")}}
           >
             Sign In
           </Button>
@@ -114,6 +124,7 @@ const Login = (props) => {
         <Copyright />
       </Box>
     </Container>
+    
   );
 }
 
