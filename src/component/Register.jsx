@@ -100,7 +100,7 @@ const Register = (props) => {
     password: '',
     phone_number: '',
     confirm_password: '',
-    referalUserCode: 'shahbaz',
+    referalUserCode: '',
     check_UserCodeChange: false,
     check_FirstNameChange: false,
     check_LastNameChange: false,
@@ -142,7 +142,7 @@ const Register = (props) => {
             })
               .then(async (user) => {
                 console.log(user)
-                const newUser = { firstName: data.firstName, email: data.email, phone_number: data.phone_number, parentId: parentUser[0].id, userCode: data.usercode }
+                const newUser = { firstName: data.firstName, middleName: data.middleName, lastName: data.lastName, email: data.email, phone_number: data.phone_number, parentId: parentUser[0].id, userCode: data.usercode }
                 const createdUser = await API.graphql(graphqlOperation(createUser, { input: newUser }))
                 console.log('createdResellerUser', createdUser.data)
                 props.history.push("confirmation", { email: data.email })
@@ -174,15 +174,12 @@ const Register = (props) => {
         check_ReferalUserCodeChange: true
         // console.log(data)
       });
-      console.log(data)
     } else {
       setData({
         ...data,
         referalUserCode: val,
         check_ReferalUserCodeChange: false
-
       });
-      console.log(data)
     }
   }
 

@@ -52,7 +52,7 @@ const Confirmation = (props) => {
   const classes = useStyles();
 
   const [data, setData] = React.useState({
-    email: props.email,
+    email: props.location.state.email !== null ? props.location.state.email : '',
     code: '',
     check_textInputChange: false,
   })
@@ -63,7 +63,8 @@ const Confirmation = (props) => {
       console.log('done!')
       props.history.push('login')
     } catch (error) {
-      console.log('error confirming sign up', error);
+      console.log(error.message);
+      alert(error.message);
     }
   }
 
@@ -119,11 +120,9 @@ const Confirmation = (props) => {
               textInputChange(e.target.value)}
           />
           <Button
-            type=""
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
             onClick={confirmSignUp}
           >
             Confirmed

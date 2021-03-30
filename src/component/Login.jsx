@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,8 +12,14 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { checkcon, passwordRegex } from './reuse'
+import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify'
+import { useDispatch } from 'react-redux';
+import * as ActionTypes from '../redux/ActionTypes'
+import { listUsers } from '../graphql/queries';
 import ReactWhatsapp from 'react-whatsapp';
 import { render } from 'react-dom';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -56,7 +62,84 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (props) => {
   const classes = useStyles();
- 
+  const dispatch = useDispatch()
+
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+    check_textInputChange: false,
+    secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
+  });
+
+  async function signIn() {
+    try {
+      if (checkcon.test(data.email)) {
+        await Auth.signIn(data.email, data.password)
+          .then(async (user) => {
+            const getIdData = await API.graphql(graphqlOperation(listUsers, { filter: { email: { contains: user.attributes.email } } }))
+            const getId = getIdData.data.listUsers.items
+            var loggedinUserId = ''
+            if (getId[0] !== undefined) {
+              loggedinUserId = getId[0].id
+            }
+            dispatch({
+              type: ActionTypes.ADD_LOGUSER,
+              payload: { id: loggedinUserId, firstName: getId[0].firstName, lastName: getId[0].lastName, userEmail: user.attributes.email}
+            })
+            props.history.push('UserPanel')
+          })
+      }
+      else {
+        alert('Email or Password Incorrect!')
+      }
+    } catch (error) {
+      window.alert(error.message)
+      console.log(error.message)
+    }
+  }
+
+  const textInputChange = (val) => {
+    if (checkcon.test(val)) {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: true,
+        isValidUser: true
+      });
+    } else {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: false,
+        isValidUser: false
+      });
+    }
+  }
+
+  const handlePasswordChange = (val) => {
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: true
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: false
+      });
+    }
+  }
+
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry
+    });
+  }
 
   return (
     
@@ -78,8 +161,11 @@ const Login = (props) => {
             id="email"
             label="Email Address"
             name="email"
+            inputMode='email'
             autoComplete="email"
             autoFocus
+            onChange={e =>
+              textInputChange(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -91,29 +177,29 @@ const Login = (props) => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={e =>
+              handlePasswordChange(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
-            type=""
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-            onClick={() => {props.history.push("UserPanel")}}
+            onClick={signIn}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2" onClick={() => {props.history.push("forgotPassword")}}>
+              <Link href="#" variant="body2" onClick={() => { props.history.push({ pathename: 'forgotPassword' }) }}>
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2" onClick={() => {props.history.push("register")}}>
+              <Link href="#" variant="body2" onClick={() => { props.history.push("register") }}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

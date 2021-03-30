@@ -2,7 +2,7 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   id: ID!
   firstName: String!
   middleName: String
-  lastName: String
+  lastName: String!
   parentId: ID!
   phone_number: String!
   email: String!
@@ -18,12 +18,35 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   status: String
 }
 
-type Product @model @key(name: "byUser", fields: ["userId"])  {
+type Plan @model {
   id: ID!
+  fee: String!
+  term: Int!
+  ROI: Int!
+  startDate: String!
+  endDate: String
+  status: String
+  subscription: String
+  levels: Int
+}
+
+type UserPlans @model @key(name: "byUser", fields: ["userId", "planId"]) {
   userId: ID!
   user: User! @connection(fields: ["userId"])
-  title: String!
-  description: String!
-  price: Float!
-  quantity: Int!
+  planId: ID!
+  plan: Plan! @connection(fields: ["planId"])
+  startingDate: String
+  paymentStatus: String
+  planStatus: String
 }
+
+
+# type Product @model @key(name: "byUser", fields: ["userId"])  {
+#   id: ID!
+#   userId: ID!
+#   user: User! @connection(fields: ["userId"])
+#   title: String!
+#   description: String!
+#   price: Float!
+#   quantity: Int!
+# }

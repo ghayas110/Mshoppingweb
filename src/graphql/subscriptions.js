@@ -76,79 +76,60 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
-export const onCreateProduct = /* GraphQL */ `
-  subscription OnCreateProduct {
-    onCreateProduct {
+export const onCreatePlan = /* GraphQL */ `
+  subscription OnCreatePlan {
+    onCreatePlan {
       id
-      userId
-      user {
-        id
-        firstName
-        middleName
-        lastName
-        parentId
-        phone_number
-        email
-        userCode
-        userType
-        userRole
-        gender
-        dob
-        address
-        city
-        CNIC
-        canRegister
-        status
-        createdAt
-        updatedAt
-      }
-      title
-      description
-      price
-      quantity
+      fee
+      term
+      ROI
+      startDate
+      endDate
+      status
+      subscription
+      levels
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateProduct = /* GraphQL */ `
-  subscription OnUpdateProduct {
-    onUpdateProduct {
+export const onUpdatePlan = /* GraphQL */ `
+  subscription OnUpdatePlan {
+    onUpdatePlan {
       id
-      userId
-      user {
-        id
-        firstName
-        middleName
-        lastName
-        parentId
-        phone_number
-        email
-        userCode
-        userType
-        userRole
-        gender
-        dob
-        address
-        city
-        CNIC
-        canRegister
-        status
-        createdAt
-        updatedAt
-      }
-      title
-      description
-      price
-      quantity
+      fee
+      term
+      ROI
+      startDate
+      endDate
+      status
+      subscription
+      levels
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteProduct = /* GraphQL */ `
-  subscription OnDeleteProduct {
-    onDeleteProduct {
+export const onDeletePlan = /* GraphQL */ `
+  subscription OnDeletePlan {
+    onDeletePlan {
+      id
+      fee
+      term
+      ROI
+      startDate
+      endDate
+      status
+      subscription
+      levels
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUserPlans = /* GraphQL */ `
+  subscription OnCreateUserPlans {
+    onCreateUserPlans {
       id
       userId
       user {
@@ -172,10 +153,119 @@ export const onDeleteProduct = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      title
-      description
-      price
-      quantity
+      planId
+      plan {
+        id
+        fee
+        term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
+      startingDate
+      paymentStatus
+      planStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserPlans = /* GraphQL */ `
+  subscription OnUpdateUserPlans {
+    onUpdateUserPlans {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      planId
+      plan {
+        id
+        fee
+        term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
+      startingDate
+      paymentStatus
+      planStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserPlans = /* GraphQL */ `
+  subscription OnDeleteUserPlans {
+    onDeleteUserPlans {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      planId
+      plan {
+        id
+        fee
+        term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
+      startingDate
+      paymentStatus
+      planStatus
       createdAt
       updatedAt
     }
