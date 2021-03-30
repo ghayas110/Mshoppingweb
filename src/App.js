@@ -9,10 +9,12 @@ import UserPanel from "./component/UserPanel";
 import ReferedBy from "./component/ReferedBy";
 import MyReferals from "./component/MyReferals";
 import ByPlans from "./component/ByPlans";
+import Checkout from './component/Checkout';
 function App() {
   return (
     <div className="App">
       <Router>
+      <Route path="/Checkout" component={Checkout} />
         <Route path="/home" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
