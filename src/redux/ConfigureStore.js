@@ -3,13 +3,15 @@ import thunk from 'redux-thunk'
 // import logger from 'redux-logger'
 import { loggedInUser } from './loggedInUser'
 import { plans } from './plans'
+import { userPlans } from './userPlans'
 
 export const configureStore = () => {
 
     const store = createStore(
         combineReducers({
             loggedInUser,
-            plans
+            plans,
+            userPlans
         }),
         compose(
             applyMiddleware(thunk),

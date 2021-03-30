@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -23,6 +23,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
+import { useSelector, useDispatch } from "react-redux";
+import * as ActionTypes from '../redux/ActionTypes'
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import { listUserPlanss } from '../graphql/queries'
 
 const drawerWidth = 240;
 
@@ -52,6 +56,27 @@ const useStyles = makeStyles((theme) => ({
 export default function ClippedDrawer(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const { loggedInUser, userPlans } = useSelector(state => state)
+  const dispatch = useDispatch()
+
+  useEffect(async () => {
+    try {
+      const userPlansData = await API.graphql(graphqlOperation(listUserPlanss, { filter: { userId: { eq: loggedInUser.user.id } } }))
+      const userPlans = userPlansData.data.listUserPlanss.items
+      dispatch({
+        type: ActionTypes.ADD_USERPLANS,
+        payload: userPlans
+      })
+    } catch (err) {
+      console.log('err', err.errors);
+      // if (err.errors.length > 0) {
+      //   dispatch({
+      //     type: ActionTypes.FAILED_PLANS,
+      //     payload: err.errors[0].message
+      //   })
+      // }
+    }
+  }, [])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -61,13 +86,55 @@ export default function ClippedDrawer(props) {
     setOpen(false);
   };
 
+  const renderPlans = () => {
+    return (
+      userPlans.userPlans.map((item, index) => {
+        return (
+          <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
+            <Grid item xs={6} style={{ float: "left" }}>
+              <div className="pricing-item">
+                <div className="pricing-item-inner">
+                  <div className="pricing-item-content">
+                    <div className="pricing-item-header center-content">
+                      <div className="pricing-item-title">{index + 1}</div>
+                      <div className="pricing-item-price">
+                        <span className="pricing-item-price-currency" />
+                        <span className="pricing-item-price-amount">{item.plan.fee}</span>
+                      </div>
+                    </div>
+                    <div className="pricing-item-features">
+                      <ul className="pricing-item-features-list">
+                        <li className="is-checked">Term: {item.plan.fee}</li>
+                        <li className="is-checked">ROI: {item.plan.ROI}</li>
+                        <li className="is-checked">Status {item.planStatus}</li>
+                        <li className="is-checked">Payment Status : {item.paymentStatus}</li>
+                        <li className="is-checked">Start Date : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.startingDate)))}</li>
+                        {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
+                        {/* <li className="is-checked">Levels : {item.levels}</li> */}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="pricing-item-cta">
+                    <a className="button">
+                      Upload
+                  </a>
+                  </div>
+                </div>
+              </div>
+            </Grid>
+          </Grid>
+        )
+      })
+    )
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            User Name
+            {loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}
           </Typography>
 
           <Button
@@ -91,7 +158,7 @@ export default function ClippedDrawer(props) {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-        <List style={{backgroundColor:"#1A5276", color:"white"}}>
+          <List style={{ backgroundColor: "#1A5276", color: "white" }}>
             <ListItem
               button
               onClick={() => {
@@ -104,66 +171,69 @@ export default function ClippedDrawer(props) {
               <ListItemText primary={"DASHBOARD"} />
             </ListItem>
           </List>
-         
+
           <List>
-            
-              <ListItem button  onClick={() => {
-                  props.history.push("ReferedBy");}}>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Refered By"} />
-              </ListItem>
-          
+
+            <ListItem button onClick={() => {
+              props.history.push("ReferedBy");
+            }}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Refered By"} />
+            </ListItem>
+
           </List>
-         
+
           <List>
-            
-              <ListItem button  onClick={() => {
-                  props.history.push("MyReferals");}}> 
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Referels"} />
-              </ListItem>
-          
+
+            <ListItem button onClick={() => {
+              props.history.push("MyReferals");
+            }}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"My Referels"} />
+            </ListItem>
+
           </List>
           <List>
-            
-              <ListItem button onClick={() => {
-                  props.history.push("ByPlans");}}>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"By Plans"} />
-              </ListItem>
-          
+
+            <ListItem button onClick={() => {
+              props.history.push("ByPlans");
+            }}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"By Plans"} />
+            </ListItem>
+
           </List>
           <Divider />
-     
-            <List>
-            
-              <ListItem button>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Withdrawls"} />
-              </ListItem>
-          
+
+          <List>
+
+            <ListItem button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Withdrawls"} />
+            </ListItem>
+
           </List>
 
           <List>
-            
-              <ListItem button>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Profile"} />
-              </ListItem>
-          
+
+            <ListItem button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"My Profile"} />
+            </ListItem>
+
           </List>
 
-          
+
         </div>
       </Drawer>
       <main className={classes.content}>
@@ -184,10 +254,10 @@ export default function ClippedDrawer(props) {
                 $52582828
               </Typography>
             </Typography>
-            
+
             <Divider />
           </Paper>
-          
+
         </Grid>
 
         <Dialog
@@ -208,7 +278,7 @@ export default function ClippedDrawer(props) {
               type="Text"
               fullWidth
             />
-         
+
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
@@ -219,15 +289,18 @@ export default function ClippedDrawer(props) {
             </Button>
           </DialogActions>
         </Dialog>
-                <br />
+        <br />
+
+        {renderPlans()}
+
         <Grid item >
-            <Paper >
+          <Paper >
             <br />
-                <Typography variant="h5" style={{ textAlign: "center" }}>
+            <Typography variant="h5" style={{ textAlign: "center" }}>
               Current Users
               <hr />
-              </Typography>
-          <CollapsibleTable />
+            </Typography>
+            <CollapsibleTable />
           </Paper>
         </Grid>
       </main>

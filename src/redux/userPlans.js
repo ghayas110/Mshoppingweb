@@ -1,16 +1,16 @@
 import * as ActionTypes from './ActionTypes'
 
-export const plans = (state = {
+export const userPlans = (state = {
     errMess: null,
-    plans: [],
+    userPlans: [],
 }, action) => {
     switch (action.type) {
-        case ActionTypes.ADD_PLANS:
-            return { ...state, errMess: null, plans: action.payload }
+        case ActionTypes.ADD_USERPLANS:
+            return { ...state, errMess: null, userPlans: action.payload }
         // case ActionTypes.ADS_LOADING:
         //     return { ...state, isLoading: true, errMess: null, ads: [], premiumAds: [] }
-        case ActionTypes.FAILED_PLANS:
-            return { ...state, errMess: action.payload, plans: [] }
+        case ActionTypes.FAILED_USERPLANS:
+            return { ...state, errMess: action.payload, userPlans: [] }
         default:
             return state
     }

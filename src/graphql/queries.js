@@ -163,6 +163,41 @@ export const listUserPlanss = /* GraphQL */ `
         planStatus
         createdAt
         updatedAt
+        user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      planId
+      plan {
+        id
+        fee
+        term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
       }
       nextToken
     }

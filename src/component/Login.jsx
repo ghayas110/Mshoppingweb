@@ -13,7 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { checkcon, passwordRegex } from './reuse'
-import Amplify, { Auth } from 'aws-amplify'
+import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify'
+import { useDispatch } from 'react-redux';
+import * as ActionTypes from '../redux/ActionTypes'
+import { listUsers } from '../graphql/queries';
 
 function Copyright() {
   return (
@@ -50,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch()
 
   const [data, setData] = useState({
     email: '',
@@ -65,7 +69,17 @@ const Login = (props) => {
       if (checkcon.test(data.email)) {
         await Auth.signIn(data.email, data.password)
           .then(async (user) => {
-            props.history.push('home')
+            const getIdData = await API.graphql(graphqlOperation(listUsers, { filter: { email: { contains: user.attributes.email } } }))
+            const getId = getIdData.data.listUsers.items
+            var loggedinUserId = ''
+            if (getId[0] !== undefined) {
+              loggedinUserId = getId[0].id
+            }
+            dispatch({
+              type: ActionTypes.ADD_LOGUSER,
+              payload: { id: loggedinUserId, firstName: getId[0].firstName, lastName: getId[0].lastName, userEmail: user.attributes.email}
+            })
+            props.history.push('UserPanel')
           })
       }
       else {

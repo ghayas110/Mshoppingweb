@@ -142,7 +142,7 @@ const Register = (props) => {
             })
               .then(async (user) => {
                 console.log(user)
-                const newUser = { firstName: data.firstName, email: data.email, phone_number: data.phone_number, parentId: parentUser[0].id, userCode: data.usercode }
+                const newUser = { firstName: data.firstName, middleName: data.middleName, lastName: data.lastName, email: data.email, phone_number: data.phone_number, parentId: parentUser[0].id, userCode: data.usercode }
                 const createdUser = await API.graphql(graphqlOperation(createUser, { input: newUser }))
                 console.log('createdResellerUser', createdUser.data)
                 props.history.push("confirmation", { email: data.email })

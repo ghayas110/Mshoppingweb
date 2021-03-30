@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -24,10 +23,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { listPlans } from '../graphql/queries'
-import { createUserPlans } from '../graphql/mutations'
-import * as ActionTypes from '../redux/ActionTypes'
+import IconButton from "@material-ui/core/IconButton";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import StepLabel from '@material-ui/core/StepLabel';
+
 
 const drawerWidth = 240;
 
@@ -52,91 +51,19 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  paper: {
+    width: theme.spacing(30),
+    height: theme.spacing(60),
+    background:'white',
+  },
+  root2: {
+    flexGrow: 1,
+  },
 }));
 
-export default function ClippedDrawer(props) {
+export default function Plans(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [plan, setPlan] = useState([])
-  const dispatch = useDispatch()
-  const { plans, loggedInUser } = useSelector(state => state)
-
-  useEffect(async () => {
-    try {
-      const plansData = await API.graphql(graphqlOperation(listPlans))
-      const Plans = plansData.data.listPlans.items
-      // }
-      dispatch({
-        type: ActionTypes.ADD_PLANS,
-        payload: Plans
-      })
-    } catch (err) {
-      console.log('err', err.errors[0]);
-      if (err.errors.length > 0) {
-        dispatch({
-          type: ActionTypes.FAILED_PLANS,
-          payload: err.errors[0].message
-        })
-      }
-    }
-  }, [])
-
-  const renderPlans = () => {
-    console.log(plans);
-    if (plans.plans.length > 0)
-      return (
-        plans.plans.map((item, index) => {
-          return (
-            <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
-              <Grid item xs={6} style={{ float: "left" }}>
-                <div className="pricing-item">
-                  <div className="pricing-item-inner">
-                    <div className="pricing-item-content">
-                      <div className="pricing-item-header center-content">
-                        <div className="pricing-item-title">{index + 1}</div>
-                        <div className="pricing-item-price">
-                          <span className="pricing-item-price-currency" />
-                          <span className="pricing-item-price-amount">{item.fee}</span>
-                        </div>
-                      </div>
-                      <div className="pricing-item-features">
-                        <ul className="pricing-item-features-list">
-                          <li className="is-checked">Term: {item.term}</li>
-                          <li className="is-checked">Roi {item.ROI}</li>
-                          {/* <li className="is-checked">Start Date : 01/01/21</li> */}
-                          <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li>
-                          {/* <li className="is-checked">Status : Active</li> */}
-                          <li className="is-checked">Subscription : {item.subscription}</li>
-                          <li className="is-checked">Levels : {item.levels}</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="pricing-item-cta">
-                      <a className="button" onClick={() => onBuyClick(item.id)} >
-                        Buy Now
-                  </a>
-                    </div>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-          )
-        })
-      )
-    else {
-      return (
-        <div>{plans.errMess}</div>
-      )
-    }
-  }
-
-  async function onBuyClick(planId) {
-    const d = new Date()
-    // console.log({ userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() })
-    const newUserPlanData = { userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() }
-    const newUserPlan = await API.graphql(graphqlOperation(createUserPlans, { input: newUserPlanData }))
-    console.log(newUserPlan);
-  }
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -247,12 +174,115 @@ export default function ClippedDrawer(props) {
         </div>
       </Drawer>
       <main className={classes.content}>
-        <Toolbar />
-        <br />
+      <Toolbar />
+        <Grid item xs={12}>
+          <Paper elevation={0} className={classes.paper} style={{width:"100%",height:"100px"}}>
+            <Typography variant="h3" style={{ textAlign: "center" }}>
+             Preview Buy Plan
+              <hr />
+              {/* <br /> */}
+              </Typography>
+              </Paper>
+              </Grid>
 
-        {renderPlans()}
 
-      </main>
-    </div >
+    <Grid container className={classes.root2} spacing={2}>
+        <Grid item xs={12}>
+        <Grid container justify="center" spacing={-5}>
+         
+            <Grid  item >
+            
+              <Paper className={classes.paper} style={{height:"350px"}} >  
+              <div className="pricing-item">
+              <div className="pricing-item-inner">
+                <div className="pricing-item-content">
+                  <div className="pricing-item-header center-content">
+                    <div className="pricing-item-title"></div>
+                    <div className="pricing-item-price">
+                      <span className="pricing-item-price-currency" />
+                      <span className="pricing-item-price-amount"></span>
+                    </div>
+                  </div>
+                  <div className="pricing-item-features">
+                    <ul className="pricing-item-features-list">
+                    <li className="">Plan Name =</li>
+                      <li className="">Basic Value =</li>
+                      <li className="">ROI =</li>
+                      <li className="">Resellable =</li>
+                    </ul>
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+            </Paper>
+              
+            </Grid>
+            <Grid  item >
+            
+            <Paper className={classes.paper} style={{height:"350px"}}>
+                <div className="pricing-item">
+              <div className="pricing-item-inner">
+                <div className="pricing-item-content">
+                  <div className="pricing-item-header center-content">
+                    <div className="pricing-item-title"></div>
+                    <div className="pricing-item-price">
+                      <span className="pricing-item-price-currency" />
+                      <span className="pricing-item-price-amount"></span>
+                    </div>
+                  </div>
+                  <div className="pricing-item-features">
+                    <ul className="pricing-item-features-list">
+                    <li className="">Plan Name* </li>
+                      <li className="">Basic Value* </li>
+                      <li className="">ROI* </li>
+                      <li className="">Resellable* </li>
+                      
+                    </ul>
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>    
+
+      <form className={classes.form} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={4} sm={4}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="Enter Serial # of Deposit Slip"
+                autoFocus
+              />
+            </Grid>
+            <br />
+             <Grid item xs={4} sm={4}>
+             <div className={classes.root}>
+              
+      <input
+        accept="image/*"
+        className={classes.input}
+        id="contained-button-file"
+        multiple
+        type="file"
+      />
+
+    
+    </div>
+            </Grid> 
+          </Grid>
+          
+      </form>  
+    </main>
+    </div>
   );
 }

@@ -30,11 +30,11 @@ type Plan @model {
   levels: Int
 }
 
-type UserPlans @model {
+type UserPlans @model @key(name: "byUser", fields: ["userId", "planId"]) {
   userId: ID!
-  user: User @connection(fields: ["userId"])
+  user: User! @connection(fields: ["userId"])
   planId: ID!
-  plan: Plan @connection(fields: ["planId"])
+  plan: Plan! @connection(fields: ["planId"])
   startingDate: String
   paymentStatus: String
   planStatus: String

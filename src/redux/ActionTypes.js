@@ -1,6 +1,9 @@
 export const ADD_LOGUSER = 'ADD_LOGUSER'
 export const LOGGEDOUT = 'LOGGEDOUT'
 export const ADD_PLANS = 'ADD_PLANS'
+export const FAILED_PLANS = 'FAILED_PLANS'
+export const ADD_USERPLANS = 'ADD_USERPLANS'
+export const FAILED_USERPLANS = 'FAILED_USERPLANS'
 
 
 
