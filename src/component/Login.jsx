@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { checkcon, passwordRegex } from './reuse'
+import Amplify, { Auth } from 'aws-amplify'
 
 function Copyright() {
   return (
@@ -49,6 +51,73 @@ const useStyles = makeStyles((theme) => ({
 const Login = (props) => {
   const classes = useStyles();
 
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+    check_textInputChange: false,
+    secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
+  });
+
+  async function signIn() {
+    try {
+      if (checkcon.test(data.email)) {
+        await Auth.signIn(data.email, data.password)
+          .then(async (user) => {
+            props.history.push('home')
+          })
+      }
+      else {
+        alert('Email or Password Incorrect!')
+      }
+    } catch (error) {
+      window.alert(error.message)
+      console.log(error.message)
+    }
+  }
+
+  const textInputChange = (val) => {
+    if (checkcon.test(val)) {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: true,
+        isValidUser: true
+      });
+    } else {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: false,
+        isValidUser: false
+      });
+    }
+  }
+
+  const handlePasswordChange = (val) => {
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: true
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: false
+      });
+    }
+  }
+
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry
+    });
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -68,8 +137,11 @@ const Login = (props) => {
             id="email"
             label="Email Address"
             name="email"
+            inputMode='email'
             autoComplete="email"
             autoFocus
+            onChange={e =>
+              textInputChange(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -81,29 +153,29 @@ const Login = (props) => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={e =>
+              handlePasswordChange(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
-            type=""
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-            onClick={() => {props.history.push("home")}}
+            onClick={signIn}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2" onClick={() => {props.history.push("forgotPassword")}}>
+              <Link href="#" variant="body2" onClick={() => { props.history.push({ pathename: 'forgotPassword' }) }}>
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2" onClick={() => {props.history.push("register")}}>
+              <Link href="#" variant="body2" onClick={() => { props.history.push("register") }}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

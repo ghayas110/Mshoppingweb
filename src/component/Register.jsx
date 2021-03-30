@@ -144,7 +144,10 @@ const Register = (props) => {
                 const newUser = { firstName: data.firstName, email: data.email, phone_number: data.phone_number, parentId: parentUser[0].id, userCode: data.usercode }
                 const createdUser = await API.graphql(graphqlOperation(createUser, { input: newUser }))
                 console.log('createdResellerUser', createdUser.data)
-                props.history.push("confirmation", {email: data.email})
+                props.history.push({
+                  pathname: 'confirmation',
+                  email: data.email
+                })
               })
           }
           else {

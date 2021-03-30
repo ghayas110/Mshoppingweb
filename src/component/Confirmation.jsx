@@ -52,7 +52,7 @@ const Confirmation = (props) => {
   const classes = useStyles();
 
   const [data, setData] = React.useState({
-    email: props.email,
+    email: props.location.email,
     code: '',
     check_textInputChange: false,
   })
@@ -119,11 +119,9 @@ const Confirmation = (props) => {
               textInputChange(e.target.value)}
           />
           <Button
-            type=""
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
             onClick={confirmSignUp}
           >
             Confirmed

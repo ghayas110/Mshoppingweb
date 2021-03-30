@@ -58,9 +58,50 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
-export const getProduct = /* GraphQL */ `
-  query GetProduct($id: ID!) {
-    getProduct(id: $id) {
+export const getPlan = /* GraphQL */ `
+  query GetPlan($id: ID!) {
+    getPlan(id: $id) {
+      id
+      Fee
+      Term
+      ROI
+      startDate
+      endDate
+      status
+      subscription
+      levels
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPlans = /* GraphQL */ `
+  query ListPlans(
+    $filter: ModelPlanFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPlans(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        Fee
+        Term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserPlans = /* GraphQL */ `
+  query GetUserPlans($id: ID!) {
+    getUserPlans(id: $id) {
       id
       userId
       user {
@@ -84,29 +125,42 @@ export const getProduct = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      title
-      description
-      price
-      quantity
+      planId
+      plan {
+        id
+        Fee
+        Term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
+      startingDate
+      paymentStatus
+      planStatus
       createdAt
       updatedAt
     }
   }
 `;
-export const listProducts = /* GraphQL */ `
-  query ListProducts(
-    $filter: ModelProductFilterInput
+export const listUserPlanss = /* GraphQL */ `
+  query ListUserPlanss(
+    $filter: ModelUserPlansFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUserPlanss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         userId
-        title
-        description
-        price
-        quantity
+        planId
+        startingDate
+        paymentStatus
+        planStatus
         createdAt
         updatedAt
       }

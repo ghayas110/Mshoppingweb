@@ -85,88 +85,72 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
-export const createProduct = /* GraphQL */ `
-  mutation CreateProduct(
-    $input: CreateProductInput!
-    $condition: ModelProductConditionInput
+export const createPlan = /* GraphQL */ `
+  mutation CreatePlan(
+    $input: CreatePlanInput!
+    $condition: ModelPlanConditionInput
   ) {
-    createProduct(input: $input, condition: $condition) {
+    createPlan(input: $input, condition: $condition) {
       id
-      userId
-      user {
-        id
-        firstName
-        middleName
-        lastName
-        parentId
-        phone_number
-        email
-        userCode
-        userType
-        userRole
-        gender
-        dob
-        address
-        city
-        CNIC
-        canRegister
-        status
-        createdAt
-        updatedAt
-      }
-      title
-      description
-      price
-      quantity
+      Fee
+      Term
+      ROI
+      startDate
+      endDate
+      status
+      subscription
+      levels
       createdAt
       updatedAt
     }
   }
 `;
-export const updateProduct = /* GraphQL */ `
-  mutation UpdateProduct(
-    $input: UpdateProductInput!
-    $condition: ModelProductConditionInput
+export const updatePlan = /* GraphQL */ `
+  mutation UpdatePlan(
+    $input: UpdatePlanInput!
+    $condition: ModelPlanConditionInput
   ) {
-    updateProduct(input: $input, condition: $condition) {
+    updatePlan(input: $input, condition: $condition) {
       id
-      userId
-      user {
-        id
-        firstName
-        middleName
-        lastName
-        parentId
-        phone_number
-        email
-        userCode
-        userType
-        userRole
-        gender
-        dob
-        address
-        city
-        CNIC
-        canRegister
-        status
-        createdAt
-        updatedAt
-      }
-      title
-      description
-      price
-      quantity
+      Fee
+      Term
+      ROI
+      startDate
+      endDate
+      status
+      subscription
+      levels
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteProduct = /* GraphQL */ `
-  mutation DeleteProduct(
-    $input: DeleteProductInput!
-    $condition: ModelProductConditionInput
+export const deletePlan = /* GraphQL */ `
+  mutation DeletePlan(
+    $input: DeletePlanInput!
+    $condition: ModelPlanConditionInput
   ) {
-    deleteProduct(input: $input, condition: $condition) {
+    deletePlan(input: $input, condition: $condition) {
+      id
+      Fee
+      Term
+      ROI
+      startDate
+      endDate
+      status
+      subscription
+      levels
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUserPlans = /* GraphQL */ `
+  mutation CreateUserPlans(
+    $input: CreateUserPlansInput!
+    $condition: ModelUserPlansConditionInput
+  ) {
+    createUserPlans(input: $input, condition: $condition) {
       id
       userId
       user {
@@ -190,10 +174,125 @@ export const deleteProduct = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      title
-      description
-      price
-      quantity
+      planId
+      plan {
+        id
+        Fee
+        Term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
+      startingDate
+      paymentStatus
+      planStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUserPlans = /* GraphQL */ `
+  mutation UpdateUserPlans(
+    $input: UpdateUserPlansInput!
+    $condition: ModelUserPlansConditionInput
+  ) {
+    updateUserPlans(input: $input, condition: $condition) {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      planId
+      plan {
+        id
+        Fee
+        Term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
+      startingDate
+      paymentStatus
+      planStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUserPlans = /* GraphQL */ `
+  mutation DeleteUserPlans(
+    $input: DeleteUserPlansInput!
+    $condition: ModelUserPlansConditionInput
+  ) {
+    deleteUserPlans(input: $input, condition: $condition) {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      planId
+      plan {
+        id
+        Fee
+        Term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
+        createdAt
+        updatedAt
+      }
+      startingDate
+      paymentStatus
+      planStatus
       createdAt
       updatedAt
     }
