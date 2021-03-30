@@ -208,14 +208,7 @@ export default function ClippedDrawer(props) {
               type="Text"
               fullWidth
             />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Contact Number"
-              type="Text"
-              fullWidth
-            />
+         
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
