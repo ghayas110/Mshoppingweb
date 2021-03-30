@@ -10,6 +10,7 @@ import config from './aws-exports'
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

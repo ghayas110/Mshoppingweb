@@ -149,7 +149,7 @@ export default function Plans(props) {
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"By Plans"} />
+              <ListItemText primary={"Buy Plans"} />
             </ListItem>
           </List>
           <Divider />

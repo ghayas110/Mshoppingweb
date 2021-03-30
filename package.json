@@ -19,6 +19,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "react-whatsapp": "^0.2.1",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.1"
   },

@@ -218,17 +218,21 @@ export default function ClippedDrawer(props) {
             </ListItem>
           </List>
           <List>
-            <ListItem button>
+            <ListItem button   onClick={() => {
+                props.history.push("ByPlans");
+              }}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"By Plans"} />
+              <ListItemText primary={"Buy Plans"} />
             </ListItem>
           </List>
           <Divider />
 
           <List>
-            <ListItem button>
+            <ListItem button  onClick={() => {
+                props.history.push("");
+              }}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>

@@ -17,6 +17,8 @@ import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify'
 import { useDispatch } from 'react-redux';
 import * as ActionTypes from '../redux/ActionTypes'
 import { listUsers } from '../graphql/queries';
+import ReactWhatsapp from 'react-whatsapp';
+import { render } from 'react-dom';
 
 function Copyright() {
   return (
@@ -30,6 +32,13 @@ function Copyright() {
     </Typography>
   );
 }
+
+// const App = () => (
+//   <ReactWhatsapp number="+18323874234" message="This Message is Sent From Website" 
+//   element="button"
+//   />
+// );
+// render(<App />, document.getElementById('root'));
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -133,6 +142,7 @@ const Login = (props) => {
   }
 
   return (
+    
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -200,6 +210,7 @@ const Login = (props) => {
         <Copyright />
       </Box>
     </Container>
+    
   );
 }
 

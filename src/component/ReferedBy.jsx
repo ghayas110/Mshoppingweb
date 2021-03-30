@@ -134,7 +134,7 @@ export default function ClippedDrawer(props) {
                 <ListItemIcon>
                  <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"By Plans"} />
+                <ListItemText primary={"Buy Plans"} />
               </ListItem>
           
           </List>
