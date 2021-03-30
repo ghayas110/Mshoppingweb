@@ -80,8 +80,8 @@ export const onCreatePlan = /* GraphQL */ `
   subscription OnCreatePlan {
     onCreatePlan {
       id
-      Fee
-      Term
+      fee
+      term
       ROI
       startDate
       endDate
@@ -97,8 +97,8 @@ export const onUpdatePlan = /* GraphQL */ `
   subscription OnUpdatePlan {
     onUpdatePlan {
       id
-      Fee
-      Term
+      fee
+      term
       ROI
       startDate
       endDate
@@ -114,8 +114,8 @@ export const onDeletePlan = /* GraphQL */ `
   subscription OnDeletePlan {
     onDeletePlan {
       id
-      Fee
-      Term
+      fee
+      term
       ROI
       startDate
       endDate
@@ -156,8 +156,8 @@ export const onCreateUserPlans = /* GraphQL */ `
       planId
       plan {
         id
-        Fee
-        Term
+        fee
+        term
         ROI
         startDate
         endDate
@@ -204,8 +204,8 @@ export const onUpdateUserPlans = /* GraphQL */ `
       planId
       plan {
         id
-        Fee
-        Term
+        fee
+        term
         ROI
         startDate
         endDate
@@ -252,8 +252,8 @@ export const onDeleteUserPlans = /* GraphQL */ `
       planId
       plan {
         id
-        Fee
-        Term
+        fee
+        term
         ROI
         startDate
         endDate

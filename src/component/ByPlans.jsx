@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -23,6 +24,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import { listPlans } from '../graphql/queries'
+import * as ActionTypes from '../redux/ActionTypes'
 
 const drawerWidth = 240;
 
@@ -51,7 +55,62 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClippedDrawer(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [plan, setPlan] = useState([])
+  const dispatch = useDispatch()
+  const { plans } = useSelector(state => state.plans)
+
+  useEffect(async () => {
+    const plansData = await API.graphql(graphqlOperation(listPlans))
+    const Plans = plansData.data.listPlans.items
+    dispatch({
+      type: ActionTypes.ADD_PLANS,
+      payload: Plans
+    })
+  }, [])
+
+  const renderPlans = () => {
+    console.log(plans);
+    return (
+      plans.map((item, index) => {
+        return (
+          <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
+            <Grid item xs={6} style={{ float: "left" }}>
+              <div className="pricing-item">
+                <div className="pricing-item-inner">
+                  <div className="pricing-item-content">
+                    <div className="pricing-item-header center-content">
+                      <div className="pricing-item-title">{index + 1}</div>
+                      <div className="pricing-item-price">
+                        <span className="pricing-item-price-currency" />
+                        <span className="pricing-item-price-amount">{item.fee}</span>
+                      </div>
+                    </div>
+                    <div className="pricing-item-features">
+                      <ul className="pricing-item-features-list">
+                        <li className="is-checked">Term: {item.term}</li>
+                        <li className="is-checked">Roi {item.ROI}</li>
+                        {/* <li className="is-checked">Start Date : 01/01/21</li> */}
+                        <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li>
+                        {/* <li className="is-checked">Status : Active</li> */}
+                        <li className="is-checked">Subscription : {item.subscription}</li>
+                        <li className="is-checked">Levels : {item.levels}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="pricing-item-cta">
+                    <a className="button" href="http://cruip.com/">
+                      Buy Now
+                  </a>
+                  </div>
+                </div>
+              </div>
+            </Grid>
+          </Grid>
+        )
+      })
+    )
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -91,8 +150,7 @@ export default function ClippedDrawer(props) {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-        
-          <List style={{backgroundColor:"#1A5276", color:"white"}}>
+          <List style={{ backgroundColor: "#1A5276", color: "white" }}>
             <ListItem
               button
               onClick={() => {
@@ -105,8 +163,6 @@ export default function ClippedDrawer(props) {
               <ListItemText primary={"DASHBOARD"} />
             </ListItem>
           </List>
-          
-         
 
           <List>
             <ListItem
@@ -167,68 +223,10 @@ export default function ClippedDrawer(props) {
       <main className={classes.content}>
         <Toolbar />
         <br />
-<Grid item xs={12}>
-        <Grid item xs={3} style={{float:"left"}}>
-          <div className="pricing-item">
-            <div className="pricing-item-inner">
-              <div className="pricing-item-content">
-                <div className="pricing-item-header center-content">
-                  <div className="pricing-item-title">Basic</div>
-                  <div className="pricing-item-price">
-                    <span className="pricing-item-price-currency" />
-                    <span className="pricing-item-price-amount">Free</span>
-                  </div>
-                </div>
-                <div className="pricing-item-features">
-                  <ul className="pricing-item-features-list">
-                    <li className="is-checked">Excepteur sint occaecat</li>
-                    <li className="is-checked">Excepteur sint occaecat</li>
-                    <li className="is-checked">Excepteur sint occaecat</li>
-                    <li>Excepteur sint occaecat</li>
-                    <li>Excepteur sint occaecat</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="pricing-item-cta">
-                <a className="button" href="http://cruip.com/">
-                  Buy Now
-                </a>
-              </div>
-            </div>
-          </div>
-        </Grid>
 
-        <Grid item xs={3} style={{marginLeft:"auto", marginRight:"auto"}}>
-          <div className="pricing-item">
-            <div className="pricing-item-inner">
-              <div className="pricing-item-content">
-                <div className="pricing-item-header center-content">
-                  <div className="pricing-item-title">Basic</div>
-                  <div className="pricing-item-price">
-                    <span className="pricing-item-price-currency" />
-                    <span className="pricing-item-price-amount">Free</span>
-                  </div>
-                </div>
-                <div className="pricing-item-features">
-                  <ul className="pricing-item-features-list">
-                    <li className="is-checked">Excepteur sint occaecat</li>
-                    <li className="is-checked">Excepteur sint occaecat</li>
-                    <li className="is-checked">Excepteur sint occaecat</li>
-                    <li>Excepteur sint occaecat</li>
-                    <li>Excepteur sint occaecat</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="pricing-item-cta">
-                <a className="button" href="http://cruip.com/">
-                  Buy Now
-                </a>
-              </div>
-            </div>
-          </div>
-        </Grid>
-        </Grid>
+        {renderPlans()}
+
       </main>
-    </div>
+    </div >
   );
 }

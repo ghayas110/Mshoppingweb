@@ -92,8 +92,8 @@ export const createPlan = /* GraphQL */ `
   ) {
     createPlan(input: $input, condition: $condition) {
       id
-      Fee
-      Term
+      fee
+      term
       ROI
       startDate
       endDate
@@ -112,8 +112,8 @@ export const updatePlan = /* GraphQL */ `
   ) {
     updatePlan(input: $input, condition: $condition) {
       id
-      Fee
-      Term
+      fee
+      term
       ROI
       startDate
       endDate
@@ -132,8 +132,8 @@ export const deletePlan = /* GraphQL */ `
   ) {
     deletePlan(input: $input, condition: $condition) {
       id
-      Fee
-      Term
+      fee
+      term
       ROI
       startDate
       endDate
@@ -177,8 +177,8 @@ export const createUserPlans = /* GraphQL */ `
       planId
       plan {
         id
-        Fee
-        Term
+        fee
+        term
         ROI
         startDate
         endDate
@@ -228,8 +228,8 @@ export const updateUserPlans = /* GraphQL */ `
       planId
       plan {
         id
-        Fee
-        Term
+        fee
+        term
         ROI
         startDate
         endDate
@@ -279,8 +279,8 @@ export const deleteUserPlans = /* GraphQL */ `
       planId
       plan {
         id
-        Fee
-        Term
+        fee
+        term
         ROI
         startDate
         endDate

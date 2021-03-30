@@ -90,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
 const Register = (props) => {
   const classes = useStyles();
 
+  // const[url]
   const [data, setData] = useState({
     usercode: '',
     firstName: '',
@@ -144,10 +145,7 @@ const Register = (props) => {
                 const newUser = { firstName: data.firstName, email: data.email, phone_number: data.phone_number, parentId: parentUser[0].id, userCode: data.usercode }
                 const createdUser = await API.graphql(graphqlOperation(createUser, { input: newUser }))
                 console.log('createdResellerUser', createdUser.data)
-                props.history.push({
-                  pathname: 'confirmation',
-                  email: data.email
-                })
+                props.history.push("confirmation", { email: data.email })
               })
           }
           else {
@@ -174,6 +172,7 @@ const Register = (props) => {
         ...data,
         referalUserCode: val,
         check_ReferalUserCodeChange: true
+        // console.log(data)
       });
     } else {
       setData({
@@ -449,6 +448,7 @@ const Register = (props) => {
                 required
                 fullWidth
                 id="UserId"
+                value={data.referalUserCode}
                 label="ref code"
                 name="refCode"
                 autoComplete="Uid"
@@ -594,7 +594,7 @@ const Register = (props) => {
                 </label>
               </div>
             </Grid> */}
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Switch
                   // checked={state.checkedB}
@@ -604,7 +604,7 @@ const Register = (props) => {
                 />
               }
               label="ACTIVE"
-            />
+            /> */}
 
             <Grid item xs={12}>
               <FormControlLabel

@@ -62,8 +62,8 @@ export const getPlan = /* GraphQL */ `
   query GetPlan($id: ID!) {
     getPlan(id: $id) {
       id
-      Fee
-      Term
+      fee
+      term
       ROI
       startDate
       endDate
@@ -84,8 +84,8 @@ export const listPlans = /* GraphQL */ `
     listPlans(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        Fee
-        Term
+        fee
+        term
         ROI
         startDate
         endDate
@@ -128,8 +128,8 @@ export const getUserPlans = /* GraphQL */ `
       planId
       plan {
         id
-        Fee
-        Term
+        fee
+        term
         ROI
         startDate
         endDate
