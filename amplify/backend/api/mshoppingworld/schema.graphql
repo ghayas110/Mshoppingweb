@@ -1,0 +1,30 @@
+type User @model @key(name: "byChildUser", fields: ["parentId"])  {
+  id: ID!
+  username:String!
+  parentId:ID!
+  SignupDate:String!
+  phone_number: String!
+  email:String!
+  userCode:String!
+  userType:String
+  userRole:String
+  Fname:String
+  Lname:String
+  gender:String
+  dob:String
+  address:String
+  city:String
+  CNIC:String
+  canRegister:Boolean
+  status:String
+}
+
+type Product @model @key(name: "byUser", fields: ["userId"])  {
+  id: ID!
+  userId: ID!
+  user: User! @connection(fields: ["userId"])
+  title: String!
+  description: String!
+  price: Float!
+  quantity: Int!
+}
