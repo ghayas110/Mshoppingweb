@@ -4,24 +4,23 @@
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
-      username
       id
-      userType
-      userRole
-      Fname
-      Lname
-      gender
+      firstName
+      middleName
+      lastName
       parentId
-      dob
-      address
-      city
-      SignupDate
-      CNIC
-      State
-      canRegister
       phone_number
       email
       userCode
+      userType
+      userRole
+      gender
+      dob
+      address
+      city
+      CNIC
+      canRegister
+      status
       createdAt
       updatedAt
     }
@@ -35,24 +34,79 @@ export const listUsers = /* GraphQL */ `
   ) {
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        username
         id
-        userType
-        userRole
-        Fname
-        Lname
-        gender
+        firstName
+        middleName
+        lastName
         parentId
-        dob
-        address
-        city
-        SignupDate
-        CNIC
-        State
-        canRegister
         phone_number
         email
         userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getProduct = /* GraphQL */ `
+  query GetProduct($id: ID!) {
+    getProduct(id: $id) {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      title
+      description
+      price
+      quantity
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listProducts = /* GraphQL */ `
+  query ListProducts(
+    $filter: ModelProductFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        title
+        description
+        price
+        quantity
         createdAt
         updatedAt
       }

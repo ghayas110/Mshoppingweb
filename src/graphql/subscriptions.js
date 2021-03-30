@@ -4,24 +4,23 @@
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
-      username
       id
-      userType
-      userRole
-      Fname
-      Lname
-      gender
+      firstName
+      middleName
+      lastName
       parentId
-      dob
-      address
-      city
-      SignupDate
-      CNIC
-      State
-      canRegister
       phone_number
       email
       userCode
+      userType
+      userRole
+      gender
+      dob
+      address
+      city
+      CNIC
+      canRegister
+      status
       createdAt
       updatedAt
     }
@@ -30,24 +29,23 @@ export const onCreateUser = /* GraphQL */ `
 export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
-      username
       id
-      userType
-      userRole
-      Fname
-      Lname
-      gender
+      firstName
+      middleName
+      lastName
       parentId
-      dob
-      address
-      city
-      SignupDate
-      CNIC
-      State
-      canRegister
       phone_number
       email
       userCode
+      userType
+      userRole
+      gender
+      dob
+      address
+      city
+      CNIC
+      canRegister
+      status
       createdAt
       updatedAt
     }
@@ -56,24 +54,128 @@ export const onUpdateUser = /* GraphQL */ `
 export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
-      username
       id
-      userType
-      userRole
-      Fname
-      Lname
-      gender
+      firstName
+      middleName
+      lastName
       parentId
-      dob
-      address
-      city
-      SignupDate
-      CNIC
-      State
-      canRegister
       phone_number
       email
       userCode
+      userType
+      userRole
+      gender
+      dob
+      address
+      city
+      CNIC
+      canRegister
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateProduct = /* GraphQL */ `
+  subscription OnCreateProduct {
+    onCreateProduct {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      title
+      description
+      price
+      quantity
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateProduct = /* GraphQL */ `
+  subscription OnUpdateProduct {
+    onUpdateProduct {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      title
+      description
+      price
+      quantity
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteProduct = /* GraphQL */ `
+  subscription OnDeleteProduct {
+    onDeleteProduct {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      title
+      description
+      price
+      quantity
       createdAt
       updatedAt
     }

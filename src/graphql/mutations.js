@@ -7,24 +7,23 @@ export const createUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     createUser(input: $input, condition: $condition) {
-      username
       id
-      userType
-      userRole
-      Fname
-      Lname
-      gender
+      firstName
+      middleName
+      lastName
       parentId
-      dob
-      address
-      city
-      SignupDate
-      CNIC
-      State
-      canRegister
       phone_number
       email
       userCode
+      userType
+      userRole
+      gender
+      dob
+      address
+      city
+      CNIC
+      canRegister
+      status
       createdAt
       updatedAt
     }
@@ -36,24 +35,23 @@ export const updateUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     updateUser(input: $input, condition: $condition) {
-      username
       id
-      userType
-      userRole
-      Fname
-      Lname
-      gender
+      firstName
+      middleName
+      lastName
       parentId
-      dob
-      address
-      city
-      SignupDate
-      CNIC
-      State
-      canRegister
       phone_number
       email
       userCode
+      userType
+      userRole
+      gender
+      dob
+      address
+      city
+      CNIC
+      canRegister
+      status
       createdAt
       updatedAt
     }
@@ -65,24 +63,137 @@ export const deleteUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     deleteUser(input: $input, condition: $condition) {
-      username
       id
-      userType
-      userRole
-      Fname
-      Lname
-      gender
+      firstName
+      middleName
+      lastName
       parentId
-      dob
-      address
-      city
-      SignupDate
-      CNIC
-      State
-      canRegister
       phone_number
       email
       userCode
+      userType
+      userRole
+      gender
+      dob
+      address
+      city
+      CNIC
+      canRegister
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createProduct = /* GraphQL */ `
+  mutation CreateProduct(
+    $input: CreateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    createProduct(input: $input, condition: $condition) {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      title
+      description
+      price
+      quantity
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateProduct = /* GraphQL */ `
+  mutation UpdateProduct(
+    $input: UpdateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    updateProduct(input: $input, condition: $condition) {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      title
+      description
+      price
+      quantity
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteProduct = /* GraphQL */ `
+  mutation DeleteProduct(
+    $input: DeleteProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    deleteProduct(input: $input, condition: $condition) {
+      id
+      userId
+      user {
+        id
+        firstName
+        middleName
+        lastName
+        parentId
+        phone_number
+        email
+        userCode
+        userType
+        userRole
+        gender
+        dob
+        address
+        city
+        CNIC
+        canRegister
+        status
+        createdAt
+        updatedAt
+      }
+      title
+      description
+      price
+      quantity
       createdAt
       updatedAt
     }

@@ -26,7 +26,8 @@ import Switch from '@material-ui/core/Switch';
 import { checkcon, passwordRegex } from './reuse'
 import { createUser } from '../graphql/mutations'
 import { listUsers } from '../graphql/queries'
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify'
+import Login from "./Login";
 
 
 function Copyright() {
@@ -92,6 +93,7 @@ const Register = (props) => {
   const [data, setData] = useState({
     usercode: '',
     firstName: '',
+    middleName: '',
     lastName: '',
     email: '',
     password: '',
@@ -99,7 +101,9 @@ const Register = (props) => {
     confirm_password: '',
     referalUserCode: '',
     check_UserCodeChange: false,
-    check_UsernameChange: false,
+    check_FirstNameChange: false,
+    check_LastNameChange: false,
+    check_MiddleNameChange: false,
     check_EmailChange: false,
     check_PhoneChange: false,
     check_ReferalUserCodeChange: false,
@@ -114,35 +118,42 @@ const Register = (props) => {
   //working
   async function signUp() {
     try {
-      console.log(data.check_UserCodeChange, data.check_UsernameChange, data.check_EmailChange, data.check_PhoneChange, data.check_ReferalUserCodeChange, data.check_PasswordChange);
-      if (data.check_UserCodeChange === true && data.check_UsernameChange === true && data.check_EmailChange === true && data.check_PhoneChange === true && data.check_ReferalUserCodeChange === true && data.check_PasswordChange === true) {
+      console.log(data.check_UserCodeChange, data.check_FirstNameChange, data.check_LastNameChange, data.check_EmailChange, data.check_PhoneChange, data.check_ReferalUserCodeChange, data.check_PasswordChange);
+      if (data.check_UserCodeChange === true && data.check_FirstNameChange === true && data.check_LastNameChange === true && data.check_EmailChange === true && data.check_PhoneChange === true && data.check_ReferalUserCodeChange === true && data.check_PasswordChange === true) {
         const userCode = await API.graphql(graphqlOperation(listUsers, { filter: { userCode: { eq: data.usercode } } }))
         const userCodeResult = userCode.data.listUsers.items
-        console.log('userCodeResult', userCodeResult)
+        console.log('userCodeResult', userCodeResult, userCodeResult.length)
         if (userCodeResult.length == 0) {
-          console.log('empty')
+          console.log('unique')
+          const parentData = await API.graphql(graphqlOperation(listUsers, { filter: { userCode: { eq: data.referalUserCode } } }))
+          const parentUser = parentData.data.listUsers.items
+          console.log('parentUser:', parentUser.length)
+          if (parentUser.length == 1) {
+            console.log('Parent Exist')
+            await Auth.signUp({
+              username: data.email,
+              password: data.password,
+              attributes: {
+                email: data.email,          // optional
+                phone_number: data.phone_number,   // optional - E.164 number convention
+                // other custom attributes
+              }
+            })
+              .then(async (user) => {
+                console.log(user)
+                const newUser = { firstName: data.firstName, email: data.email, phone_number: data.phone_number, parentId: parentUser[0].id, userCode: data.usercode }
+                const createdUser = await API.graphql(graphqlOperation(createUser, { input: newUser }))
+                console.log('createdResellerUser', createdUser.data)
+                props.history.push("confirmation", {email: data.email})
+              })
+          }
+          else {
+            console.log('Parent referal Code not correct');
+          }
         }
-        // await Auth.signUp({
-        //   username: data.email,
-        //   password: data.password,
-
-        //   attributes: {
-        //     email: data.email,          // optional
-        //     phone_number: data.phone_number,   // optional - E.164 number convention
-        //     // other custom attributes
-        //   }
-        // })
-        //   .then(async (user) => {
-        //     console.log(user)
-        //     // query for parent id
-        //     const parentData = await API.graphql(graphqlOperation(listUsers, { filter: { userCode: { eq: data.referalUserCode } } }))
-        //     const parentUser = parentData.data.listUsers.items
-        //     console.log('parentUser:', parentUser)
-        //     const newUser = { username: data.username, email: data.email, phone_number: data.phone_number, parentId: parentUser[0].id, userCode: data.usercode }
-        //     const createdUser = await API.graphql(graphqlOperation(createUser, { input: newUser }))
-        //     console.log('createdResellerUser', createdUser.data)
-        //     navigation.dispatch(StackActions.push('confirmation'))
-        //   })
+        else {
+          console.log('notunique');
+        }
       }
       else {
         console.log('Fill all Fields')
@@ -155,7 +166,7 @@ const Register = (props) => {
   }
 
   const handleReferalUserCode = (val) => {
-    if (val.length >= 8 && val.length <= 10) {
+    if (val.length >= 7 && val.length <= 10) {
       setData({
         ...data,
         referalUserCode: val,
@@ -171,7 +182,7 @@ const Register = (props) => {
   }
 
   const handleUserCode = (val) => {
-    if (val.length >= 8 && val.length <= 10) {
+    if (val.length >= 7 && val.length <= 10) {
       setData({
         ...data,
         usercode: val,
@@ -202,34 +213,49 @@ const Register = (props) => {
     }
   }
 
-  const handleUserName = (val, changestate = "Fname") => {
+  const handleUserName = (val, changestate) => {
     if (changestate == "Fname") {
       if (val.length >= 3 && val.length <= 15) {
         setData({
           ...data,
-          Fname: val,
-          check_UsernameChange: true
+          firstName: val,
+          check_FirstNameChange: true
         });
       } else {
         setData({
           ...data,
-          Lname: val,
-          check_UsernameChange: false
+          firstName: val,
+          check_FirstNameChange: false
         });
       }
     }
-    else {
+    else if (changestate == 'Lname') {
       if (val.length >= 3 && val.length <= 15) {
         setData({
           ...data,
-          Lname: val,
-          check_UsernameChange: true
+          lastName: val,
+          check_LastNameChange: true
         });
       } else {
         setData({
           ...data,
-          Lname: val,
-          check_UsernameChange: false
+          lastName: val,
+          check_LastNameChange: false
+        });
+      }
+    }
+    else if (changestate == 'Mname') {
+      if (val.length >= 3 && val.length <= 15) {
+        setData({
+          ...data,
+          middleName: val,
+          check_MiddleNameChange: true
+        });
+      } else {
+        setData({
+          ...data,
+          middleName: val,
+          check_MiddleNameChange: false
         });
       }
     }
@@ -438,7 +464,7 @@ const Register = (props) => {
                 name="UC"
                 autoComplete="Pid"
                 onChange={e =>
-                  handleUserCode(e.target.value)}
+                  handleUserName(e.target.value, "Mname")}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -450,8 +476,8 @@ const Register = (props) => {
                 label="User Code"
                 name="uc"
                 autoComplete="uc"
-                // onChange={e =>
-                //   handleUserCode(e.target.value)}
+                onChange={e =>
+                  handleUserCode(e.target.value)}
               />
             </Grid>
             {/* <Grid item xs={12}>
@@ -600,7 +626,7 @@ const Register = (props) => {
                 href="#"
                 variant="body2"
                 onClick={() => {
-                  props.history.push("login");
+                  <Login />;
                 }}
               >
                 Already have an account? Sign in

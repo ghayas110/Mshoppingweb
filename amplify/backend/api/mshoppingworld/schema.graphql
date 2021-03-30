@@ -1,22 +1,21 @@
 type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   id: ID!
-  username:String!
-  parentId:ID!
-  SignupDate:String!
+  firstName: String!
+  middleName: String
+  lastName: String
+  parentId: ID!
   phone_number: String!
-  email:String!
-  userCode:String!
-  userType:String
-  userRole:String
-  Fname:String
-  Lname:String
-  gender:String
-  dob:String
-  address:String
-  city:String
-  CNIC:String
-  canRegister:Boolean
-  status:String
+  email: String!
+  userCode: String!
+  userType: String
+  userRole: String
+  gender: String
+  dob: String
+  address: String
+  city: String
+  CNIC: String
+  canRegister: Boolean
+  status: String
 }
 
 type Product @model @key(name: "byUser", fields: ["userId"])  {

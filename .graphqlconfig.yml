@@ -2,7 +2,7 @@ projects:
   mshoppingworld:
     schemaPath: amplify/backend/api/mshoppingworld/build/schema.graphql
     includes:
-      - ./graphql
+      - src/graphql
     excludes:
       - ./amplify/**
     extensions:
