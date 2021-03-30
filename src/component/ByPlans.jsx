@@ -145,9 +145,7 @@ export default function ClippedDrawer(props) {
           <Divider />
 
           <List>
-            <ListItem button  onClick={() => {
-                props.history.push("");
-              }}>
+            <ListItem button  >
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
@@ -310,6 +308,15 @@ export default function ClippedDrawer(props) {
       </Grid>
 
       </main>
+      {/* whatsapp icon */}
+      <a
+        href="https://wa.me/+18323874234"
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fa fa-whatsapp whatsapp-icon"></i>
+      </a>
     </div>
   );
 }

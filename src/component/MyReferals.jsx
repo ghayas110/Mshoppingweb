@@ -179,6 +179,15 @@ export default function ClippedDrawer(props) {
           </Paper>
         </Grid>
       </main>
+       {/* whatsapp icon */}
+       <a
+        href="https://wa.me/+18323874234"
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fa fa-whatsapp whatsapp-icon"></i>
+      </a>
     </div>
   );
 }

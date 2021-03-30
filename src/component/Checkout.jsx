@@ -138,6 +138,7 @@ export default function Plans(props) {
                 props.history.push("MyReferals");
               }}
             >
+              
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
@@ -170,7 +171,9 @@ export default function Plans(props) {
               </ListItemIcon>
               <ListItemText primary={"My Profile"} />
             </ListItem>
+            
           </List>
+          
         </div>
       </Drawer>
       <main className={classes.content}>
@@ -283,6 +286,15 @@ export default function Plans(props) {
           
       </form>  
     </main>
+     {/* whatsapp icon */}
+     <a
+        href="https://wa.me/+18323874234"
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fa fa-whatsapp whatsapp-icon"></i>
+      </a>
     </div>
   );
 }
