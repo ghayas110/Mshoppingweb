@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-// import logger from 'redux-logger'
+ import logger from 'redux-logger'
 import { loggedInUser } from './loggedInUser'
 import { plans } from './plans'
 import { userPlans } from './userPlans'

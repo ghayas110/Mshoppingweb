@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { checkcon, passwordRegex } from './reuse'
 import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify'
-import { useDispatch } from 'react-redux';
+ import { useDispatch } from 'react-redux';
 import * as ActionTypes from '../redux/ActionTypes'
 import { listUsers } from '../graphql/queries';
 import ReactWhatsapp from 'react-whatsapp';

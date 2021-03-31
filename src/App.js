@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { configureStore } from './redux/ConfigureStore';
 import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
+ import { Provider } from 'react-redux'
 
 import Register from "./component/Register";
 import Login from "./component/Login";

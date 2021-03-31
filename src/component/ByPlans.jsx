@@ -308,7 +308,7 @@ export default function ClippedDrawer(props) {
       </Grid>
 
       </main>
-      {/* whatsapp icon
+       {/* whatsapp icon */}
       <a
         href="https://wa.me/+18323874234"
         class="whatsapp_float"
@@ -316,7 +316,7 @@ export default function ClippedDrawer(props) {
         rel="noopener noreferrer"
       >
         <i class="fa fa-whatsapp whatsapp-icon"></i>
-      </a> */}
+      </a> 
     </div>
   );
 }
