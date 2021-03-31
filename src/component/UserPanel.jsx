@@ -193,7 +193,7 @@ export default function ClippedDrawer(props) {
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"My Referels"} />
+              <ListItemText primary={"My Referrals"} />
             </ListItem>
 
           </List>
@@ -246,13 +246,36 @@ export default function ClippedDrawer(props) {
             >
               INVITE MEMBERS
             </Button>
+            <Grid item xs ={12} sm={12}>
+              <Grid item xs={6} sm={4}>
             <Typography variant="h5" style={{ textAlign: "left" }}>
-              Current Money
-              <hr />
+              Current Balance : 
+              {/* <hr /> */}
               <Typography variant="h8" style={{ textAlign: "left" }}>
                 $52582828
               </Typography>
             </Typography>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+            <Typography variant="h5" style={{ textAlign: "left" }}>
+              Referred By : 
+              {/* <hr /> */}
+              <Typography variant="h8" style={{ textAlign: "left" }}>
+                Uzma Khan
+              </Typography>
+            </Typography>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+            <Typography variant="h5" style={{ textAlign: "left" }}>
+              Referrals : 
+              {/* <hr /> */}
+              <Typography variant="h8" style={{ textAlign: "left" }}>
+                4
+              </Typography>
+            </Typography>
+            </Grid>
+
+            </Grid>
 
             <Divider />
           </Paper>

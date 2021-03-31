@@ -169,9 +169,10 @@ export default function ClippedDrawer(props) {
          <Toolbar />
                 <br />
                 <Typography variant="h5" style={{ textAlign: "left" }}>
-              Refered By
+              Refered By  |  Uzma Khan
               <hr />
               </Typography>
+              
         <Grid item >
             <Paper >
           <CollapsibleTable />

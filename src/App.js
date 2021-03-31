@@ -28,7 +28,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path='/confirmation' component={Confirmation} />
-            <Route path="/forgotPassword" component={ForgetPassword} />
+            <Route path="/forgetPassword" component={ForgetPassword} />
             <Route path="/UserPanel" component={UserPanel} />
             <Route path="/ReferedBy" component={ReferedBy} />
             <Route path="/MyReferals" component={MyReferals} />

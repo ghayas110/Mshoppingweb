@@ -32,8 +32,8 @@ function createData(name, calories, fat, carbs, protein, price) {
     protein,
     price,
     history: [
-      { date: '2020-01-05', customerId: '11091700', amount: 3 },
-      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
+      { date: '', customerId: '', amount: 3 },
+      { date: '', customerId: '', amount: 1 },
     ],
   };
 }
@@ -69,10 +69,10 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell>heading</TableCell>
+                    <TableCell>heading</TableCell>
+                    <TableCell align="right">heading</TableCell>
+                    <TableCell align="right">heading</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -117,11 +117,11 @@ Row.propTypes = {
 };
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
+  createData('User Name', 0),
+  createData('User Name', 0),
+  createData('User Name', 0),
+  createData('User Name', 0),
+  createData('User Name', 0),
 ];
 
 export default function CollapsibleTable() {
@@ -131,11 +131,11 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>User Code</TableCell>
+            <TableCell align="right">Level</TableCell>
+            {/* <TableCell align="right">Main Heading&nbsp;(g)</TableCell>
+            <TableCell align="right">Main Heading&nbsp;(g)</TableCell>
+            <TableCell align="right">Main Heading&nbsp;(g)</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>

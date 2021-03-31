@@ -142,7 +142,7 @@ export default function Plans(props) {
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"My Referels"} />
+              <ListItemText primary={"My Referrals"} />
             </ListItem>
           </List>
           <List>
@@ -278,6 +278,14 @@ export default function Plans(props) {
         multiple
         type="file"
       />
+          <Button
+            variant="contained"
+            color="Primary"
+            style={{ marginLeft: "auto" }}
+           
+          >
+            SUBMIT
+          </Button>
 
     
     </div>
