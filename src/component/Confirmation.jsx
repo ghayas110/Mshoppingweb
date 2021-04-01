@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Amplify, { Auth } from 'aws-amplify'
 import Home from './Home';
+import { FaWhatsapp } from "react-icons/fa";
+
 
 function Copyright() {
   return (
@@ -132,6 +134,15 @@ const Confirmation = (props) => {
       <Box mt={8}>
         <Copyright />
       </Box>
+      <a
+        href="https://wa.me/+18323874234"
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
+        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
+      </a>
     </Container>
   );
 }

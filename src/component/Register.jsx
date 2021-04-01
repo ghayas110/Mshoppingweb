@@ -12,6 +12,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { FaWhatsapp } from "react-icons/fa";
+
 import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -654,7 +656,17 @@ const Register = (props) => {
       <Box mt={5}>
         <Copyright />
       </Box>
+      <a
+        href="https://wa.me/+18323874234"
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
+        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
+      </a>
     </Container>
+    
   );
 };
 
