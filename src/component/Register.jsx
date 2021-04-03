@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -116,6 +116,30 @@ const Register = (props) => {
     userCodeIsUnique: false,
   });
 
+  useEffect(async () => {
+    var number = await Date.now() // 0.9394456857981651
+    console.log(number);
+    console.log(number.toString(36)); // '0.xtis06h6'
+    var id = number.toString(36) // 'xtis06h6'
+    console.log(id.length >= 8); // false
+    console.log(window.location.href.substring(window.location.href.lastIndexOf('/') + 1));
+    const refUsercode = await window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
+    if (refUsercode !== 'register')
+      setData({
+        ...data,
+        usercode: id,
+        referalUserCode: refUsercode,
+        check_UserCodeChange: true,
+        check_ReferalUserCodeChange: true,
+      });
+    else
+      setData({
+        ...data,
+        usercode: id,
+        check_UserCodeChange: true,
+      });
+  }, [])
+
   //working
   async function signUp() {
     try {
@@ -178,7 +202,7 @@ const Register = (props) => {
                 graphqlOperation(createUser, { input: newUser })
               );
               console.log("createdResellerUser", createdUser.data);
-              props.history.push("confirmation", { email: data.email });
+              props.history.push("/confirmation", { email: data.email })
             });
           } else {
             console.log("Parent referal Code not correct");
@@ -483,6 +507,7 @@ const Register = (props) => {
                 id="UserId"
                 value={data.referalUserCode}
                 label="ref code"
+                disabled
                 name="refCode"
                 autoComplete="Uid"
                 onChange={(e) => handleReferalUserCode(e.target.value)}
@@ -494,8 +519,10 @@ const Register = (props) => {
                 variant="outlined"
                 required
                 fullWidth
+                value={data.usercode}
                 id="uc"
                 label="User Code"
+                disabled
                 name="uc"
                 autoComplete="uc"
                 onChange={(e) => handleUserCode(e.target.value)}
@@ -625,7 +652,7 @@ const Register = (props) => {
             /> */}
 
             <Grid item xs={12}>
-             
+
             </Grid>
           </Grid>
           <Button
@@ -641,10 +668,10 @@ const Register = (props) => {
           <Grid container justify="flex-end">
             <Grid item>
               <Link
-                href="#"
+              href=''
                 variant="body2"
                 onClick={() => {
-                  props.history.push("Login");
+                  props.history.push("/Login");
                 }}
               >
                 Already have an account? Sign in
@@ -663,10 +690,10 @@ const Register = (props) => {
         rel="noopener noreferrer"
       >
         {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
+        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
     </Container>
-    
+
   );
 };
 

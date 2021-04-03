@@ -93,6 +93,7 @@ const Login = (props) => {
             type: ActionTypes.ADD_LOGUSER,
             payload: {
               id: loggedinUserId,
+              userCode: getId[0].userCode,
               firstName: getId[0].firstName,
               lastName: getId[0].lastName,
               userEmail: user.attributes.email,

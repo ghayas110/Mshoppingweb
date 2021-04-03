@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -76,11 +76,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClippedDrawer(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { loggedInUser, userPlans } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const textAreaRef = useRef(null);
 
-  const a = [0,1,2]
+  const a = [0, 1, 2]
   useEffect(async () => {
     try {
       const userPlansData = await API.graphql(
@@ -111,6 +112,16 @@ export default function ClippedDrawer(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // const handleCopy = (e) => {
+  //   textAreaRef.current.select();
+  //   console.log(textAreaRef.current.value);
+  //   document.execCommand('copy');
+  //   e.target.focus();
+  //   console.log(navigator.clipboard.readText().then(clipText => console.log(clipText)))
+  //   console.log('sucess!');
+  //   // setCopySuccess('Copied!');
+  // }
 
   const renderPlans = () => {
     return userPlans.userPlans.map((item, index) => {
@@ -278,75 +289,75 @@ export default function ClippedDrawer(props) {
               INVITE MEMBERS
             </Button>
             <Grid container className={classes.root2} spacing={2}>
-        <Grid item xs={12}>
-        <Grid container justify="center" spacing={10}>
-         
-           
-            <Grid  item >
-            <Paper elevation={5}> 
-            <GridItem xs={12} sm={12} md={12} style={{width:"250px", height:"165px"}}>
-          <Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
-              <Accessibility />
-              </CardIcon>
-              <p className={classes.cardCategory} style={{color:"black" , fontFamily:"serif"}}>Referred By</p>
-              <h3 className={classes.cardTitle} style={{color:"black" , fontFamily:"serif"}}>
-                Uzma Khan
+              <Grid item xs={12}>
+                <Grid container justify="center" spacing={10}>
+
+
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="warning" stats icon>
+                            <CardIcon color="warning">
+                              <Accessibility />
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>
+                              Uzma Khan
               </h3>
-            </CardHeader>
-            <CardFooter stats>
-            
-            </CardFooter>
-          </Card>
-        </GridItem>
-        </Paper>
-          </Grid>
-         
-          <Grid  item >
-          <Paper elevation={5}>   
-              <GridItem xs={12} sm={12} md={12} style={{width:"250px",height:"165px"}}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-            
-              
-              <p className={classes.cardCategory} style={{color:"black" , fontFamily:"serif"}}>Referrals</p>
-              <h3 className={classes.cardTitle} style={{color:"black" , fontFamily:"serif"}}>+245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              
-            </CardFooter>
-          </Card>
-        </GridItem>
-        </Paper>
-          </Grid>
-     
-          <Grid  item >
-          <Paper elevation={5}> 
-            
-          <GridItem xs={12} sm={12} md={12} style={{width:"250px", height:"165px"}}>
-          <Card>
-            <CardHeader color="success" stats icon>
-              <CardIcon color="success">
-                <Store />
-              </CardIcon>
-              <p className={classes.cardCategory} style={{color:"black" , fontFamily:"serif"}}>Current Balance</p>
-              <h3 className={classes.cardTitle} style={{color:"black" , fontFamily:"serif"}}>$34,245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              
-            </CardFooter>
-          </Card>
-        </GridItem>
-        </Paper>
-          </Grid>
-              
-        </Grid>
-      </Grid>
-      </Grid>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="info" stats icon>
+                            <CardIcon color="info">
+                              <Accessibility />
+                            </CardIcon>
+
+
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referrals</p>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>+245</h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+
+                  <Grid item >
+                    <Paper elevation={5}>
+
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="success" stats icon>
+                            <CardIcon color="success">
+                              <Store />
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$34,245</h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+
+                </Grid>
+              </Grid>
+            </Grid>
 
             {/* {a.map((i) => {
               return(
@@ -373,7 +384,7 @@ export default function ClippedDrawer(props) {
             )})
               } */}
 
-           
+
 
             <Divider />
           </Paper>
@@ -389,30 +400,38 @@ export default function ClippedDrawer(props) {
             <DialogContentText>
               To invite Members Share the Link
             </DialogContentText>
-            <TextField
+            <a
               autoFocus
-              margin="dense"
-              id="name"
-              label="Link"
-              type="Text"
+              // margin="dense"
+              // id="name"
+              disabled
+              // type="Text"
               fullWidth
-            />
+              ref={textAreaRef}
+              // value='https://mshoppingworld.com/register'
+              href={'https://mshoppingworld.com/register/' + loggedInUser.user.userCode}
+            >{'https://mshoppingworld.com/register/' + loggedInUser.user.userCode}</a>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleClose} color="primary">
-              Sent
+            <Button
+              onClick={() =>
+                // navigator.clipboard.writeText(`http://mshoppingworld.com/register/${loggedInUser.user.userCode}`)
+                navigator.clipboard.writeText(`http://localhost:3000/register/${loggedInUser.user.userCode}`)
+              }
+              color="primary">
+              Copy
             </Button>
           </DialogActions>
         </Dialog>
         <br />
 
-      
 
 
-        {renderPlans()}
+
+        {/* {renderPlans()} */}
 
         <Grid item>
           <Paper>
@@ -433,8 +452,8 @@ export default function ClippedDrawer(props) {
         rel="noopener noreferrer"
       >
         {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
+        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
-    </div>
+    </div >
   );
 }
