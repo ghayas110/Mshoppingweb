@@ -15,6 +15,7 @@ import ReferedBy from "./component/ReferedBy";
 import MyReferals from "./component/MyReferals";
 import ByPlans from "./component/ByPlans";
 import Checkout from './component/Checkout';
+import SignupForm from "./SignupForm";
 
 const { persistor, store } = configureStore()
 
