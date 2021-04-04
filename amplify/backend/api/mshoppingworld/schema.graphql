@@ -20,6 +20,7 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
 
 type Plan @model {
   id: ID!
+  name: String!
   fee: String!
   term: Int!
   ROI: Int!

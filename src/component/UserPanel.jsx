@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -24,9 +24,30 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
 import { useSelector, useDispatch } from "react-redux";
-import * as ActionTypes from '../redux/ActionTypes'
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { listUserPlanss } from '../graphql/queries'
+import * as ActionTypes from "../redux/ActionTypes";
+import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { listUserPlanss } from "../graphql/queries";
+import Update from "@material-ui/icons/Update";
+import Accessibility from "@material-ui/icons/Accessibility";
+
+// @material-ui/icons
+import GridItem from "../component/Grid/GridItem";
+import Card from "../component/Card/Card.js";
+import CardHeader from "../component/Card/CardHeader.js";
+import CardIcon from "../component/Card/CardIcon.js";
+import Icon from "@material-ui/core/Icon";
+import { FaWhatsapp } from "react-icons/fa";
+import Store from "@material-ui/icons/Store";
+import DateRange from "@material-ui/icons/DateRange";
+
+
+import Warning from "@material-ui/icons/Warning";
+// import Danger from "../component/Typography/Danger.js";
+import CardFooter from "../component/Card/CardFooter.js";
+
+import Danger from "../component/Typography/Danger.js";
+
+// import CardBody from "../components/Card/CardBody.js";
 
 const drawerWidth = 240;
 
@@ -55,20 +76,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClippedDrawer(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const { loggedInUser, userPlans } = useSelector(state => state)
-  const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
+  const { loggedInUser, userPlans } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const textAreaRef = useRef(null);
 
+  const a = [0, 1, 2]
   useEffect(async () => {
     try {
-      const userPlansData = await API.graphql(graphqlOperation(listUserPlanss, { filter: { userId: { eq: loggedInUser.user.id } } }))
-      const userPlans = userPlansData.data.listUserPlanss.items
+      const userPlansData = await API.graphql(
+        graphqlOperation(listUserPlanss, {
+          filter: { userId: { eq: loggedInUser.user.id } },
+        })
+      );
+      const userPlans = userPlansData.data.listUserPlanss.items;
       dispatch({
         type: ActionTypes.ADD_USERPLANS,
-        payload: userPlans
-      })
+        payload: userPlans,
+      });
     } catch (err) {
-      console.log('err', err.errors);
+      console.log("err", err.errors);
       // if (err.errors.length > 0) {
       //   dispatch({
       //     type: ActionTypes.FAILED_PLANS,
@@ -76,7 +103,7 @@ export default function ClippedDrawer(props) {
       //   })
       // }
     }
-  }, [])
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -86,47 +113,64 @@ export default function ClippedDrawer(props) {
     setOpen(false);
   };
 
+  // const handleCopy = (e) => {
+  //   textAreaRef.current.select();
+  //   console.log(textAreaRef.current.value);
+  //   document.execCommand('copy');
+  //   e.target.focus();
+  //   console.log(navigator.clipboard.readText().then(clipText => console.log(clipText)))
+  //   console.log('sucess!');
+  //   // setCopySuccess('Copied!');
+  // }
+
   const renderPlans = () => {
-    return (
-      userPlans.userPlans.map((item, index) => {
-        return (
-          <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
-            <Grid item xs={6} style={{ float: "left" }}>
-              <div className="pricing-item">
-                <div className="pricing-item-inner">
-                  <div className="pricing-item-content">
-                    <div className="pricing-item-header center-content">
-                      <div className="pricing-item-title">{index + 1}</div>
-                      <div className="pricing-item-price">
-                        <span className="pricing-item-price-currency" />
-                        <span className="pricing-item-price-amount">{item.plan.fee}</span>
-                      </div>
-                    </div>
-                    <div className="pricing-item-features">
-                      <ul className="pricing-item-features-list">
-                        <li className="is-checked">Term: {item.plan.fee}</li>
-                        <li className="is-checked">ROI: {item.plan.ROI}</li>
-                        <li className="is-checked">Status {item.planStatus}</li>
-                        <li className="is-checked">Payment Status : {item.paymentStatus}</li>
-                        <li className="is-checked">Start Date : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.startingDate)))}</li>
-                        {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
-                        {/* <li className="is-checked">Levels : {item.levels}</li> */}
-                      </ul>
+    return userPlans.userPlans.map((item, index) => {
+      return (
+        <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
+          <Grid item xs={6} style={{ float: "left" }}>
+            <div className="pricing-item">
+              <div className="pricing-item-inner">
+                <div className="pricing-item-content">
+                  <div className="pricing-item-header center-content">
+                    <div className="pricing-item-title">{index + 1}</div>
+                    <div className="pricing-item-price">
+                      <span className="pricing-item-price-currency" />
+                      <span className="pricing-item-price-amount">
+                        {item.plan.fee}
+                      </span>
                     </div>
                   </div>
-                  <div className="pricing-item-cta">
-                    <a className="button">
-                      Upload
-                  </a>
+                  <div className="pricing-item-features">
+                    <ul className="pricing-item-features-list">
+                      <li className="is-checked">Term: {item.plan.fee}</li>
+                      <li className="is-checked">ROI: {item.plan.ROI}</li>
+                      <li className="is-checked">Status {item.planStatus}</li>
+                      <li className="is-checked">
+                        Payment Status : {item.paymentStatus}
+                      </li>
+                      <li className="is-checked">
+                        Start Date :{" "}
+                        {new Intl.DateTimeFormat("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "2-digit",
+                        }).format(new Date(Date.parse(item.startingDate)))}
+                      </li>
+                      {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
+                      {/* <li className="is-checked">Levels : {item.levels}</li> */}
+                    </ul>
                   </div>
                 </div>
+                <div className="pricing-item-cta">
+                  <a className="button">Upload</a>
+                </div>
               </div>
-            </Grid>
+            </div>
           </Grid>
-        )
-      })
-    )
-  }
+        </Grid>
+      );
+    });
+  };
 
   return (
     <div className={classes.root}>
@@ -134,7 +178,7 @@ export default function ClippedDrawer(props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            {loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}
+            {loggedInUser.user.firstName + " " + loggedInUser.user.lastName}
           </Typography>
 
           <Button
@@ -173,66 +217,64 @@ export default function ClippedDrawer(props) {
           </List>
 
           <List>
-
-            <ListItem button onClick={() => {
-              props.history.push("ReferedBy");
-            }}>
+            <ListItem
+              button
+              onClick={() => {
+                props.history.push("ReferedBy");
+              }}
+            >
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"Refered By"} />
             </ListItem>
-
           </List>
 
           <List>
-
-            <ListItem button onClick={() => {
-              props.history.push("MyReferals");
-            }}>
+            <ListItem
+              button
+              onClick={() => {
+                props.history.push("MyReferals");
+              }}
+            >
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"My Referels"} />
+              <ListItemText primary={"My Referrals"} />
             </ListItem>
-
           </List>
           <List>
-            
-              <ListItem button onClick={() => {
-                  props.history.push("ByPlans");}}>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Buy Plans"} />
-              </ListItem>
-          
+            <ListItem
+              button
+              onClick={() => {
+                props.history.push("ByPlans");
+              }}
+            >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Buy Plans"} />
+            </ListItem>
           </List>
           <Divider />
 
           <List>
-
             <ListItem button>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"Withdrawls"} />
             </ListItem>
-
           </List>
 
           <List>
-
             <ListItem button>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"My Profile"} />
             </ListItem>
-
           </List>
-
-
         </div>
       </Drawer>
       <main className={classes.content}>
@@ -246,17 +288,106 @@ export default function ClippedDrawer(props) {
             >
               INVITE MEMBERS
             </Button>
-            <Typography variant="h5" style={{ textAlign: "left" }}>
-              Current Money
-              <hr />
-              <Typography variant="h8" style={{ textAlign: "left" }}>
-                $52582828
-              </Typography>
-            </Typography>
+            <Grid container className={classes.root2} spacing={2}>
+              <Grid item xs={12}>
+                <Grid container justify="center" spacing={10}>
+
+
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="warning" stats icon>
+                            <CardIcon color="warning">
+                              <Accessibility />
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>
+                              Uzma Khan
+              </h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="info" stats icon>
+                            <CardIcon color="info">
+                              <Accessibility />
+                            </CardIcon>
+
+
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referrals</p>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>+245</h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+
+                  <Grid item >
+                    <Paper elevation={5}>
+
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="success" stats icon>
+                            <CardIcon color="success">
+                              <Store />
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$34,245</h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+
+                </Grid>
+              </Grid>
+            </Grid>
+
+            {/* {a.map((i) => {
+              return(
+            <GridItem xs={12} sm={6} md={3}>
+              <Card>
+                <CardHeader color="warning" stats icon>
+                  <CardIcon color="warning">
+                    <Icon>content_copy</Icon>
+                  </CardIcon>
+                  <p className={classes.cardCategory}>Used Space</p>
+                  <h3 style={{ color: "black" }} className={classes.cardTitle}>
+                    49/50 <small>GB</small>
+                  </h3>
+                </CardHeader>
+                <CardFooter stats>
+                   <div className={classes.stats}>
+                <Danger>
+                  <Warning />
+                </Danger>
+              </div> 
+                </CardFooter>
+              </Card>
+            </GridItem>
+            )})
+              } */}
+
+
 
             <Divider />
           </Paper>
-
         </Grid>
 
         <Dialog
@@ -267,33 +398,43 @@ export default function ClippedDrawer(props) {
           <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To invite Members Enter Name And Contact Number
+              To invite Members Share the Link
             </DialogContentText>
-            <TextField
+            <a
               autoFocus
-              margin="dense"
-              id="name"
-              label="Name"
-              type="Text"
+              // margin="dense"
+              // id="name"
+              disabled
+              // type="Text"
               fullWidth
-            />
-
+              ref={textAreaRef}
+              // value='https://mshoppingworld.com/register'
+              href={'https://mshoppingworld.com/register/' + loggedInUser.user.userCode}
+            >{'https://mshoppingworld.com/register/' + loggedInUser.user.userCode}</a>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleClose} color="primary">
-              Sent
+            <Button
+              onClick={() =>
+                // navigator.clipboard.writeText(`http://mshoppingworld.com/register/${loggedInUser.user.userCode}`)
+                navigator.clipboard.writeText(`http://localhost:3000/register/${loggedInUser.user.userCode}`)
+              }
+              color="primary">
+              Copy
             </Button>
           </DialogActions>
         </Dialog>
         <br />
 
-        {renderPlans()}
 
-        <Grid item >
-          <Paper >
+
+
+        {/* {renderPlans()} */}
+
+        <Grid item>
+          <Paper>
             <br />
             <Typography variant="h5" style={{ textAlign: "center" }}>
               Current Users
@@ -303,15 +444,16 @@ export default function ClippedDrawer(props) {
           </Paper>
         </Grid>
       </main>
-       {/* whatsapp icon */}
-       <a
+      {/* whatsapp icon */}
+      <a
         href="https://wa.me/+18323874234"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <i class="fa fa-whatsapp whatsapp-icon"></i>
+        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
+        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
-    </div>
+    </div >
   );
 }

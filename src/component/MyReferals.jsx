@@ -23,6 +23,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
+import { FaWhatsapp } from "react-icons/fa";
 
 const drawerWidth = 240;
 
@@ -124,7 +125,7 @@ export default function ClippedDrawer(props) {
                 <ListItemIcon>
                  <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"My Referels"} />
+                <ListItemText primary={"My Referrals"} />
               </ListItem>
           
           </List>
@@ -181,12 +182,13 @@ export default function ClippedDrawer(props) {
       </main>
        {/* whatsapp icon */}
        <a
-        href="https://wa.me/447949549043"
+        href="https://wa.me/+18323874234"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <i class="fa fa-whatsapp whatsapp-icon"></i>
+        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
+        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
       </a>
     </div>
   );

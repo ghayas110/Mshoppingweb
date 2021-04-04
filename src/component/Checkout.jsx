@@ -26,6 +26,8 @@ import CollapsibleTable from "./UserCurrentPlans";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import StepLabel from '@material-ui/core/StepLabel';
+import { FaWhatsapp } from "react-icons/fa";
+
 
 
 const drawerWidth = 240;
@@ -142,7 +144,7 @@ export default function Plans(props) {
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"My Referels"} />
+              <ListItemText primary={"My Referrals"} />
             </ListItem>
           </List>
           <List>
@@ -278,6 +280,14 @@ export default function Plans(props) {
         multiple
         type="file"
       />
+          <Button
+            variant="contained"
+            color="Primary"
+            style={{ marginLeft: "auto" }}
+           
+          >
+            SUBMIT
+          </Button>
 
     
     </div>
@@ -288,12 +298,13 @@ export default function Plans(props) {
     </main>
      {/* whatsapp icon */}
      <a
-        href="https://wa.me/447949549043"
+        href="https://wa.me/+18323874234"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <i class="fa fa-whatsapp whatsapp-icon"></i>
+        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
+        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
       </a>
     </div>
   );

@@ -3,10 +3,23 @@
  
 
 }
+
 .whatsapp_float {
   position: fixed;
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #25d366;
+  color: #FFF;
+  border-radius: 50px;
+
+ 
+}
+/* .whatsapp_float {
+  position: fixed;
+  width: 65px;
+  height: 65px;
   bottom: 40px;
   right: 40px;
   background-color: #25d366;
@@ -17,7 +30,7 @@
   box-shadow: 2px 2px 3px #999;
   z-index: 100;
   margin-right: auto;
-}
+} */
 .button {
   margin-left: auto;
   margin-right: auto;
