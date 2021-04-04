@@ -1,9 +1,10 @@
 import React from 'react';
-import rocketImg from './rocket.png';
-import { Signup } from './component/Signup';
+import { withRouter } from "react-router-dom";
+import rocketImg from '../rocket.png';
+import Signup from './Signup';
 
  
- function SignupForm(){
+ const SignupForm = () => {
    // Pass the useFormik() hook initial form values and a submit function that will
    // be called when the form is submitted
    
@@ -13,9 +14,8 @@ import { Signup } from './component/Signup';
         <div className="col-md-7.5">
           <Signup />
         </div>
-   
       </div>
     </div>
    );
  };
- export default SignupForm;
+ export default withRouter(SignupForm)

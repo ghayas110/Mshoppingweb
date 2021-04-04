@@ -20,6 +20,7 @@ import { listUsers } from "../graphql/queries";
 import ReactWhatsapp from "react-whatsapp";
 import { render } from "react-dom";
 import { FaWhatsapp } from "react-icons/fa";
+import { withRouter } from "react-router-dom";
 
 
 function Copyright() {
@@ -101,7 +102,9 @@ const Login = (props) => {
               userEmail: user.attributes.email,
             },
           });
+          console.log(props);
           props.history.push("UserPanel");
+
         });
       } else {
         alert("Email or Password Incorrect!");
@@ -243,4 +246,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

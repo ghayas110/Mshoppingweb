@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClippedDrawer(props) {
+const BuyPlans = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -271,3 +272,6 @@ export default function ClippedDrawer(props) {
     </div>
   );
 }
+
+
+export default withRouter(BuyPlans)

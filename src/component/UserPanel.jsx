@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link, withRouter } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -48,6 +49,7 @@ import CardFooter from "../component/Card/CardFooter.js";
 
 import Danger from "../component/Typography/Danger.js";
 import { card } from "../assets/jss/material-dashboard-react";
+import Login from "./Login";
 
 // import CardBody from "../components/Card/CardBody.js";
 
@@ -76,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClippedDrawer(props) {
+const UserPanel = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [cardData, setCardDatas] = useState({})
@@ -124,7 +126,7 @@ export default function ClippedDrawer(props) {
       setCardDatas({ noParent: false, username: parent.firstName + ' ' + parent.lastName, userCode: parent.userCode, countRefferals: countAllChild })
     }
     console.log(cardData);
-    
+
   }
 
   const handleClickOpen = () => {
@@ -183,7 +185,7 @@ export default function ClippedDrawer(props) {
                   </div>
                 </div>
                 <div className="pricing-item-cta">
-                  <button className="button" onClick={() => props.history.push('/checkout', {id: item})} >Upload</button>
+                  <button className="button" onClick={() => props.history.push('/checkout', { id: item })} >Upload</button>
                 </div>
               </div>
             </div>
@@ -195,23 +197,28 @@ export default function ClippedDrawer(props) {
 
   return (
     <div className={classes.root}>
+      {/* <div style={{ height: 62, backgroundColor: '#FFFFFF', overflow: "hidden", boxSizing: 'border-box', border: '1px solid #56667F', borderRadius: 4, textAlign: "right", lineHeight: 14, blockSize: 62, fontSize: 12, fontFeatureSettings: "normal", textSizeAdjust: '100%', boxShadow: 'inset 0 -20px 0 0 #56667F', padding: 0, margin: 0, width: '100%' }}>
+        <div style={{ height: 40, padding: 0, margin: 0, width: '100%' }}>
+          <iframe src={"https://widget.coinlib.io/widget?type=horizontal_v2&theme=light&pref_coin_id=1505&invert_hover=no"} width="100%" height="36px" scrolling="auto" marginWidth="0" marginheight="0" frameborder="0" border="0" style={{border:0, margin:0, padding:0}}></iframe>
+        </div>
+        <div style={{ color: '#FFFFFF', lineHeight: 14, fontWeight: 400 }}
+        // style={{color: '#FFFFFF', lineHeight: 14, fontWeight: 400, fontSize: 11, box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif}}
+        >
+          <a href={"https://coinlib.io"} target="_blank" style={{ fontWeight: 500, color: '#FFFFFF', textDecoration: 'none', fontSize: 11 }}>Cryptocurrency Prices</a> by Coinlib</div>
+      </div> */}
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
             {loggedInUser.user.firstName + " " + loggedInUser.user.lastName}
           </Typography>
-
-          <Button
-            variant="contained"
-            color="secondary"
-            style={{ marginLeft: "auto" }}
-            onClick={() => {
-              props.history.push("Login");
-            }}
-          >
-            LOGOUT
-          </Button>
+          <Link to='/' style={{ marginLeft: "auto" }} >
+            <Button
+              variant="contained"
+              color="secondary"
+            >
+              LOGOUT
+          </Button></Link>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -265,17 +272,19 @@ export default function ClippedDrawer(props) {
             </ListItem>
           </List>
           <List>
-            <ListItem
-              button
-              onClick={() => {
-                props.history.push("ByPlans");
-              }}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Buy Plans"} />
-            </ListItem>
+            <Link to='/ByPlans'>
+              <ListItem
+                button
+              // onClick={() => {
+              //   props.history.push("ByPlans");
+              // }}
+              >
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Buy Plans"} />
+              </ListItem>
+            </Link>
           </List>
           <Divider />
 
@@ -375,13 +384,11 @@ export default function ClippedDrawer(props) {
                       </GridItem>
                     </Paper>
                   </Grid>
-                  {renderPlans()}
-
 
                 </Grid>
               </Grid>
             </Grid>
-
+            {renderPlans()}
 
             {/* {a.map((i) => {
               return(
@@ -476,3 +483,5 @@ export default function ClippedDrawer(props) {
     </div >
   );
 }
+
+export default withRouter(UserPanel)

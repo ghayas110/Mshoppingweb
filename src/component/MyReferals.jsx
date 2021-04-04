@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClippedDrawer(props) {
+const MyReferals = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -193,3 +194,5 @@ export default function ClippedDrawer(props) {
     </div>
   );
 }
+
+export default withRouter(MyReferals)

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Plans(props) {
+const Checkout = (props) => {
   const classes = useStyles();
   const { loggedInUser, userPlans } = useSelector((state) => state);
   const [open, setOpen] = useState(false);
@@ -81,19 +82,20 @@ export default function Plans(props) {
 
   async function handleSubmission() {
     // console.log(userPlanID, data.slipImage)
-    await Storage.put(`${loggedInUser.user.id}/plan-${userPlanID.id}/${data.slipImage.name}`, data.slipImage, {
-      level: 'private'
-    })
-      .then(async (res) => {
-        console.log(res, userPlanID.id)
-        const updatedPlan = { id: userPlanID.id }
-        const updatePlan = await API.graphql(graphqlOperation(updateUserPlans, { input: updatedPlan, condition: { paymentStatus: 'active' } }))
-        console.log(updatePlan)
-      })
-      .catch((err) => {
-        console.error(err.errors)
-        // alert(err)
-      })
+    // await Storage.put(`${loggedInUser.user.id}/plan-${userPlanID.id}/${data.slipImage.name}`, data.slipImage, {
+    //   level: 'private'
+    // })
+    //   .then(async (res) => {
+    //     console.log(res, userPlanID.id)
+
+    //   })
+    //   .catch((err) => {
+    //     console.error(err.errors)
+    //     // alert(err)
+    //   })
+    const updatedPlan = { id: userPlanID.id, paymentStatus: 'active' }
+    const updatePlan = await API.graphql(graphqlOperation(updateUserPlans, { input: updatedPlan }))
+    console.log(updatePlan)
   }
 
   const handleClickOpen = () => {
@@ -371,3 +373,5 @@ export default function Plans(props) {
     </div>
   );
 }
+
+export default withRouter(Checkout)

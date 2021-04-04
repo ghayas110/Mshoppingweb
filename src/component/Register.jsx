@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,13 +18,9 @@ import { FaWhatsapp } from "react-icons/fa";
 import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from "@material-ui/core/MenuItem";
-// import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-// import { blue } from "@material-ui/core/colors";
-// import { blue } from "@material-ui/core/colors";
 import Switch from "@material-ui/core/Switch";
 import { checkcon, passwordRegex } from "./reuse";
 import { createUser } from "../graphql/mutations";
@@ -668,7 +665,7 @@ const Register = (props) => {
           <Grid container justify="flex-end">
             <Grid item>
               <Link
-              href=''
+                href=''
                 variant="body2"
                 onClick={() => {
                   props.history.push("/Login");
@@ -697,4 +694,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default withRouter(Register)

@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -23,6 +24,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
+import { withRouter } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -57,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Plans(props) {
+const Plans = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -463,3 +465,5 @@ export default function Plans(props) {
     </div>
   );
 }
+
+export default withRouter(Plans)

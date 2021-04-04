@@ -1,9 +1,10 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import { Formik, Form } from 'formik';
 import { TextField } from './Textfield'
 import * as Yup from 'yup';
 
-export const Signup = () => {
+const Signup = (props) => {
   const validate = Yup.object({
     firstName: Yup.string()
       .max(15, 'Must be 15 characters or less')
@@ -98,3 +99,5 @@ export const Signup = () => {
     </Formik>
   )
 }
+
+export default withRouter(Signup)
