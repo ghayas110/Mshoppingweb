@@ -1,6 +1,6 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import logger from 'redux-logger'
+
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { loggedInUser } from './loggedInUser'
@@ -22,7 +22,7 @@ export const configureStore = () => {
         }),
         compose(
             applyMiddleware(thunk),
-            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+            // window.__REDUX_DEVTOOLS_EXTENSION__ && window__REDUX_DEVTOOLS_EXTENSION__()
         )
     )
     const persistor = persistStore(store)
