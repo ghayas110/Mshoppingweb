@@ -93,8 +93,10 @@ const Login = (props) => {
             type: ActionTypes.ADD_LOGUSER,
             payload: {
               id: loggedinUserId,
+              parentId: getId[0].parentId,
               userCode: getId[0].userCode,
               firstName: getId[0].firstName,
+              middleName: getId[0].middleName,
               lastName: getId[0].lastName,
               userEmail: user.attributes.email,
             },
@@ -229,7 +231,7 @@ const Login = (props) => {
         <Copyright />
       </Box>
       <a
-        href="https://wa.me/+18323874234"
+        href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"

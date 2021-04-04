@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -23,8 +24,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import { listPlans } from '../graphql/queries'
+import * as ActionTypes from '../redux/ActionTypes'
+import { createUserPlans } from '../graphql/mutations'
 import { FaWhatsapp } from "react-icons/fa";
-
+import logo from "../Mshoping.png"
 
 const drawerWidth = 240;
 
@@ -55,6 +60,88 @@ export default function ClippedDrawer(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
+  const [plan, setPlan] = useState([])
+  const dispatch = useDispatch()
+  const { plans, loggedInUser } = useSelector(state => state)
+
+  useEffect(async () => {
+    try {
+      const plansData = await API.graphql(graphqlOperation(listPlans))
+      const Plans = plansData.data.listPlans.items
+      dispatch({
+        type: ActionTypes.ADD_PLANS,
+        payload: Plans
+      })
+    } catch (err) {
+      console.log('err', err.errors[0]);
+      if (err.errors.length > 0) {
+        dispatch({
+          type: ActionTypes.FAILED_PLANS,
+          payload: err.errors[0].message
+        })
+      }
+    }
+  }, [])
+
+  const renderPlans = () => {
+    console.log(plans);
+    if (plans.plans.length > 0)
+      return (
+        plans.plans.map((item, index) => {
+          return (
+            <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
+              <Grid item xs={6} style={{ float: "left" }}>
+                <div className="pricing-item">
+                  <div className="pricing-item-inner">
+                    <div className="pricing-item-content">
+                      <div className="pricing-item-header center-content">
+                        <div className="pricing-item-title"></div>
+                        <div className="pricing-item-price">
+                          <span className="pricing-item-price-currency" />
+                          <span className="pricing-item-price-amount">{item.name}</span>
+                        </div>
+                      </div>
+                      <div className="pricing-item-features">
+                        <ul className="pricing-item-features-list">
+                          <li className="is-checked">Fees: {item.fee}</li>
+                          <li className="is-checked">Term: {item.term}</li>
+                          <li className="is-checked">Roi {item.ROI}</li>
+                          {/* <li className="is-checked">Start Date : 01/01/21</li> */}
+                          <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li>
+                          {/* <li className="is-checked">Status : Active</li> */}
+                          <li className="is-checked">Subscription : {item.subscription}</li>
+                          <li className="is-checked">Levels : {item.levels}</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="pricing-item-cta">
+                      <a className="button" onClick={() =>  onBuyClick(item.id)}>
+                        Buy Now
+                  </a>
+                    </div>
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
+          )
+        })
+      )
+    else {
+      return (
+        <div>{plans.errMess}</div>
+      )
+    }
+  }
+
+  async function onBuyClick(planId) {
+    const d = new Date()
+    // console.log({ userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() })
+    const newUserPlanData = { userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() }
+    const newUserPlan = await API.graphql(graphqlOperation(createUserPlans, { input: newUserPlanData }))
+    console.log(newUserPlan);
+  }
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -68,9 +155,7 @@ export default function ClippedDrawer(props) {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
-            User Name
-          </Typography>
+         <img src={logo} alt="logo" width="25px"/>
 
           <Button
             variant="contained"
@@ -135,9 +220,9 @@ export default function ClippedDrawer(props) {
             </ListItem>
           </List>
           <List>
-            <ListItem button   onClick={() => {
-                props.history.push("ByPlans");
-              }}>
+            <ListItem button onClick={() => {
+              props.history.push("ByPlans");
+            }}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
@@ -168,157 +253,18 @@ export default function ClippedDrawer(props) {
       <main className={classes.content}>
         <Toolbar />
         <br />
-        <Grid container className={classes.root2} spacing={2}>
-        <Grid item xs={12}>
-        <Grid container justify="center" spacing={2}>
-         
-            <Grid  item >
-            
-              <Paper className={classes.paper} >  <div className="pricing-item">
-              <div className="pricing-item-inner">
-                <div className="pricing-item-content">
-                  <div className="pricing-item-header center-content">
-                    <div className="pricing-item-title">1</div>
-                    <div className="pricing-item-price">
-                      <span className="pricing-item-price-currency" />
-                      <span className="pricing-item-price-amount">500PKR</span>
-                    </div>
-                  </div>
-                  <div className="pricing-item-features">
-                    <ul className="pricing-item-features-list">
-                    <li className="is-checked">Term : 24</li>
-                      <li className="is-checked">Roi : 3</li>
-                      <li className="is-checked">Start Date: 01/01/21</li>
-                      <li className="is-checked">End Date: 12/31/25</li>
-                      <li className="is-checked">Status : Active</li>
-                      <li className="">Subscription : NO</li>
-                      <li className="is-checked">Levels : 5</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="pricing-item-cta">
-                <a className="button"  onClick={() => {props.history.push("Checkout")}}>
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-            </div></Paper>
-              
-            </Grid>
-            <Grid  item >
-            
-            <Paper className={classes.paper} >  <div className="pricing-item">
-              <div className="pricing-item-inner">
-                <div className="pricing-item-content">
-                  <div className="pricing-item-header center-content">
-                    <div className="pricing-item-title">2</div>
-                    <div className="pricing-item-price">
-                      <span className="pricing-item-price-currency" />
-                      <span className="pricing-item-price-amount">1000PKR</span>
-                    </div>
-                  </div>
-                  <div className="pricing-item-features">
-                    <ul className="pricing-item-features-list">
-                    <li className="is-checked">Term : 24</li>
-                      <li className="is-checked">Roi : 5</li>
-                      <li className="is-checked">Start Date: 01/01/21</li>
-                      <li className="is-checked">End Date: 12/31/25</li>
-                      <li className="is-checked">Status : Active</li>
-                      <li className="is-checked">Subscription : Yes</li>
-                      <li className="is-checked">Levels : 10</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="pricing-item-cta">
-                <a className="button"  onClick={() => {props.history.push("Checkout")}}>
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-            </div></Paper>
-            
-          </Grid>
-          <Grid  item >
-            
-            <Paper className={classes.paper} >  <div className="pricing-item">
-              <div className="pricing-item-inner">
-                <div className="pricing-item-content">
-                  <div className="pricing-item-header center-content">
-                    <div className="pricing-item-title">3</div>
-                    <div className="pricing-item-price">
-                      <span className="pricing-item-price-currency" />
-                      <span className="pricing-item-price-amount">50000PKR</span>
-                    </div>
-                  </div>
-                  <div className="pricing-item-features">
-                    <ul className="pricing-item-features-list">
-                    <li className="is-checked">Term : 24</li>
-                      <li className="is-checked">Roi : 10</li>
-                      <li className="is-checked">Start Date: 01/01/21</li>
-                      <li className="is-checked">End Date: 12/31/25</li>
-                      <li className="is-checked">Status : Active</li>
-                      <li className="is-checked">Subscription : Yes</li>
-                      <li className="is-checked">Levels : 10</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="pricing-item-cta">
-                <a className="button"  onClick={() => {props.history.push("Checkout")}}>
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-            </div></Paper>
-            
-          </Grid>
-          <Grid  item >
-            
-            <Paper className={classes.paper} >  <div className="pricing-item">
-              <div className="pricing-item-inner">
-                <div className="pricing-item-content">
-                  <div className="pricing-item-header center-content">
-                    <div className="pricing-item-title">4</div>
-                    <div className="pricing-item-price">
-                      <span className="pricing-item-price-currency" />
-                      <span className="pricing-item-price-amount">100000PKR</span>
-                    </div>
-                  </div>
-                  <div className="pricing-item-features">
-                    <ul className="pricing-item-features-list">
-                    <li className="is-checked">Term : 24</li>
-                      <li className="is-checked">Roi : 20</li>
-                      <li className="is-checked">Start Date: 01/01/21</li>
-                      <li className="is-checked">End Date: 12/31/25</li>
-                      <li className="is-checked">Status : Active</li>
-                      <li className="is-checked">Subscription : Yes</li>
-                      <li className="is-checked">Levels : 20</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="pricing-item-cta">
-                  <a className="button"  onClick={() => {props.history.push("Checkout")}}>
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-            </div></Paper>
-            
-          </Grid>
-              
-        </Grid>
-      </Grid>
-      </Grid>
+        {renderPlans()}
 
       </main>
-       {/* whatsapp icon */}
-       <a
-        href="https://wa.me/+18323874234"
+      {/* whatsapp icon */}
+      <a
+        href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
       >
         {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
+        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
     </div>
   );

@@ -1,7 +1,6 @@
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import { configureStore } from './redux/ConfigureStore';
-import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -27,21 +26,21 @@ function App() {
       >
         <BrowserRouter>
           <div className="App">
-            <Router>
-              <Route path="/Checkout" component={Checkout} />
-              <Route path="/home" component={Home} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path='/confirmation' component={Confirmation} />
-              <Route path="/forgetPassword" component={ForgetPassword} />
-              <Route path="/UserPanel" component={UserPanel} />
-              <Route path="/ReferedBy" component={ReferedBy} />
-              <Route path="/MyReferals" component={MyReferals} />
-              <Route path="/ByPlans" component={ByPlans} />
+            <Switch>
+              <Route path="/Checkout" component={() => <Checkout />} />
+              <Route path="/home" component={() => <Home />} />
+              <Route exact path="/" component={() => <Login />} />
+              <Route path="/register" component={() => <Register />} />
+              <Route path='/confirmation' component={() => <Confirmation />} />
+              <Route path="/forgetPassword" component={() => <ForgetPassword />} />
+              <Route path="/UserPanel" component={() => <UserPanel />} />
+              <Route path="/ReferedBy" component={() => <ReferedBy />} />
+              <Route path="/MyReferals" component={() => <MyReferals />} />
+              <Route path="/ByPlans" component={() => <ByPlans />} />
 
-            </Router>
+              </Switch>
           </div>
-        </BrowserRouter>
+          </BrowserRouter>
       </PersistGate>
     </Provider>
 

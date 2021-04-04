@@ -15,6 +15,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import logo from "../Mshoping.png"
 // import table from './Table';
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -26,7 +27,8 @@ import CollapsibleTable from "./UserCurrentPlans";
 import { useSelector, useDispatch } from "react-redux";
 import * as ActionTypes from "../redux/ActionTypes";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
-import { listUserPlanss } from "../graphql/queries";
+import { listUserPlanss, listUsers, getUser } from "../graphql/queries";
+import { listUserPlans } from "../graphql/customQueries";
 import Update from "@material-ui/icons/Update";
 import Accessibility from "@material-ui/icons/Accessibility";
 
@@ -46,6 +48,7 @@ import Warning from "@material-ui/icons/Warning";
 import CardFooter from "../component/Card/CardFooter.js";
 
 import Danger from "../component/Typography/Danger.js";
+import { card } from "../assets/jss/material-dashboard-react";
 
 // import CardBody from "../components/Card/CardBody.js";
 
@@ -77,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ClippedDrawer(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [cardData, setCardDatas] = useState({})
   const { loggedInUser, userPlans } = useSelector((state) => state);
   const dispatch = useDispatch();
   const textAreaRef = useRef(null);
@@ -103,7 +107,26 @@ export default function ClippedDrawer(props) {
       //   })
       // }
     }
+    getDatas()
   }, []);
+
+  async function getDatas() {
+    const childCountData = await API.graphql(graphqlOperation(listUsers, { filter: { parentId: { eq: loggedInUser.user.id } } }))
+    const childCount = childCountData.data.listUsers.items
+    const countAllChild = childCount.length
+    console.log(countAllChild, loggedInUser.user.parentId === 'null');
+
+    if (loggedInUser.user.parentId === 'null')
+      setCardDatas({ noParent: true, username: '', countRefferals: countAllChild })
+    else {
+      const parentData = await API.graphql(graphqlOperation(getUser, { id: loggedInUser.user.parentId }))
+      const parent = parentData.data.getUser
+      console.log(parent);
+      setCardDatas({ noParent: false, username: parent.firstName + ' ' + parent.lastName, userCode: parent.userCode, countRefferals: countAllChild })
+    }
+    console.log(cardData);
+    
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -132,11 +155,10 @@ export default function ClippedDrawer(props) {
               <div className="pricing-item-inner">
                 <div className="pricing-item-content">
                   <div className="pricing-item-header center-content">
-                    <div className="pricing-item-title">{index + 1}</div>
+                    <div className="pricing-item-title"></div>
                     <div className="pricing-item-price">
                       <span className="pricing-item-price-currency" />
-                      <span className="pricing-item-price-amount">
-                        {item.plan.fee}
+                      <span className="pricing-item-price-amount">{item.plan.name}
                       </span>
                     </div>
                   </div>
@@ -162,7 +184,7 @@ export default function ClippedDrawer(props) {
                   </div>
                 </div>
                 <div className="pricing-item-cta">
-                  <a className="button">Upload</a>
+                  <button className="button" onClick={() => props.history.push('/checkout', {id: item})} >Upload</button>
                 </div>
               </div>
             </div>
@@ -177,6 +199,7 @@ export default function ClippedDrawer(props) {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
+        <img src={logo} alt="logo" width="25px"/>
           <Typography variant="h6" noWrap>
             {loggedInUser.user.firstName + " " + loggedInUser.user.lastName}
           </Typography>
@@ -279,7 +302,9 @@ export default function ClippedDrawer(props) {
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
+        
         <Grid item xs={12}>
+          
           <Paper elevation={0} className={classes.paper}>
             <Button
               variant="outlined"
@@ -291,8 +316,7 @@ export default function ClippedDrawer(props) {
             <Grid container className={classes.root2} spacing={2}>
               <Grid item xs={12}>
                 <Grid container justify="center" spacing={10}>
-
-
+            
                   <Grid item >
                     <Paper elevation={5}>
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
@@ -303,8 +327,8 @@ export default function ClippedDrawer(props) {
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
                             <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>
-                              Uzma Khan
-              </h3>
+                              {cardData.noParent === true ? 'No Parent' : cardData.username}
+                            </h3>
                           </CardHeader>
                           <CardFooter stats>
 
@@ -325,7 +349,7 @@ export default function ClippedDrawer(props) {
 
 
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referrals</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>+245</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.countRefferals}</h3>
                           </CardHeader>
                           <CardFooter stats>
 
@@ -345,7 +369,7 @@ export default function ClippedDrawer(props) {
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$34,245</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$0</h3>
                           </CardHeader>
                           <CardFooter stats>
 
@@ -354,10 +378,13 @@ export default function ClippedDrawer(props) {
                       </GridItem>
                     </Paper>
                   </Grid>
+                  {renderPlans()}
+
 
                 </Grid>
               </Grid>
             </Grid>
+
 
             {/* {a.map((i) => {
               return(
@@ -409,8 +436,8 @@ export default function ClippedDrawer(props) {
               fullWidth
               ref={textAreaRef}
               // value='https://mshoppingworld.com/register'
-              href={'https://mshoppingworld.com/register/' + loggedInUser.user.userCode}
-            >{'https://mshoppingworld.com/register/' + loggedInUser.user.userCode}</a>
+              href={'http://member.mshoppingworld.com/register#/' + loggedInUser.user.userCode}
+            >{'http://member.mshoppingworld.com/register#/' + loggedInUser.user.userCode}</a>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
@@ -427,11 +454,6 @@ export default function ClippedDrawer(props) {
           </DialogActions>
         </Dialog>
         <br />
-
-
-
-
-        {/* {renderPlans()} */}
 
         <Grid item>
           <Paper>

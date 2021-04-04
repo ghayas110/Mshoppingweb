@@ -23,7 +23,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
-
+import logo from "../Mshoping.png"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -74,9 +74,7 @@ export default function Plans(props) {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
-            User Name
-          </Typography>
+         <img src={logo} alt="logo" width="25px"/>
 
           <Button
             variant="contained"

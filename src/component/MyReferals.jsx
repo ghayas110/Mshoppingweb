@@ -24,7 +24,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
 import { FaWhatsapp } from "react-icons/fa";
-
+import logo from "../Mshoping.png"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -67,9 +67,7 @@ export default function ClippedDrawer(props) {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
-            User Name
-          </Typography>
+         <img src={logo} alt="logo" width="25px"/>
 
           <Button
             variant="contained"
@@ -182,7 +180,7 @@ export default function ClippedDrawer(props) {
       </main>
        {/* whatsapp icon */}
        <a
-        href="https://wa.me/+18323874234"
+        href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
