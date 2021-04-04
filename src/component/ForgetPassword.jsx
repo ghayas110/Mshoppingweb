@@ -87,7 +87,7 @@ import { FaWhatsapp } from "react-icons/fa";
           <Copyright />
         </Box> */}
            <a
-        href="https://wa.me/+18323874234"
+       href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"

@@ -16,6 +16,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import logo from "../Mshoping.png"
 // import table from './Table';
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -209,6 +210,7 @@ const UserPanel = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
+        <img src={logo} alt="logo" width="25px"/>
           <Typography variant="h6" noWrap>
             {loggedInUser.user.firstName + " " + loggedInUser.user.lastName}
           </Typography>
@@ -309,7 +311,9 @@ const UserPanel = (props) => {
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
+        
         <Grid item xs={12}>
+          
           <Paper elevation={0} className={classes.paper}>
             <Button
               variant="outlined"
@@ -321,8 +325,7 @@ const UserPanel = (props) => {
             <Grid container className={classes.root2} spacing={2}>
               <Grid item xs={12}>
                 <Grid container justify="center" spacing={10}>
-
-
+            
                   <Grid item >
                     <Paper elevation={5}>
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
@@ -440,8 +443,8 @@ const UserPanel = (props) => {
               fullWidth
               ref={textAreaRef}
               // value='https://mshoppingworld.com/register'
-              href={'https://mshoppingworld.com/register/' + loggedInUser.user.userCode}
-            >{'https://mshoppingworld.com/register/' + loggedInUser.user.userCode}</a>
+              href={'http://member.mshoppingworld.com/register#/' + loggedInUser.user.userCode}
+            >{'http://member.mshoppingworld.com/register#/' + loggedInUser.user.userCode}</a>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">

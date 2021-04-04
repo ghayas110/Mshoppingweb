@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import logos from "../Mshoping.png"
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -27,7 +28,8 @@ import { createUser } from "../graphql/mutations";
 import { listUsers } from "../graphql/queries";
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify";
 import Login from "./Login";
-
+import logo from "../Mshoping.png"
+import { Input } from "@material-ui/core";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -99,6 +101,7 @@ const Register = (props) => {
     phone_number: "",
     confirm_password: "",
     referalUserCode: "",
+   
     check_UserCodeChange: false,
     check_FirstNameChange: false,
     check_LastNameChange: false,
@@ -194,6 +197,9 @@ const Register = (props) => {
                 phone_number: data.phone_number,
                 parentId: parentUser[0].id,
                 userCode: data.usercode,
+               
+
+
               };
               const createdUser = await API.graphql(
                 graphqlOperation(createUser, { input: newUser })
@@ -379,13 +385,14 @@ const Register = (props) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+      
+        <img src={logos} alt="logo" width="25px"/>
+       
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
+        {<div>Please enter your name as per your CNIC. Leave the field empty that is not relevant</div>}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -397,8 +404,11 @@ const Register = (props) => {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                
                 autoFocus
+
               />
+         
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -411,6 +421,7 @@ const Register = (props) => {
                 name="lastName"
                 autoComplete="lname"
               />
+        
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -423,6 +434,7 @@ const Register = (props) => {
                 autoComplete="Pid"
                 onChange={(e) => handleUserName(e.target.value, "Mname")}
               />
+
             </Grid>
             {/* <Grid >
               <div className={classes.root}>
@@ -468,6 +480,7 @@ const Register = (props) => {
                 autoComplete="email"
                 onChange={(e) => handleEmailAddress(e.target.value)}
               />
+               {data.check_EmailChange  ? <div></div>:<div>Email Should be Valid</div>}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -481,6 +494,7 @@ const Register = (props) => {
                 autoComplete="current-password"
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
+               {data.check_PasswordChange  ? <div></div>:<div>Password should be uppercase special checters /,_,-, and numaric </div>}
             </Grid>
 
             <Grid item xs={12}>
@@ -495,6 +509,7 @@ const Register = (props) => {
                 autoComplete="current-password"
                 onChange={(e) => handlePhoneNumber(e.target.value)}
               />
+               {data.check_PhoneChange  ? <div></div>:<div>Phone no should be more than 10 integers </div>}
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -509,6 +524,7 @@ const Register = (props) => {
                 autoComplete="Uid"
                 onChange={(e) => handleReferalUserCode(e.target.value)}
               />
+               {data.check_ReferalUserCodeChange  ? <div></div>:<div>Referal code Should be unique</div>}
             </Grid>
 
             <Grid item xs={12} sm={6}>
@@ -524,6 +540,13 @@ const Register = (props) => {
                 autoComplete="uc"
                 onChange={(e) => handleUserCode(e.target.value)}
               />
+            </Grid>
+            <Grid item xs={12} sm={9}>
+            <FormControlLabel
+        control={<Checkbox  name="checkedA" required />}
+        label="I accept terms and Conditions"
+      />
+
             </Grid>
             {/* <Grid item xs={12}>
               <FormControl variant="outlined" className={classes.formControl}>
@@ -649,9 +672,10 @@ const Register = (props) => {
             /> */}
 
             <Grid item xs={12}>
-
+          
             </Grid>
           </Grid>
+        
           <Button
             // type="submit"
             fullWidth
@@ -681,7 +705,7 @@ const Register = (props) => {
         <Copyright />
       </Box>
       <a
-        href="https://wa.me/+18323874234"
+       href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"

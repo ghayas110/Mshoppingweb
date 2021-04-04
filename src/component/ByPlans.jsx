@@ -30,7 +30,7 @@ import { listPlans } from '../graphql/queries'
 import * as ActionTypes from '../redux/ActionTypes'
 import { createUserPlans } from '../graphql/mutations'
 import { FaWhatsapp } from "react-icons/fa";
-
+import logo from "../Mshoping.png"
 
 const drawerWidth = 240;
 
@@ -116,7 +116,7 @@ const BuyPlans = (props) => {
                       </div>
                     </div>
                     <div className="pricing-item-cta">
-                      <a className="button" onClick={() => onBuyClick(item.id)}>
+                      <a className="button" onClick={() =>  onBuyClick(item.id)}>
                         Buy Now
                   </a>
                     </div>
@@ -156,9 +156,7 @@ const BuyPlans = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
-            User Name
-          </Typography>
+         <img src={logo} alt="logo" width="25px"/>
 
           <Button
             variant="contained"
@@ -261,7 +259,7 @@ const BuyPlans = (props) => {
       </main>
       {/* whatsapp icon */}
       <a
-        href="https://wa.me/+18323874234"
+        href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"

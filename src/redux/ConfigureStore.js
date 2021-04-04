@@ -22,7 +22,7 @@ export const configureStore = () => {
         }),
         compose(
             applyMiddleware(thunk),
-            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+            // window.__REDUX_DEVTOOLS_EXTENSION__ && window__REDUX_DEVTOOLS_EXTENSION__()
         )
     )
     const persistor = persistStore(store)

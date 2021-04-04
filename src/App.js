@@ -18,7 +18,7 @@ function App() {
           <div className="App">
             <Main />
           </div>
-        </BrowserRouter>
+          </BrowserRouter>
       </PersistGate>
     </Provider>
 

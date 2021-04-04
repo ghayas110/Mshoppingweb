@@ -31,7 +31,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import { FaWhatsapp } from "react-icons/fa";
 import { updateUserPlans } from '../graphql/mutations'
 import Amplify, { API, graphqlOperation, Storage } from 'aws-amplify'
-
+import logo from "../Mshoping.png"
 
 
 const drawerWidth = 240;
@@ -111,9 +111,7 @@ const Checkout = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
-            User Name
-          </Typography>
+         <img src={logo} alt="logo" width="25px"/>
 
           <Button
             variant="contained"
@@ -362,7 +360,7 @@ const Checkout = (props) => {
       </main>
       {/* whatsapp icon */}
       <a
-        href="https://wa.me/+18323874234"
+        href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"

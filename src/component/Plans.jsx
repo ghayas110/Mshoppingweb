@@ -25,7 +25,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
 import { withRouter } from "react-router-dom";
-
+import logo from "../Mshoping.png"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -76,9 +76,7 @@ const Plans = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
-            User Name
-          </Typography>
+         <img src={logo} alt="logo" width="25px"/>
 
           <Button
             variant="contained"
