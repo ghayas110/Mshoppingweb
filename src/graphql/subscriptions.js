@@ -80,6 +80,7 @@ export const onCreatePlan = /* GraphQL */ `
   subscription OnCreatePlan {
     onCreatePlan {
       id
+      name
       fee
       term
       ROI
@@ -97,6 +98,7 @@ export const onUpdatePlan = /* GraphQL */ `
   subscription OnUpdatePlan {
     onUpdatePlan {
       id
+      name
       fee
       term
       ROI
@@ -114,6 +116,7 @@ export const onDeletePlan = /* GraphQL */ `
   subscription OnDeletePlan {
     onDeletePlan {
       id
+      name
       fee
       term
       ROI
@@ -156,6 +159,7 @@ export const onCreateUserPlans = /* GraphQL */ `
       planId
       plan {
         id
+        name
         fee
         term
         ROI
@@ -204,6 +208,7 @@ export const onUpdateUserPlans = /* GraphQL */ `
       planId
       plan {
         id
+        name
         fee
         term
         ROI
@@ -252,6 +257,7 @@ export const onDeleteUserPlans = /* GraphQL */ `
       planId
       plan {
         id
+        name
         fee
         term
         ROI

@@ -92,6 +92,7 @@ export const createPlan = /* GraphQL */ `
   ) {
     createPlan(input: $input, condition: $condition) {
       id
+      name
       fee
       term
       ROI
@@ -112,6 +113,7 @@ export const updatePlan = /* GraphQL */ `
   ) {
     updatePlan(input: $input, condition: $condition) {
       id
+      name
       fee
       term
       ROI
@@ -132,6 +134,7 @@ export const deletePlan = /* GraphQL */ `
   ) {
     deletePlan(input: $input, condition: $condition) {
       id
+      name
       fee
       term
       ROI
@@ -177,6 +180,7 @@ export const createUserPlans = /* GraphQL */ `
       planId
       plan {
         id
+        name
         fee
         term
         ROI
@@ -228,6 +232,7 @@ export const updateUserPlans = /* GraphQL */ `
       planId
       plan {
         id
+        name
         fee
         term
         ROI
@@ -279,6 +284,7 @@ export const deleteUserPlans = /* GraphQL */ `
       planId
       plan {
         id
+        name
         fee
         term
         ROI

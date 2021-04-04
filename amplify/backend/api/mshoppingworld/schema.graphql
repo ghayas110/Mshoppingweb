@@ -18,7 +18,7 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   status: String
 }
 
-type Plan @model {
+type Plan @model @key(name: "listPlansByFees", fields: ["fee"], queryField: "listPlansByFees") {
   id: ID!
   name: String!
   fee: String!

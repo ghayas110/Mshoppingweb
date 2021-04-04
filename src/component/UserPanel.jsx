@@ -26,7 +26,8 @@ import CollapsibleTable from "./UserCurrentPlans";
 import { useSelector, useDispatch } from "react-redux";
 import * as ActionTypes from "../redux/ActionTypes";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
-import { listUserPlanss } from "../graphql/queries";
+import { listUserPlanss, listUsers, getUser } from "../graphql/queries";
+import { listUserPlans } from "../graphql/customQueries";
 import Update from "@material-ui/icons/Update";
 import Accessibility from "@material-ui/icons/Accessibility";
 
@@ -46,6 +47,7 @@ import Warning from "@material-ui/icons/Warning";
 import CardFooter from "../component/Card/CardFooter.js";
 
 import Danger from "../component/Typography/Danger.js";
+import { card } from "../assets/jss/material-dashboard-react";
 
 // import CardBody from "../components/Card/CardBody.js";
 
@@ -77,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ClippedDrawer(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [cardData, setCardDatas] = useState({})
   const { loggedInUser, userPlans } = useSelector((state) => state);
   const dispatch = useDispatch();
   const textAreaRef = useRef(null);
@@ -103,7 +106,26 @@ export default function ClippedDrawer(props) {
       //   })
       // }
     }
+    getDatas()
   }, []);
+
+  async function getDatas() {
+    const childCountData = await API.graphql(graphqlOperation(listUsers, { filter: { parentId: { eq: loggedInUser.user.id } } }))
+    const childCount = childCountData.data.listUsers.items
+    const countAllChild = childCount.length
+    console.log(countAllChild, loggedInUser.user.parentId === 'null');
+
+    if (loggedInUser.user.parentId === 'null')
+      setCardDatas({ noParent: true, username: '', countRefferals: countAllChild })
+    else {
+      const parentData = await API.graphql(graphqlOperation(getUser, { id: loggedInUser.user.parentId }))
+      const parent = parentData.data.getUser
+      console.log(parent);
+      setCardDatas({ noParent: false, username: parent.firstName + ' ' + parent.lastName, userCode: parent.userCode, countRefferals: countAllChild })
+    }
+    console.log(cardData);
+    
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -132,11 +154,10 @@ export default function ClippedDrawer(props) {
               <div className="pricing-item-inner">
                 <div className="pricing-item-content">
                   <div className="pricing-item-header center-content">
-                    <div className="pricing-item-title">{index + 1}</div>
+                    <div className="pricing-item-title"></div>
                     <div className="pricing-item-price">
                       <span className="pricing-item-price-currency" />
-                      <span className="pricing-item-price-amount">
-                        {item.plan.fee}
+                      <span className="pricing-item-price-amount">{item.plan.name}
                       </span>
                     </div>
                   </div>
@@ -162,7 +183,7 @@ export default function ClippedDrawer(props) {
                   </div>
                 </div>
                 <div className="pricing-item-cta">
-                  <a className="button">Upload</a>
+                  <button className="button" onClick={() => props.history.push('/checkout', {id: item})} >Upload</button>
                 </div>
               </div>
             </div>
@@ -303,8 +324,8 @@ export default function ClippedDrawer(props) {
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
                             <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>
-                              Uzma Khan
-              </h3>
+                              {cardData.noParent === true ? 'No Parent' : cardData.username}
+                            </h3>
                           </CardHeader>
                           <CardFooter stats>
 
@@ -325,7 +346,7 @@ export default function ClippedDrawer(props) {
 
 
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referrals</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>+245</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.countRefferals}</h3>
                           </CardHeader>
                           <CardFooter stats>
 
@@ -345,7 +366,7 @@ export default function ClippedDrawer(props) {
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$34,245</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$0</h3>
                           </CardHeader>
                           <CardFooter stats>
 
@@ -354,10 +375,13 @@ export default function ClippedDrawer(props) {
                       </GridItem>
                     </Paper>
                   </Grid>
+                  {renderPlans()}
+
 
                 </Grid>
               </Grid>
             </Grid>
+
 
             {/* {a.map((i) => {
               return(
@@ -427,11 +451,6 @@ export default function ClippedDrawer(props) {
           </DialogActions>
         </Dialog>
         <br />
-
-
-
-
-        {/* {renderPlans()} */}
 
         <Grid item>
           <Paper>
