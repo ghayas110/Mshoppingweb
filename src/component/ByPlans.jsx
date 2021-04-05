@@ -133,13 +133,19 @@ const BuyPlans = (props) => {
       )
     }
   }
-
   async function onBuyClick(planId) {
     const d = new Date()
     // console.log({ userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() })
-    const newUserPlanData = { userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() }
-    const newUserPlan = await API.graphql(graphqlOperation(createUserPlans, { input: newUserPlanData }))
-    console.log(newUserPlan);
+    try {
+      const newUserPlanData = { userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() }
+      const newUserPlan = await API.graphql(graphqlOperation(createUserPlans, { input: newUserPlanData }))
+      console.log(newUserPlan);
+      alert("Your Package is being Processed Successfully");
+      props.history.push("UserPanel");
+    }
+    catch (err) {
+      alert(err.errors)
+    }
   }
 
 
