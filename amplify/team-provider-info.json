@@ -1,4 +1,22 @@
 {
+  "deve": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mshoppingworld-deve-214523-authRole",
+      "UnauthRoleArn": "arn:aws:iam::510205510413:role/amplify-mshoppingworld-deve-214523-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::510205510413:role/amplify-mshoppingworld-deve-214523-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mshoppingworld-deve-214523-deployment",
+      "UnauthRoleName": "amplify-mshoppingworld-deve-214523-unauthRole",
+      "StackName": "amplify-mshoppingworld-deve-214523",
+      "StackId": "arn:aws:cloudformation:us-east-1:510205510413:stack/amplify-mshoppingworld-deve-214523/0f911380-958f-11eb-92a6-0a392ab5a299",
+      "AmplifyAppId": "dn25cbwq7x9ia"
+    },
+    "categories": {
+      "auth": {
+        "mshoppingworld6abd9784": {}
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-mshoppingworld-dev-111242-authRole",

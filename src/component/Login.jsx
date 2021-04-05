@@ -5,7 +5,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -20,7 +19,7 @@ import { listUsers } from "../graphql/queries";
 import ReactWhatsapp from "react-whatsapp";
 import { render } from "react-dom";
 import { FaWhatsapp } from "react-icons/fa";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 
 function Copyright() {
@@ -206,24 +205,13 @@ const Login = (props) => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link
-                href="#"
-                variant="body2"
-                onClick={() => {
-                  props.history.push("ForgetPassword");
-                }}
+              {/* <Link to='ForgetPassword'
               >
                 Forgot password?
-              </Link>
+              </Link> */}
             </Grid>
             <Grid item>
-              <Link
-                href="#"
-                variant="body2"
-                onClick={() => {
-                  props.history.push("register");
-                }}
-              >
+              <Link to='register'>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -240,7 +228,7 @@ const Login = (props) => {
         rel="noopener noreferrer"
       >
         {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
+        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
     </Container>
   );

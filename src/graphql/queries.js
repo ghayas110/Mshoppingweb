@@ -161,9 +161,6 @@ export const listUserPlanss = /* GraphQL */ `
         id
         userId
         planId
-        startingDate
-        paymentStatus
-        planStatus
         user {
         id
         firstName
@@ -199,6 +196,42 @@ export const listUserPlanss = /* GraphQL */ `
         createdAt
         updatedAt
       }
+        startingDate
+        paymentStatus
+        planStatus
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const listPlansByFees = /* GraphQL */ `
+  query ListPlansByFees(
+    $fee: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelPlanFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPlansByFees(
+      fee: $fee
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        fee
+        term
+        ROI
+        startDate
+        endDate
+        status
+        subscription
+        levels
         createdAt
         updatedAt
       }

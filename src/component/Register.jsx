@@ -692,7 +692,7 @@ const Register = (props) => {
                 href=''
                 variant="body2"
                 onClick={() => {
-                  props.history.push("/Login");
+                  props.history.push("/");
                 }}
               >
                 Already have an account? Sign in

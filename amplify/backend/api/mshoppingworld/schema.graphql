@@ -32,10 +32,12 @@ type Plan @model @key(name: "listPlansByFees", fields: ["fee"], queryField: "lis
 }
 
 type UserPlans @model @key(name: "byUser", fields: ["userId", "planId"]) {
+  id: ID!
   userId: ID!
   user: User! @connection(fields: ["userId"])
   planId: ID!
   plan: Plan! @connection(fields: ["planId"])
+  transactionCode: startingDate
   startingDate: String
   paymentStatus: String
   planStatus: String

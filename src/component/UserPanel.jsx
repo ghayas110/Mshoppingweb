@@ -103,10 +103,10 @@ const UserPanel = (props) => {
     } catch (err) {
       console.log("err", err.errors);
       // if (err.errors.length > 0) {
-      //   dispatch({
-      //     type: ActionTypes.FAILED_PLANS,
-      //     payload: err.errors[0].message
-      //   })
+      dispatch({
+        type: ActionTypes.FAILED_PLANS,
+        payload: err.errors
+      })
       // }
     }
     getDatas()
@@ -149,51 +149,53 @@ const UserPanel = (props) => {
   // }
 
   const renderPlans = () => {
-    return userPlans.userPlans.map((item, index) => {
-      return (
-        <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
-          <Grid item xs={6} style={{ float: "left" }}>
-            <div className="pricing-item">
-              <div className="pricing-item-inner">
-                <div className="pricing-item-content">
-                  <div className="pricing-item-header center-content">
-                    <div className="pricing-item-title"></div>
-                    <div className="pricing-item-price">
-                      <span className="pricing-item-price-currency" />
-                      <span className="pricing-item-price-amount">{item.plan.name}
-                      </span>
+    console.log('renderPlans', userPlans);
+    if (userPlans.userPlans.length > 0)
+      return userPlans.userPlans.map((item, index) => {
+        return (
+          <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
+            <Grid item xs={6} style={{ float: "left" }}>
+              <div className="pricing-item">
+                <div className="pricing-item-inner">
+                  <div className="pricing-item-content">
+                    <div className="pricing-item-header center-content">
+                      <div className="pricing-item-title"></div>
+                      <div className="pricing-item-price">
+                        <span className="pricing-item-price-currency" />
+                        <span className="pricing-item-price-amount">{item.plan.name}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="pricing-item-features">
+                      <ul className="pricing-item-features-list">
+                        <li className="is-checked">Term: {item.plan.fee}</li>
+                        <li className="is-checked">ROI: {item.plan.ROI}</li>
+                        <li className="is-checked">Status {item.planStatus}</li>
+                        <li className="is-checked">
+                          Payment Status : {item.paymentStatus}
+                        </li>
+                        <li className="is-checked">
+                          Start Date :{" "}
+                          {new Intl.DateTimeFormat("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "2-digit",
+                          }).format(new Date(Date.parse(item.startingDate)))}
+                        </li>
+                        {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
+                        {/* <li className="is-checked">Levels : {item.levels}</li> */}
+                      </ul>
                     </div>
                   </div>
-                  <div className="pricing-item-features">
-                    <ul className="pricing-item-features-list">
-                      <li className="is-checked">Term: {item.plan.fee}</li>
-                      <li className="is-checked">ROI: {item.plan.ROI}</li>
-                      <li className="is-checked">Status {item.planStatus}</li>
-                      <li className="is-checked">
-                        Payment Status : {item.paymentStatus}
-                      </li>
-                      <li className="is-checked">
-                        Start Date :{" "}
-                        {new Intl.DateTimeFormat("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "2-digit",
-                        }).format(new Date(Date.parse(item.startingDate)))}
-                      </li>
-                      {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
-                      {/* <li className="is-checked">Levels : {item.levels}</li> */}
-                    </ul>
+                  <div className="pricing-item-cta">
+                    {<button className="button" onClick={() => { item.paymentStatus !== 'active' ? props.history.push('/checkout', { id: item }) : alert('Payment is submited') }} >Upload</button>}
                   </div>
                 </div>
-                <div className="pricing-item-cta">
-                  <button className="button" onClick={() => props.history.push('/checkout', { id: item })} >Upload</button>
-                </div>
               </div>
-            </div>
+            </Grid>
           </Grid>
-        </Grid>
-      );
-    });
+        );
+      });
   };
 
   return (
@@ -210,7 +212,7 @@ const UserPanel = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-        <img src={logo} alt="logo" width="25px"/>
+          <img src={logo} alt="logo" width="25px" />
           <Typography variant="h6" noWrap>
             {loggedInUser.user.firstName + " " + loggedInUser.user.lastName}
           </Typography>
@@ -311,9 +313,9 @@ const UserPanel = (props) => {
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
-        
+
         <Grid item xs={12}>
-          
+
           <Paper elevation={0} className={classes.paper}>
             <Button
               variant="outlined"
@@ -325,7 +327,7 @@ const UserPanel = (props) => {
             <Grid container className={classes.root2} spacing={2}>
               <Grid item xs={12}>
                 <Grid container justify="center" spacing={10}>
-            
+
                   <Grid item >
                     <Paper elevation={5}>
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
@@ -387,11 +389,10 @@ const UserPanel = (props) => {
                       </GridItem>
                     </Paper>
                   </Grid>
-
                 </Grid>
+                {renderPlans()}
               </Grid>
             </Grid>
-            {renderPlans()}
 
             {/* {a.map((i) => {
               return(
@@ -443,8 +444,8 @@ const UserPanel = (props) => {
               fullWidth
               ref={textAreaRef}
               // value='https://mshoppingworld.com/register'
-              href={'http://member.mshoppingworld.com/register#/' + loggedInUser.user.userCode}
-            >{'http://member.mshoppingworld.com/register#/' + loggedInUser.user.userCode}</a>
+              href={'http://member.mshoppingworld.com/register/' + loggedInUser.user.userCode}
+            >{'http://member.mshoppingworld.com/register/' + loggedInUser.user.userCode}</a>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
@@ -453,7 +454,7 @@ const UserPanel = (props) => {
             <Button
               onClick={() =>
                 // navigator.clipboard.writeText(`http://mshoppingworld.com/register/${loggedInUser.user.userCode}`)
-                navigator.clipboard.writeText(`http://localhost:3000/register/${loggedInUser.user.userCode}`)
+                navigator.clipboard.writeText(`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`)
               }
               color="primary">
               Copy
@@ -462,7 +463,7 @@ const UserPanel = (props) => {
         </Dialog>
         <br />
 
-        <Grid item>
+        {/* <Grid item>
           <Paper>
             <br />
             <Typography variant="h5" style={{ textAlign: "center" }}>
@@ -471,7 +472,7 @@ const UserPanel = (props) => {
             </Typography>
             <CollapsibleTable />
           </Paper>
-        </Grid>
+        </Grid> */}
       </main>
       {/* whatsapp icon */}
       <a

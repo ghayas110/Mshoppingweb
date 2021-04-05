@@ -1,4 +1,4 @@
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { configureStore } from '../redux/ConfigureStore';
 import { connect } from 'react-redux'
 
@@ -19,16 +19,17 @@ const { persistor, store } = configureStore()
 const Main = () => {
     return (
         <Switch>
-            <Route path="/Checkout" component={() => <Checkout />} />
-            <Route path="/home" component={() => <Home />} />
-            <Route exact path="/" component={() => <Login />} />
-            <Route path="/register" component={() => <Register />} />
-            <Route path='/confirmation' component={() => <Confirmation />} />
-            <Route path="/forgetPassword" component={() => <ForgetPassword />} />
-            <Route path="/UserPanel" component={() => <UserPanel />} />
-            <Route path="/ReferedBy" component={() => <ReferedBy />} />
-            <Route path="/MyReferals" component={() => <MyReferals />} />
-            <Route path="/ByPlans" component={() => <ByPlans />} />
+            <Route path="/Checkout" component={Checkout} />
+            <Route path="/home" component={Home} />
+            <Route exact path="/" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path='/confirmation' component={Confirmation} />
+            <Route path="/forgetPassword" component={ForgetPassword} />
+            <Route path="/UserPanel" component={UserPanel} />
+            <Route path="/ReferedBy" component={ReferedBy} />
+            <Route path="/MyReferals" component={MyReferals} />
+            <Route path="/ByPlans" component={ByPlans} />
+            <Redirect to='/' />
         </Switch>
     );
 }

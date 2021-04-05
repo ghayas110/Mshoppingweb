@@ -116,7 +116,7 @@ const BuyPlans = (props) => {
                       </div>
                     </div>
                     <div className="pricing-item-cta">
-                      <a className="button" onClick={() =>  onBuyClick(item.id)}>
+                      <a className="button" onClick={() => onBuyClick(item.id)}>
                         Buy Now
                   </a>
                     </div>
@@ -137,9 +137,14 @@ const BuyPlans = (props) => {
   async function onBuyClick(planId) {
     const d = new Date()
     // console.log({ userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() })
-    const newUserPlanData = { userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() }
-    const newUserPlan = await API.graphql(graphqlOperation(createUserPlans, { input: newUserPlanData }))
-    console.log(newUserPlan);
+    try {
+      const newUserPlanData = { userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() }
+      const newUserPlan = await API.graphql(graphqlOperation(createUserPlans, { input: newUserPlanData }))
+      console.log(newUserPlan)
+    }
+    catch (err) {
+      alert(err.errors)
+    }
   }
 
 
@@ -156,7 +161,7 @@ const BuyPlans = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-         <img src={logo} alt="logo" width="25px"/>
+          <img src={logo} alt="logo" width="25px" />
 
           <Button
             variant="contained"

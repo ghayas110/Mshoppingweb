@@ -81,21 +81,28 @@ const Checkout = (props) => {
 
 
   async function handleSubmission() {
-    // console.log(userPlanID, data.slipImage)
-    // await Storage.put(`${loggedInUser.user.id}/plan-${userPlanID.id}/${data.slipImage.name}`, data.slipImage, {
-    //   level: 'private'
-    // })
-    //   .then(async (res) => {
-    //     console.log(res, userPlanID.id)
-
-    //   })
-    //   .catch((err) => {
-    //     console.error(err.errors)
-    //     // alert(err)
-    //   })
-    const updatedPlan = { id: userPlanID.id, paymentStatus: 'active' }
-    const updatePlan = await API.graphql(graphqlOperation(updateUserPlans, { input: updatedPlan }))
-    console.log(updatePlan)
+    try {
+      if (data.check_transactionCodeChange === true && data.check_slipImageChange === true)
+        await Storage.put(`${loggedInUser.user.id}/plan-${userPlanID.id}/${data.slipImage.name}`, data.slipImage, {
+          level: 'private'
+        })
+          .then(async (res) => {
+            console.log(res, userPlanID.id)
+            const updatedPlan = { id: userPlanID.id, paymentStatus: 'active' }
+            const updatePlan = await API.graphql(graphqlOperation(updateUserPlans, { input: updatedPlan, }))
+            console.log(updatePlan)
+            alert('Payment Successfully Uploaded')
+          })
+          .catch((err) => {
+            console.error(err.errors)
+            // alert(err)
+          })
+      else 
+          alert('Provide transaction number or Image of transaction Slip')
+    }
+    catch (err) {
+      alert(err)
+    }
   }
 
   const handleClickOpen = () => {
@@ -111,7 +118,7 @@ const Checkout = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-         <img src={logo} alt="logo" width="25px"/>
+          <img src={logo} alt="logo" width="25px" />
 
           <Button
             variant="contained"
@@ -350,8 +357,6 @@ const Checkout = (props) => {
                 >
                   SUBMIT
           </Button>
-
-
               </div>
             </Grid>
           </Grid>
