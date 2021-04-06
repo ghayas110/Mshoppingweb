@@ -35,7 +35,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Mshopping World
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -319,16 +319,16 @@ const Register = (props) => {
   };
 
   const handlePhoneNumber = (val) => {
-    if (val.length < 10) {
+    if (val.length < 13) {
       setData({
         ...data,
-        phone_number: "+92".concat(val),
+        
         check_PhoneChange: false,
       });
     } else {
       setData({
         ...data,
-        phone_number: "+92".concat(val),
+        
         check_PhoneChange: true,
       });
     }
@@ -394,7 +394,7 @@ const Register = (props) => {
         <form className={classes.form} noValidate>
         {<div>Please enter your name as per your CNIC. Leave the field empty that is not relevant</div>}
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <TextField
                 onChange={(e) => handleUserName(e.target.value, "Fname")}
                 autoComplete="fname"
@@ -423,7 +423,7 @@ const Register = (props) => {
               />
         
             </Grid>
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 required
@@ -494,7 +494,7 @@ const Register = (props) => {
                 autoComplete="current-password"
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
-               {data.check_PasswordChange  ? <div></div>:<div>Password should be uppercase special checters /,_,-, and numaric </div>}
+               {data.check_PasswordChange  ? <div></div>:<div>Password should be uppercase special checters /,_,-, and numaric (At Least 5 letters) </div>}
             </Grid>
 
             <Grid item xs={12}>
@@ -509,9 +509,9 @@ const Register = (props) => {
                 autoComplete="current-password"
                 onChange={(e) => handlePhoneNumber(e.target.value)}
               />
-               {data.check_PhoneChange  ? <div></div>:<div>Phone no should be more than 10 integers </div>}
+              
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 required
@@ -540,7 +540,7 @@ const Register = (props) => {
                 autoComplete="uc"
                 onChange={(e) => handleUserCode(e.target.value)}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={9}>
             <FormControlLabel
         control={<Checkbox  name="checkedA" required />}
