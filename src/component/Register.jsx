@@ -166,10 +166,10 @@ const Register = (props) => {
             filter: { userCode: { eq: data.usercode } },
           })
         );
-        const userCodeResult = userCode.data.listUsers.items;
-        console.log("userCodeResult", userCodeResult, userCodeResult.length);
+        const userCodeResult = userCode.data.listUsers.items
+        console.log("userCodeResult", userCodeResult, userCodeResult.length)
         if (userCodeResult.length == 0) {
-          console.log("unique");
+          console.log("unique")
           const parentData = await API.graphql(
             graphqlOperation(listUsers, {
               filter: { userCode: { eq: data.referalUserCode } },
