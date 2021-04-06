@@ -359,7 +359,7 @@ const UserPanel = (props) => {
                             </CardIcon>
 
 
-                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referrals</p>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Our Team</p>
                             <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.countRefferals}</h3>
                           </CardHeader>
                           <CardFooter stats>
@@ -476,7 +476,7 @@ const UserPanel = (props) => {
       </main>
       {/* whatsapp icon */}
       <a
-        href="https://wa.me/+18323874234"
+        href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
