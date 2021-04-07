@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik';
 import { TextField } from './Textfield'
 import * as Yup from 'yup';
 
+
 const Signup = (props) => {
   const validate = Yup.object({
     firstName: Yup.string()
@@ -68,7 +69,8 @@ const Signup = (props) => {
             <label htmlFor="email" style={{ display: 'block' }}>
         Gender
       </label>
-      <select
+      <select 
+      
         name="gender"
         style={{ display: 'block' }}
       >
