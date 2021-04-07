@@ -58,11 +58,13 @@ const Signup = (props) => {
             <div className="px-5 bd-highlight">
             <h4 className="my-4 font-weight-bold .display-4">User Details</h4>
             <TextField label="First Name" name="firstName" type="text" />
-            <TextField label="last Name" name="lastName" type="text" />
-            <TextField label="UserID" name="userid" type="text" />
-            <TextField label="Code" name="code" type="text" />
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="Password" name="password" type="password" />
+            <TextField label="Middle Name" name="MiddleName" type="text" />
+            <TextField label="Last Name" name="lastName" type="text" />
+            <TextField label="Father Name/Spouse Name" name="Father/Spouse" type="text" />
+            {/* <TextField label="UserID" name="userid" type="text" />
+            <TextField label="Code" name="code" type="text" /> */}
+            {/* <TextField label="Email" name="email" type="email" />
+            <TextField label="Password" name="password" type="password" /> */}
             <label htmlFor="email" style={{ display: 'block' }}>
         Gender
       </label>
@@ -75,21 +77,37 @@ const Signup = (props) => {
         <option value="female" label="Female" />
         
       </select>
+      <TextField label="Cell No" name="cellno" type="number" />
             <TextField label="City" name="city" type="text" />
             <TextField label="Address" name="address" type="text" />
            
             </div>
             <div className="px-7 bd-highlight">
-            <h4 className="my-4 font-weight-bold .display-4">Confidential Details</h4>
-            <TextField label="Cell No" name="cellno" type="number" />
-            <TextField label="Registration Date " name="regdate" type="date" />
-            <TextField label="CNIC" name="CNIC" type="number" />
-            <label for="file">CNIC upload</label>
-                  <input id="file" name="file" type="file"  className="form-control" />
+            <h4 className="my-4 font-weight-bold .display-4">Payment Method  Details </h4>
+            
+            {/* <TextField label="Registration Date " name="regdate" type="date" /> */}
+            <label htmlFor="email" style={{ display: 'block' }}>
+            PAYMENT METHOD 
+      </label>
+      <select
+        name="paymentmethod"
+        style={{ display: 'block' }}
+      >
+        <option value="" label="Select Payment Method" />
+        <option value="" label="Bank" />
+       
+        
+        
+      </select>
             <TextField label="BankName" name="BankName" type="text" />  
             <TextField label="BranchCode" name="BranchCode" type="number" />
             <TextField label="Account No" name="Account No" type="number" />
+            
+       
             <label for="file">CheckSlip upload</label>
+                  <input id="file" name="file" type="file"  className="form-control" />
+                  <TextField label="CNIC" name="CNIC" type="number" />
+            <label for="file">CNIC upload</label>
                   <input id="file" name="file" type="file"  className="form-control" />
             <button className="btn btn-dark mt-3" type="submit">Save</button>
             <button className="btn btn-danger mt-3 ml-3" type="reset">Reset</button>
