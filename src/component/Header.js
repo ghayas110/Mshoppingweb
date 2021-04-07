@@ -20,18 +20,7 @@ function Header() {
            </div>
 </div>
 <div class="header__center">
-    <div class="header__option">
-<HomeIcon fontSize="large"/>
-    </div>
-    <div class="header__option">
-<DashboardIcon fontSize="large"/>
-    </div>
-    <div class="header__option">
-    <CloudUploadIcon fontSize="large"/>
-    </div>
-    <div class="header__option">
-    <ChatIcon fontSize="large"/>
-    </div>
+    
 </div>
 
 <div class="header__right"></div>

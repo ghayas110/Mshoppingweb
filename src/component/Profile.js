@@ -56,6 +56,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  con:{
+textAlign:"left",
+fontSize:18
+  }
 
 }));
 
@@ -87,9 +91,21 @@ export default function Profile(props) {
         <Grid item >
 <div className={classes.iconsize}>
     <AccountCircleIcon fontSize="large"/>
-    <h2>{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</h2>
-    <p>{loggedInUser.user.userEmail}</p>
-    <p>{loggedInUser.user.phone_number}</p>
+    <div >
+    <h2>{loggedInUser.user.userCode}</h2>    
+    <div className={classes.con}>
+    <p>Name:{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</p>
+  
+    <p >Email:{loggedInUser.user.userEmail}</p>
+    <p>Phone No:{loggedInUser.user.phone_number}</p>
+    <p>User Code:{loggedInUser.user.userCode}</p>
+    <p>Invite Link: http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</p>
+    </div>
+    <div>
+    <Button variant="outlined" color="primary" >Edit Profile</Button>
+    </div>
+    </div>
+ 
    
 </div>
         </Grid>
