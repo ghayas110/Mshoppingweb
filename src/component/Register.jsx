@@ -23,7 +23,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Switch from "@material-ui/core/Switch";
-import { checkcon, passwordRegex } from "./reuse";
+import { checkcon, passwordRegex, userNameRegex } from "./reuse";
 import { createUser } from "../graphql/mutations";
 import { listUsers } from "../graphql/queries";
 import Amplify, { API, Auth, graphqlOperation } from "aws-amplify";
@@ -93,6 +93,7 @@ const Register = (props) => {
   // const[url]
   const [data, setData] = useState({
     usercode: "",
+    userName: "",
     firstName: "",
     middleName: "",
     lastName: "",
@@ -101,18 +102,18 @@ const Register = (props) => {
     phone_number: "",
     confirm_password: "",
     referalUserCode: "",
-   
+
     check_UserCodeChange: false,
-    check_FirstNameChange: false,
-    check_LastNameChange: false,
-    check_MiddleNameChange: false,
+    check_UserNameChange: false,
+    check_NamesChange: false,
+    // check_LastNameChange: false,
+    // check_MiddleNameChange: false,
     check_EmailChange: false,
     check_PhoneChange: false,
     check_ReferalUserCodeChange: false,
     check_PasswordChange: false,
     check_ConfirmPasswordChange: false,
     secureTextEntry: true,
-    confirm_secureTextEntry: true,
     userCodeIsUnique: false,
   });
 
@@ -145,8 +146,8 @@ const Register = (props) => {
     try {
       console.log(
         data.check_UserCodeChange,
-        data.check_FirstNameChange,
-        data.check_LastNameChange,
+        data.check_NamesChange,
+        data.check_UserNameChange,
         data.check_EmailChange,
         data.check_PhoneChange,
         data.check_ReferalUserCodeChange,
@@ -154,8 +155,8 @@ const Register = (props) => {
       );
       if (
         data.check_UserCodeChange === true &&
-        data.check_FirstNameChange === true &&
-        data.check_LastNameChange === true &&
+        data.check_NamesChange === true &&
+        data.check_UserNameChange === true &&
         data.check_EmailChange === true &&
         data.check_PhoneChange === true &&
         data.check_ReferalUserCodeChange === true &&
@@ -167,51 +168,58 @@ const Register = (props) => {
           })
         );
         const userCodeResult = userCode.data.listUsers.items
-        console.log("userCodeResult", userCodeResult, userCodeResult.length)
+        // console.log("userCodeResult", userCodeResult, userCodeResult.length)
         if (userCodeResult.length == 0) {
-          console.log("unique")
-          const parentData = await API.graphql(
+          console.log("UserCode unique")
+          const userName = await API.graphql(
             graphqlOperation(listUsers, {
-              filter: { userCode: { eq: data.referalUserCode } },
+              filter: { userName: { eq: data.userName } },
             })
           );
-          const parentUser = parentData.data.listUsers.items;
-          console.log("parentUser:", parentUser.length);
-          if (parentUser.length == 1) {
-            console.log("Parent Exist");
-            await Auth.signUp({
-              username: data.email,
-              password: data.password,
-              attributes: {
-                email: data.email, // optional
-                phone_number: data.phone_number, // optional - E.164 number convention
-                // other custom attributes
-              },
-            }).then(async (user) => {
-              console.log(user);
-              const newUser = {
-                firstName: data.firstName,
-                middleName: data.middleName,
-                lastName: data.lastName,
-                email: data.email,
-                phone_number: data.phone_number,
-                parentId: parentUser[0].id,
-                userCode: data.usercode,
-               
-
-
-              };
-              const createdUser = await API.graphql(
-                graphqlOperation(createUser, { input: newUser })
-              );
-              console.log("createdResellerUser", createdUser.data);
-              props.history.push("/confirmation", { email: data.email })
-            });
-          } else {
-            console.log("Parent referal Code not correct");
-          }
-        } else {
-          console.log("notunique");
+          const userNameResult = userCode.data.listUsers.items
+          console.log("userNameResult", userNameResult, userNameResult.length)
+          if (userNameResult.length == 0) {
+            const parentData = await API.graphql(
+              graphqlOperation(listUsers, {
+                filter: { userCode: { eq: data.referalUserCode } },
+              })
+            );
+            const parentUser = parentData.data.listUsers.items;
+            // console.log("parentUser:", parentUser.length);
+            if (parentUser.length == 1) {
+              console.log("Parent Exist");
+              await Auth.signUp({
+                username: data.email,
+                password: data.password,
+                attributes: {
+                  email: data.email, // optional
+                  phone_number: data.phone_number, // optional - E.164 number convention
+                  // other custom attributes
+                },
+              }).then(async (user) => {
+                console.log(user);
+                const newUser = {
+                  firstName: data.firstName,
+                  middleName: data.middleName,
+                  lastName: data.lastName,
+                  email: data.email,
+                  phone_number: data.phone_number,
+                  parentId: parentUser[0].id,
+                  userCode: data.usercode,
+                };
+                const createdUser = await API.graphql(
+                  graphqlOperation(createUser, { input: newUser })
+                );
+                console.log("createdResellerUser", createdUser.data);
+                props.history.push("/confirmation", { email: data.email })
+              });
+            } else
+              console.log("Parent referal Code not correct");
+          } else
+            console.log("UserName notunique");
+        }
+        else {
+          console.log("UserCode notunique");
         }
       } else {
         console.log("Fill all Fields");
@@ -272,19 +280,35 @@ const Register = (props) => {
     }
   };
 
-  const handleUserName = (val, changestate) => {
+  const handleUserName = (val) => {
+    if (userNameRegex.test(val)) {
+      setData({
+        ...data,
+        userName: val,
+        check_UserNameChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        userName: val,
+        check_UserNameChange: false,
+      });
+    }
+  }
+
+  const handleNames = (val, changestate) => {
     if (changestate == "Fname") {
       if (val.length >= 3 && val.length <= 15) {
         setData({
           ...data,
           firstName: val,
-          check_FirstNameChange: true,
+          check_NamesChange: true,
         });
       } else {
         setData({
           ...data,
           firstName: val,
-          check_FirstNameChange: false,
+          check_NamesChange: false,
         });
       }
     } else if (changestate == "Lname") {
@@ -292,13 +316,13 @@ const Register = (props) => {
         setData({
           ...data,
           lastName: val,
-          check_LastNameChange: true,
+          check_NamesChange: true,
         });
       } else {
         setData({
           ...data,
           lastName: val,
-          check_LastNameChange: false,
+          check_NamesChange: false,
         });
       }
     } else if (changestate == "Mname") {
@@ -306,30 +330,30 @@ const Register = (props) => {
         setData({
           ...data,
           middleName: val,
-          check_MiddleNameChange: true,
+          check_NamesChange: true,
         });
       } else {
         setData({
           ...data,
           middleName: val,
-          check_MiddleNameChange: false,
+          check_NamesChange: false,
         });
       }
     }
   };
 
   const handlePhoneNumber = (val) => {
-    if (val.length < 13) {
+    if (val.length > 10) {
       setData({
         ...data,
-        
-        check_PhoneChange: false,
+        phone_number: val,
+        check_PhoneChange: true,
       });
     } else {
       setData({
         ...data,
-        
-        check_PhoneChange: true,
+        phone_number: val,
+        check_PhoneChange: false,
       });
     }
   };
@@ -385,18 +409,18 @@ const Register = (props) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-      
-        <img src={logos} alt="logo" width="25px"/>
-       
+
+        <img src={logos} alt="logo" width="25px" />
+
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
-        {<div>Please enter your name as per your CNIC. Leave the field empty that is not relevant</div>}
+          {<div>Please enter your name as per your CNIC. Leave the field empty that is not relevant</div>}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
-                onChange={(e) => handleUserName(e.target.value, "Fname")}
+                onChange={(e) => handleNames(e.target.value, "Fname")}
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
@@ -404,15 +428,14 @@ const Register = (props) => {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                
                 autoFocus
 
               />
-         
+
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                onChange={(e) => handleUserName(e.target.value, "Lname")}
+                onChange={(e) => handleNames(e.target.value, "Lname")}
                 variant="outlined"
                 required
                 fullWidth
@@ -421,7 +444,7 @@ const Register = (props) => {
                 name="lastName"
                 autoComplete="lname"
               />
-        
+
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -432,43 +455,21 @@ const Register = (props) => {
                 label="Middle Name"
                 name="UC"
                 autoComplete="Pid"
-                onChange={(e) => handleUserName(e.target.value, "Mname")}
+                onChange={(e) => handleNames(e.target.value, "Mname")}
               />
 
             </Grid>
-            {/* <Grid >
-              <div className={classes.root}>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                />
-                <p style={{ color: 'blue' }}>UPLOAD PROFILE </p>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="userName"
+                label="Username"
+                onChange={(e) => handleUserName(e.target.value)}
+              />
 
-                <label htmlFor="contained-button-file">
-                  <Button variant="contained" color="primary" component="span">
-                    Upload
-                </Button>
-                </label>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="icon-button-file"
-                  type="file"
-                />
-                <label htmlFor="icon-button-file">
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                  >
-                    <PhotoCamera />
-                  </IconButton>
-                </label>
-              </div>
-            </Grid> */}
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -480,7 +481,7 @@ const Register = (props) => {
                 autoComplete="email"
                 onChange={(e) => handleEmailAddress(e.target.value)}
               />
-               {data.check_EmailChange  ? <div></div>:<div>Email Should be Valid</div>}
+              {data.check_EmailChange ? <div></div> : <div>Email Should be Valid</div>}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -494,7 +495,7 @@ const Register = (props) => {
                 autoComplete="current-password"
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
-               {data.check_PasswordChange  ? <div></div>:<div>Password should be uppercase special checters /,_,-, and numaric (At Least 5 letters) </div>}
+              {data.check_PasswordChange ? <div></div> : <div>Password should be uppercase special checters /,_,-, and numaric (At Least 5 letters) </div>}
             </Grid>
 
             <Grid item xs={12}>
@@ -509,7 +510,7 @@ const Register = (props) => {
                 autoComplete="current-password"
                 onChange={(e) => handlePhoneNumber(e.target.value)}
               />
-              
+
             </Grid>
             {/* <Grid item xs={12} sm={6}>
               <TextField
@@ -542,10 +543,10 @@ const Register = (props) => {
               />
             </Grid> */}
             <Grid item xs={12} sm={9}>
-            <FormControlLabel
-        control={<Checkbox  name="checkedA" required />}
-        label="I accept terms and Conditions"
-      />
+              <FormControlLabel
+                control={<Checkbox name="checkedA" required />}
+                label="I accept terms and Conditions"
+              />
 
             </Grid>
             {/* <Grid item xs={12}>
@@ -672,10 +673,10 @@ const Register = (props) => {
             /> */}
 
             <Grid item xs={12}>
-          
+
             </Grid>
           </Grid>
-        
+
           <Button
             // type="submit"
             fullWidth
@@ -705,7 +706,7 @@ const Register = (props) => {
         <Copyright />
       </Box>
       <a
-       href="https://wa.me/+447949549043"
+        href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"

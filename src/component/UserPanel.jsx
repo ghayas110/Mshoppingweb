@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 const UserPanel = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [cardData, setCardDatas] = useState({})
+  const [cardData, setCardDatas] = useState({ noParent: '', username: '', countRefferals: '', fees: '' })
   const { loggedInUser, userPlans } = useSelector((state) => state);
   const dispatch = useDispatch();
   const textAreaRef = useRef(null);
@@ -116,18 +116,27 @@ const UserPanel = (props) => {
     const childCountData = await API.graphql(graphqlOperation(listUsers, { filter: { parentId: { eq: loggedInUser.user.id } } }))
     const childCount = childCountData.data.listUsers.items
     const countAllChild = childCount.length
-    console.log(countAllChild, loggedInUser.user.parentId === 'null');
 
-    if (loggedInUser.user.parentId === 'null')
-      setCardDatas({ noParent: true, username: '', countRefferals: countAllChild })
+    const getFeesData = await API.graphql(graphqlOperation(listUserPlanss, { filter: { userId: { eq: loggedInUser.user.id } } }))
+    const getFees = getFeesData.data.listUserPlanss.items
+    let fees = 0
+    if (getFees.length > 0)
+      for (var i = 0; i < getFees.length; i++) {
+        fees += parseFloat(getFees[i].plan.fee)
+      }
+    console.log(countAllChild, loggedInUser.user.parentId === 'null');
+    console.log('fees', getFees[0].plan.fee);
+    if (loggedInUser.user.parentId === 'null') {
+      setCardDatas({ noParent: true, username: '', countRefferals: countAllChild, fees: fees })
+    }
     else {
       const parentData = await API.graphql(graphqlOperation(getUser, { id: loggedInUser.user.parentId }))
       const parent = parentData.data.getUser
       console.log(parent);
-      setCardDatas({ noParent: false, username: parent.firstName + ' ' + parent.lastName, userCode: parent.userCode, countRefferals: countAllChild })
+      if (getFees.length > 0)
+        setCardDatas({ noParent: false, username: parent.firstName + ' ' + parent.lastName, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
     }
-    console.log(cardData);
-
+    console.log(cardData)
   }
 
   const handleClickOpen = () => {
@@ -380,7 +389,7 @@ const UserPanel = (props) => {
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$0</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.fees}</h3>
                           </CardHeader>
                           <CardFooter stats>
 
@@ -390,7 +399,7 @@ const UserPanel = (props) => {
                     </Paper>
                   </Grid>
                 </Grid>
-                {renderPlans()}
+                {/* {renderPlans()} */}
               </Grid>
             </Grid>
 

@@ -1,5 +1,6 @@
 type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   id: ID!
+  userName: String
   firstName: String!
   middleName: String
   lastName: String!
@@ -23,7 +24,7 @@ type Plan @model @key(name: "listPlansByFees", fields: ["fee"], queryField: "lis
   name: String!
   fee: String!
   term: Int!
-  ROI: Int!
+  ROI: Float!
   startDate: String!
   endDate: String
   status: String
@@ -37,7 +38,7 @@ type UserPlans @model @key(name: "byUser", fields: ["userId", "planId"]) {
   user: User! @connection(fields: ["userId"])
   planId: ID!
   plan: Plan! @connection(fields: ["planId"])
-  transactionCode: startingDate
+  transactionCode: String
   startingDate: String
   paymentStatus: String
   planStatus: String

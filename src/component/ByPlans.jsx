@@ -129,7 +129,7 @@ const BuyPlans = (props) => {
       )
     else {
       return (
-        <div>{plans.errMess}</div>
+        <div>{JSON.stringify(plans.errMess)}</div>
       )
     }
   }
