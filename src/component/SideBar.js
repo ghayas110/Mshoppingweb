@@ -28,6 +28,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import Sidebar from './SideBar';
 import Header from "./Header";
+import Profile from "./Profile"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -119,11 +120,12 @@ function SideBar(props) {
      
             <List>
             
-              <ListItem button>
+              <ListItem button onClick={() => {
+                  props.history.push("Profile");}}>
                 <ListItemIcon>
                  <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Withdrawls"} />
+                <ListItemText primary={"My Profile"} />
               </ListItem>
           
           </List>
@@ -134,7 +136,7 @@ function SideBar(props) {
                 <ListItemIcon>
                  <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={"My Profile"} />
+                <ListItemText primary={"Widthdraws"} />
               </ListItem>
           
           </List>
