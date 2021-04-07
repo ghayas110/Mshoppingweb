@@ -43,6 +43,7 @@ function Copyright() {
   );
 }
 
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -88,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = (props) => {
+  const [errors, setErrors] = useState("")
   const classes = useStyles();
 
   // const[url]
@@ -223,6 +225,7 @@ const Register = (props) => {
         }
       } else {
         console.log("Fill all Fields");
+        setErrors("Fill all Fields");
         //ToastAndroid.showWithGravity('Fill all Fields', ToastAndroid.LONG, ToastAndroid.CENTER)
       }
     } catch (error) {
@@ -417,6 +420,7 @@ const Register = (props) => {
         </Typography>
         <form className={classes.form} noValidate>
           {<div>Please enter your name as per your CNIC. Leave the field empty that is not relevant</div>}
+          {errors!=="" ? <div>{errors}</div> : <div></div>}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField

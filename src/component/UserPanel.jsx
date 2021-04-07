@@ -51,6 +51,8 @@ import CardFooter from "../component/Card/CardFooter.js";
 import Danger from "../component/Typography/Danger.js";
 import { card } from "../assets/jss/material-dashboard-react";
 import Login from "./Login";
+import Header from "./Header";
+import SideBar from "./SideBar";
 
 // import CardBody from "../components/Card/CardBody.js";
 
@@ -71,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
+    marginTop:40,
     overflow: "auto",
   },
   content: {
@@ -220,106 +223,9 @@ const UserPanel = (props) => {
       </div> */}
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <img src={logo} alt="logo" width="25px" />
-          <Typography variant="h6" noWrap>
-            {loggedInUser.user.firstName + " " + loggedInUser.user.lastName}
-          </Typography>
-          <Link to='/' style={{ marginLeft: "auto" }} >
-            <Button
-              variant="contained"
-              color="secondary"
-            >
-              LOGOUT
-          </Button></Link>
-        </Toolbar>
+        <Header/>
       </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List style={{ backgroundColor: "#1A5276", color: "white" }}>
-            <ListItem
-              button
-              onClick={() => {
-                props.history.push("UserPanel");
-              }}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"DASHBOARD"} />
-            </ListItem>
-          </List>
-
-          <List>
-            <ListItem
-              button
-              onClick={() => {
-                props.history.push("ReferedBy");
-              }}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Refered By"} />
-            </ListItem>
-          </List>
-
-          <List>
-            <ListItem
-              button
-              onClick={() => {
-                props.history.push("MyReferals");
-              }}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"My Referrals"} />
-            </ListItem>
-          </List>
-          <List>
-            <Link to='/ByPlans'>
-              <ListItem
-                button
-              // onClick={() => {
-              //   props.history.push("ByPlans");
-              // }}
-              >
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Buy Plans"} />
-              </ListItem>
-            </Link>
-          </List>
-          <Divider />
-
-          <List>
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Withdrawls"} />
-            </ListItem>
-          </List>
-
-          <List>
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"My Profile"} />
-            </ListItem>
-          </List>
-        </div>
-      </Drawer>
+      <SideBar/>
       <main className={classes.content}>
         <Toolbar />
 
