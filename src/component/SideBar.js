@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    marginTop:40,
+    marginTop: 40,
     overflow: "auto",
   },
   content: {
@@ -55,10 +55,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function SideBar(props) {
-    const classes = useStyles();
-    return (
-        <div>
-             <Drawer
+  const classes = useStyles();
+  return (
+    <div>
+      <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{
@@ -67,7 +67,7 @@ function SideBar(props) {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-        <List style={{backgroundColor:"#1A5276", color:"white"}}>
+          <List style={{ backgroundColor: "#1A5276", color: "white" }}>
             <ListItem
               button
               onClick={() => {
@@ -80,70 +80,82 @@ function SideBar(props) {
               <ListItemText primary={"DASHBOARD"} />
             </ListItem>
           </List>
-         
+
           <List>
-            
-              <ListItem button  onClick={() => {
-                  props.history.push("ReferedBy");}}>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Refered By"} />
-              </ListItem>
-          
+
+            <ListItem button onClick={() => {
+              props.history.push("ReferedBy");
+            }}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Refered By"} />
+            </ListItem>
+
           </List>
-         
+
           <List>
-            
-              <ListItem button onClick={() => {
-                  props.history.push("MyReferals");}}>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Referrals"} />
-              </ListItem>
-          
+
+            <ListItem button onClick={() => {
+              props.history.push("MyReferals");
+            }}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"My Referrals"} />
+            </ListItem>
+
           </List>
           <List>
-            
-              <ListItem button onClick={() => {
-                  props.history.push("ByPlans");}}>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Buy Plans"} />
-              </ListItem>
-          
+
+            <ListItem button onClick={() => {
+              props.history.push("ByPlans");
+            }}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Buy Plans"} />
+            </ListItem>
+
           </List>
           <Divider />
-     
-            <List>
-            
-              <ListItem button>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Withdrawls"} />
-              </ListItem>
-          
+
+          <List>
+
+            <ListItem button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Withdrawls"} />
+            </ListItem>
+
           </List>
 
           <List>
-            
-              <ListItem button>
-                <ListItemIcon>
-                 <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Profile"} />
-              </ListItem>
-          
+            <ListItem button onClick={() => {
+              props.history.push("MyPlans");
+            }}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"My Plans"} />
+            </ListItem>
           </List>
 
-          
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"My Profile"} />
+            </ListItem>
+          </List>
+
+
         </div>
       </Drawer>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default withRouter(SideBar)
