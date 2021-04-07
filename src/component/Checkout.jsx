@@ -88,8 +88,8 @@ const Checkout = (props) => {
         })
           .then(async (res) => {
             console.log(res, userPlanID.id)
-            const updatedPlan = { id: userPlanID.id, paymentStatus: 'active' }
-            const updatePlan = await API.graphql(graphqlOperation(updateUserPlans, { input: updatedPlan, }))
+            const updatedPlan = { id: userPlanID.id, paymentStatus: 'active', transactionCode: data.transactionCode }
+            const updatePlan = await API.graphql(graphqlOperation(updateUserPlans, { input: updatedPlan }))
             console.log(updatePlan)
             alert('Payment Successfully Uploaded')
           })

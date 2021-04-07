@@ -11,6 +11,7 @@ import ForgetPasswordSubmit from "./ForgetPasswordSubmit";
 import UserPanel from "./UserPanel";
 import ReferedBy from "./ReferedBy";
 import MyReferals from "./MyReferals";
+import MyPlans from "./MyPlans";
 import ByPlans from "./ByPlans";
 import Checkout from './Checkout';
 import SignupForm from "./SignupForm";
@@ -33,6 +34,7 @@ const Main = () => {
             <Route path="/ReferedBy" component={ReferedBy} />
             <Route path="/MyReferals" component={MyReferals} />
             <Route path="/ByPlans" component={ByPlans} />
+            <Route path="/MyPlans" component={MyPlans} />
             <Route path="/Profile" component={Profile} />
             <Route path="/ProfileEdit" component={SignupForm} />
             

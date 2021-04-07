@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    marginTop:40,
+    marginTop: 40,
     overflow: "auto",
   },
   content: {
@@ -92,6 +92,7 @@ const UserPanel = (props) => {
 
   const a = [0, 1, 2]
   useEffect(async () => {
+    getDatas()
     try {
       const userPlansData = await API.graphql(
         graphqlOperation(listUserPlanss, {
@@ -110,9 +111,7 @@ const UserPanel = (props) => {
         type: ActionTypes.FAILED_PLANS,
         payload: err.errors
       })
-      // }
     }
-    getDatas()
   }, []);
 
   async function getDatas() {
@@ -128,7 +127,6 @@ const UserPanel = (props) => {
         fees += parseFloat(getFees[i].plan.fee)
       }
     console.log(countAllChild, loggedInUser.user.parentId === 'null');
-    console.log('fees', getFees[0].plan.fee);
     if (loggedInUser.user.parentId === 'null') {
       setCardDatas({ noParent: true, username: '', countRefferals: countAllChild, fees: fees })
     }
@@ -136,8 +134,7 @@ const UserPanel = (props) => {
       const parentData = await API.graphql(graphqlOperation(getUser, { id: loggedInUser.user.parentId }))
       const parent = parentData.data.getUser
       console.log(parent);
-      if (getFees.length > 0)
-        setCardDatas({ noParent: false, username: parent.firstName + ' ' + parent.lastName, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
+      setCardDatas({ noParent: false, username: loggedInUser.user.username, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
     }
     console.log(cardData)
   }
@@ -160,72 +157,13 @@ const UserPanel = (props) => {
   //   // setCopySuccess('Copied!');
   // }
 
-  const renderPlans = () => {
-    console.log('renderPlans', userPlans);
-    if (userPlans.userPlans.length > 0)
-      return userPlans.userPlans.map((item, index) => {
-        return (
-          <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
-            <Grid item xs={6} style={{ float: "left" }}>
-              <div className="pricing-item">
-                <div className="pricing-item-inner">
-                  <div className="pricing-item-content">
-                    <div className="pricing-item-header center-content">
-                      <div className="pricing-item-title"></div>
-                      <div className="pricing-item-price">
-                        <span className="pricing-item-price-currency" />
-                        <span className="pricing-item-price-amount">{item.plan.name}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="pricing-item-features">
-                      <ul className="pricing-item-features-list">
-                        <li className="is-checked">Term: {item.plan.fee}</li>
-                        <li className="is-checked">ROI: {item.plan.ROI}</li>
-                        <li className="is-checked">Status {item.planStatus}</li>
-                        <li className="is-checked">
-                          Payment Status : {item.paymentStatus}
-                        </li>
-                        <li className="is-checked">
-                          Start Date :{" "}
-                          {new Intl.DateTimeFormat("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "2-digit",
-                          }).format(new Date(Date.parse(item.startingDate)))}
-                        </li>
-                        {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
-                        {/* <li className="is-checked">Levels : {item.levels}</li> */}
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="pricing-item-cta">
-                    {<button className="button" onClick={() => { item.paymentStatus !== 'active' ? props.history.push('/checkout', { id: item }) : alert('Payment is submited') }} >Upload</button>}
-                  </div>
-                </div>
-              </div>
-            </Grid>
-          </Grid>
-        );
-      });
-  };
-
   return (
     <div className={classes.root}>
-      {/* <div style={{ height: 62, backgroundColor: '#FFFFFF', overflow: "hidden", boxSizing: 'border-box', border: '1px solid #56667F', borderRadius: 4, textAlign: "right", lineHeight: 14, blockSize: 62, fontSize: 12, fontFeatureSettings: "normal", textSizeAdjust: '100%', boxShadow: 'inset 0 -20px 0 0 #56667F', padding: 0, margin: 0, width: '100%' }}>
-        <div style={{ height: 40, padding: 0, margin: 0, width: '100%' }}>
-          <iframe src={"https://widget.coinlib.io/widget?type=horizontal_v2&theme=light&pref_coin_id=1505&invert_hover=no"} width="100%" height="36px" scrolling="auto" marginWidth="0" marginheight="0" frameborder="0" border="0" style={{border:0, margin:0, padding:0}}></iframe>
-        </div>
-        <div style={{ color: '#FFFFFF', lineHeight: 14, fontWeight: 400 }}
-        // style={{color: '#FFFFFF', lineHeight: 14, fontWeight: 400, fontSize: 11, box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif}}
-        >
-          <a href={"https://coinlib.io"} target="_blank" style={{ fontWeight: 500, color: '#FFFFFF', textDecoration: 'none', fontSize: 11 }}>Cryptocurrency Prices</a> by Coinlib</div>
-      </div> */}
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-        <Header/>
+        <Header />
       </AppBar>
-      <SideBar/>
+      <SideBar />
       <main className={classes.content}>
         <Toolbar />
 
@@ -295,7 +233,7 @@ const UserPanel = (props) => {
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.fees}</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>Rs. {cardData.fees}</h3>
                           </CardHeader>
                           <CardFooter stats>
 
@@ -308,33 +246,6 @@ const UserPanel = (props) => {
                 {/* {renderPlans()} */}
               </Grid>
             </Grid>
-
-            {/* {a.map((i) => {
-              return(
-            <GridItem xs={12} sm={6} md={3}>
-              <Card>
-                <CardHeader color="warning" stats icon>
-                  <CardIcon color="warning">
-                    <Icon>content_copy</Icon>
-                  </CardIcon>
-                  <p className={classes.cardCategory}>Used Space</p>
-                  <h3 style={{ color: "black" }} className={classes.cardTitle}>
-                    49/50 <small>GB</small>
-                  </h3>
-                </CardHeader>
-                <CardFooter stats>
-                   <div className={classes.stats}>
-                <Danger>
-                  <Warning />
-                </Danger>
-              </div> 
-                </CardFooter>
-              </Card>
-            </GridItem>
-            )})
-              } */}
-
-
 
             <Divider />
           </Paper>
@@ -377,19 +288,7 @@ const UserPanel = (props) => {
           </DialogActions>
         </Dialog>
         <br />
-
-        {/* <Grid item>
-          <Paper>
-            <br />
-            <Typography variant="h5" style={{ textAlign: "center" }}>
-              Current Users
-              <hr />
-            </Typography>
-            <CollapsibleTable />
-          </Paper>
-        </Grid> */}
       </main>
-      {/* whatsapp icon */}
       <a
         href="https://wa.me/+447949549043"
         class="whatsapp_float"
