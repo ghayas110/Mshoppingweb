@@ -7,6 +7,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ChatIcon from '@material-ui/icons/Chat';
 import { Avatar } from '@material-ui/core';
+import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
 
 function Header() {
     return (
@@ -25,7 +26,7 @@ function Header() {
 
 <div class="header__right"></div>
 <div class="header__info">
-<Avatar/> 
+<SettingsPowerIcon/> 
 
 </div>
 
