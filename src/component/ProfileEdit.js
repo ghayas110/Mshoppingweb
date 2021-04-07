@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useSelector } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import React from "react";
+import { withRouter } from "react-router-dom";
+import rocketImg from '../rocket.png';
+import Signup from './Signup';
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -19,7 +20,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 // import table from './Table';
 import Header from "./Header"
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -30,10 +30,6 @@ import CollapsibleTable from "./UserCurrentPlans";
 import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import SideBar from "./SideBar";
-import { Avatar } from "@material-ui/core";
-import { loggedInUser } from "../redux/loggedInUser";
-import Signup from "./Signup";
-import ProfileEdit from "./ProfileEdit";
 
 const drawerWidth = 240;
 
@@ -52,24 +48,18 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    marginTop: 40,
+    marginTop:40,
     overflow: "auto",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  con: {
-    textAlign: "left",
-    fontSize: 18
-  }
-
 }));
 
-const Profile = (props) => {
+const ProfileEdit = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const { loggedInUser, userPlans } = useSelector((state) => state);
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -83,48 +73,39 @@ const Profile = (props) => {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-        <Header />
+      <Header/>
       </AppBar>
-      <SideBar />
+    <SideBar/>
       <main className={classes.content}>
-        <Toolbar />
-        <br />
-
-
+         <Toolbar />
+                <br />
+                <Typography variant="h5" style={{ textAlign: "left" }}>
+            
+              <hr />
+              </Typography>
+              
         <Grid item >
-          <div className={classes.iconsize}>
-            <AccountCircleIcon style={{ fontSize: 60 }} />
-            <div >
-              <h2>{loggedInUser.user.userCode}</h2>
-              <div className={classes.con}>
-                <p>Name:{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</p>
-
-                <p >Email:{loggedInUser.user.userEmail}</p>
-                <p>Phone No:{loggedInUser.user.phone_number}</p>
-                <p>User Code:{loggedInUser.user.userCode}</p>
-                <p>Invite Link: http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</p>
-              </div>
-              <div>
-                <Button variant="outlined" color="primary" onClick={() => props.history.push('ProfileEdit')}>Edit Profile</Button>
-              </div>
-            </div>
-
-
-          </div>
+        <div className="container mt-1 ml-4">
+      <div className="row">
+        <div className="col-md-7.5">
+          <Signup />
+        </div>
+      </div>
+    </div>
         </Grid>
       </main>
-      {/* whatsapp icon */}
-      <a
-        href="https://wa.me/+447949549043"
+       {/* whatsapp icon */}
+       <a
+       href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
       >
         {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
+        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
       </a>
     </div>
   );
 }
 
-export default withRouter(Profile)
+export default withRouter(ProfileEdit)

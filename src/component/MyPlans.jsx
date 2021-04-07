@@ -89,7 +89,7 @@ const MyPlans = (props) => {
         else {
             return (
                 <div style={{margin: 20}} >
-                    <h3>You not have buy any Plans yet</h3>
+                    <h3>You have not bought any plans yet</h3>
                 </div>
             )
         }
