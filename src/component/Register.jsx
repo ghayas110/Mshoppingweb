@@ -213,6 +213,7 @@ const Register = (props) => {
                   email: data.email,
                   phone_number: data.phone_number,
                   parentId: parentUser[0].id,
+                  userName: data.userName,
                   userCode: data.usercode,
                 };
                 const createdUser = await API.graphql(
@@ -496,7 +497,7 @@ const Register = (props) => {
               <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Secure</Button>
               {data.check_PasswordChange ? <></> : <div className={classes.err}> Password should contain UPPERCASE, LOWERCASE, NUMERIC AND SPECIAL CHARACTERS only (atleast 8 character long) </div>}
             </Grid>
-            <Alert color='info' style={{fontSize: 11}}>Phone number should be formated like: 92XXXXXXXXXX (12 digits long)</Alert>
+            <Alert color='info' style={{fontSize: 11}}>Phone number should be formated like: +92XXXXXXXXXX (12 digits long)</Alert>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
