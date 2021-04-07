@@ -31,6 +31,8 @@ import logo from "../Mshoping.png"
 import SideBar from "./SideBar";
 import { Avatar } from "@material-ui/core";
 import { loggedInUser } from "../redux/loggedInUser";
+import Signup from "./Signup";
+import SignupForm from "./SignupForm";
 
 const drawerWidth = 240;
 
@@ -90,7 +92,7 @@ export default function Profile(props) {
               
         <Grid item >
 <div className={classes.iconsize}>
-    <AccountCircleIcon fontSize="large"/>
+    <AccountCircleIcon style={{ fontSize: 60 }} />
     <div >
     <h2>{loggedInUser.user.userCode}</h2>    
     <div className={classes.con}>
@@ -102,7 +104,7 @@ export default function Profile(props) {
     <p>Invite Link: http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</p>
     </div>
     <div>
-    <Button variant="outlined" color="primary" >Edit Profile</Button>
+    <Button variant="outlined" color="primary" onClick={SignupForm}>Edit Profile</Button>
     </div>
     </div>
  
