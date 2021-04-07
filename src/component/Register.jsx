@@ -45,6 +45,7 @@ function Copyright() {
   );
 }
 
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -94,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = (props) => {
+  const [errors, setErrors] = useState("")
   const classes = useStyles();
 
   // const[url]
