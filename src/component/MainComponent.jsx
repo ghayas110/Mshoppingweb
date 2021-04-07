@@ -7,6 +7,7 @@ import Login from "./Login";
 import Confirmation from './Confirmation.jsx'
 import Home from "./Home";
 import ForgetPassword from "./ForgetPassword";
+import ForgetPasswordSubmit from "./ForgetPasswordSubmit";
 import UserPanel from "./UserPanel";
 import ReferedBy from "./ReferedBy";
 import MyReferals from "./MyReferals";
@@ -26,6 +27,7 @@ const Main = () => {
             <Route path="/register" component={Register} />
             <Route path='/confirmation' component={Confirmation} />
             <Route path="/forgetPassword" component={ForgetPassword} />
+            <Route path="/forgetPasswordsubmit" component={ForgetPasswordSubmit} />
             <Route path="/UserPanel" component={UserPanel} />
             <Route path="/ReferedBy" component={ReferedBy} />
             <Route path="/MyReferals" component={MyReferals} />

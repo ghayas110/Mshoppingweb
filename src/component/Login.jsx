@@ -20,27 +20,7 @@ import ReactWhatsapp from "react-whatsapp";
 import { render } from "react-dom";
 import { FaWhatsapp } from "react-icons/fa";
 import { Link, withRouter } from "react-router-dom";
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// const App = () => (
-//   <ReactWhatsapp number="+18323874234" message="This Message is Sent From Website"
-//   element="button"
-//   />
-// );
-// render(<App />, document.getElementById('root'));
+import CopyRight from "./CopyRight";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -94,6 +74,8 @@ const Login = (props) => {
             payload: {
               id: loggedinUserId,
               parentId: getId[0].parentId,
+              userName: getId[0].userName,
+              phone_number: getId[0].phone_number,
               userCode: getId[0].userCode,
               firstName: getId[0].firstName,
               middleName: getId[0].middleName,
@@ -205,10 +187,10 @@ const Login = (props) => {
           </Button>
           <Grid container>
             <Grid item xs>
-              {/* <Link to='ForgetPassword'
+              <Link to='ForgetPassword'
               >
                 Forgot password?
-              </Link> */}
+              </Link>
             </Grid>
             <Grid item>
               <Link to='register'>
@@ -219,7 +201,7 @@ const Login = (props) => {
         </form>
       </div>
       <Box mt={8}>
-        <Copyright />
+        <CopyRight />
       </Box>
       <a
         href="https://wa.me/+447949549043"
