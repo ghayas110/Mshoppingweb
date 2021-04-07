@@ -92,6 +92,7 @@ const UserPanel = (props) => {
 
   const a = [0, 1, 2]
   useEffect(async () => {
+    getDatas()
     try {
       const userPlansData = await API.graphql(
         graphqlOperation(listUserPlanss, {
@@ -111,9 +112,7 @@ const UserPanel = (props) => {
         payload: err.errors
       })
     }
-    getDatas()
-
-  }, [getDatas]);
+  }, []);
 
   async function getDatas() {
     const childCountData = await API.graphql(graphqlOperation(listUsers, { filter: { parentId: { eq: loggedInUser.user.id } } }))
@@ -128,7 +127,6 @@ const UserPanel = (props) => {
         fees += parseFloat(getFees[i].plan.fee)
       }
     console.log(countAllChild, loggedInUser.user.parentId === 'null');
-    console.log('fees', getFees[0].plan.fee);
     if (loggedInUser.user.parentId === 'null') {
       setCardDatas({ noParent: true, username: '', countRefferals: countAllChild, fees: fees })
     }
@@ -136,8 +134,7 @@ const UserPanel = (props) => {
       const parentData = await API.graphql(graphqlOperation(getUser, { id: loggedInUser.user.parentId }))
       const parent = parentData.data.getUser
       console.log(parent);
-      if (getFees.length > 0)
-        setCardDatas({ noParent: false, username: parent.firstName + ' ' + parent.lastName, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
+      setCardDatas({ noParent: false, username: loggedInUser.user.username, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
     }
     console.log(cardData)
   }
@@ -236,7 +233,7 @@ const UserPanel = (props) => {
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.fees}</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>Rs. {cardData.fees}</h3>
                           </CardHeader>
                           <CardFooter stats>
 

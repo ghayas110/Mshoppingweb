@@ -15,6 +15,7 @@ import MyPlans from "./MyPlans";
 import ByPlans from "./ByPlans";
 import Checkout from './Checkout';
 import SignupForm from "./SignupForm";
+import Profile from "./Profile";
 
 const { persistor, store } = configureStore()
 
@@ -33,6 +34,7 @@ const Main = () => {
             <Route path="/MyReferals" component={MyReferals} />
             <Route path="/ByPlans" component={ByPlans} />
             <Route path="/MyPlans" component={MyPlans} />
+            <Route path="/Profile" component={Profile} />
             <Redirect to='/' />
         </Switch>
     );
