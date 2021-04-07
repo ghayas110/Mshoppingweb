@@ -30,6 +30,8 @@ import Amplify, { API, Auth, graphqlOperation } from "aws-amplify";
 import Login from "./Login";
 import logo from "../Mshoping.png"
 import { Input } from "@material-ui/core";
+import { Alert } from 'reactstrap'
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -85,6 +87,10 @@ const useStyles = makeStyles((theme) => ({
   text: {
     textAlign: "left",
   },
+  err: {
+    color: 'red',
+    fontSize: 12
+  }
 }));
 
 const Register = (props) => {
@@ -104,17 +110,16 @@ const Register = (props) => {
     referalUserCode: "",
 
     check_UserCodeChange: false,
-    check_UserNameChange: false,
-    check_NamesChange: false,
+    check_UserNameChange: 0,
+    check_NamesChange: 0,
     // check_LastNameChange: false,
     // check_MiddleNameChange: false,
-    check_EmailChange: false,
-    check_PhoneChange: false,
+    check_EmailChange: 0,
+    check_PhoneChange: 0,
     check_ReferalUserCodeChange: false,
-    check_PasswordChange: false,
-    check_ConfirmPasswordChange: false,
+    check_PasswordChange: 0,
     secureTextEntry: true,
-    userCodeIsUnique: false,
+    userNameIsUnique: 0,
   });
 
   useEffect(async () => {
@@ -179,6 +184,7 @@ const Register = (props) => {
           const userNameResult = userCode.data.listUsers.items
           console.log("userNameResult", userNameResult, userNameResult.length)
           if (userNameResult.length == 0) {
+            setData({ ...data, userNameIsUnique: true })
             const parentData = await API.graphql(
               graphqlOperation(listUsers, {
                 filter: { userCode: { eq: data.referalUserCode } },
@@ -215,14 +221,26 @@ const Register = (props) => {
               });
             } else
               console.log("Parent referal Code not correct");
-          } else
+          } else {
+            setData({ ...data, userNameIsUnique: false })
             console.log("UserName notunique");
+          }
         }
         else {
           console.log("UserCode notunique");
         }
       } else {
-        console.log("Fill all Fields");
+        setData({
+          ...data,
+          check_UserCodeChange: data.check_UserCodeChange === true ? true : false,
+          check_NamesChange: data.check_NamesChange === true ? true : false,
+          check_UserNameChange: data.check_UserNameChange === true ? true : false,
+          check_EmailChange: data.check_EmailChange === true ? true : false,
+          check_PhoneChange: data.check_PhoneChange === true ? true : false,
+          check_ReferalUserCodeChange: data.check_ReferalUserCodeChange === true ? true : false,
+          check_PasswordChange: data.check_PasswordChange === true ? true : false
+        })
+        console.log("Fill all Fields", data);
         //ToastAndroid.showWithGravity('Fill all Fields', ToastAndroid.LONG, ToastAndroid.CENTER)
       }
     } catch (error) {
@@ -374,33 +392,10 @@ const Register = (props) => {
     }
   };
 
-  const handleConfirmPasswordChange = (val) => {
-    if (passwordRegex.test(val)) {
-      setData({
-        ...data,
-        confirm_password: val,
-        check_ConfirmPasswordChange: true,
-      });
-    } else {
-      setData({
-        ...data,
-        confirm_password: val,
-        check_ConfirmPasswordChange: true,
-      });
-    }
-  };
-
   const updateSecureTextEntry = () => {
     setData({
       ...data,
       secureTextEntry: !data.secureTextEntry,
-    });
-  };
-
-  const updateConfirmSecureTextEntry = () => {
-    setData({
-      ...data,
-      confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
   };
   //ending
@@ -416,7 +411,7 @@ const Register = (props) => {
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
-          {<div>Please enter your name as per your CNIC. Leave the field empty that is not relevant</div>}
+          {<Alert color='info'> Please enter your name as per your CNIC. <br /> Leave the field empty that is not relevant </Alert>}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -459,6 +454,8 @@ const Register = (props) => {
               />
 
             </Grid>
+            {data.check_NamesChange === false ? <div className={classes.err} >Please fill name field from above given fields</div> : <></>}
+            <Alert color='info' style={{fontSize: 11}} >Username must be unique and only allowed alphbets digits and underscore</Alert>
             <Grid item xs={12} sm={12}>
               <TextField
                 variant="outlined"
@@ -468,7 +465,8 @@ const Register = (props) => {
                 label="Username"
                 onChange={(e) => handleUserName(e.target.value)}
               />
-
+              { data.check_UserNameChange === false ? <div className={classes.err} >Please fill username field</div> : <></> }
+              { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -481,7 +479,7 @@ const Register = (props) => {
                 autoComplete="email"
                 onChange={(e) => handleEmailAddress(e.target.value)}
               />
-              {data.check_EmailChange ? <div></div> : <div>Email Should be Valid</div>}
+              {data.check_EmailChange === true ? <></> : <div className={classes.err} >Email Should be Valid</div>}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -490,14 +488,13 @@ const Register = (props) => {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                type={data.secureTextEntry === true ? 'password' : 'text'}
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
-              {data.check_PasswordChange ? <div></div> : <div>Password should be uppercase special checters /,_,-, and numaric (At Least 5 letters) </div>}
+              <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Secure</Button>
+              {data.check_PasswordChange ? <></> : <div className={classes.err}> Password should contain UPPERCASE, LOWERCASE, NUMERIC AND SPECIAL CHARACTERS only (atleast 8 character long) </div>}
             </Grid>
-
+            <Alert color='info' style={{fontSize: 11}}>Phone number should be formated like: 92XXXXXXXXXX (12 digits long)</Alert>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -512,36 +509,7 @@ const Register = (props) => {
               />
 
             </Grid>
-            {/* <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="UserId"
-                value={data.referalUserCode}
-                label="ref code"
-                disabled
-                name="refCode"
-                autoComplete="Uid"
-                onChange={(e) => handleReferalUserCode(e.target.value)}
-              />
-               {data.check_ReferalUserCodeChange  ? <div></div>:<div>Referal code Should be unique</div>}
-            </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                value={data.usercode}
-                id="uc"
-                label="User Code"
-                disabled
-                name="uc"
-                autoComplete="uc"
-                onChange={(e) => handleUserCode(e.target.value)}
-              />
-            </Grid> */}
             <Grid item xs={12} sm={9}>
               <FormControlLabel
                 control={<Checkbox name="checkedA" required />}
@@ -549,128 +517,6 @@ const Register = (props) => {
               />
 
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Role
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  //   value={age}
-                  //   onChange={handleChange}
-                  label="Role"
-                  className={classes.text}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Selected Role</MenuItem>
-                  <MenuItem value={20}>Selected Role</MenuItem>
-                  <MenuItem value={30}>Selected Role</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl variant="outlined" className={classes.Genderclass}>
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Gender
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  //   value={age}
-                  //   onChange={handleChange}
-                  label="gender"
-                  className={classes.text}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>MALE</MenuItem>
-                  <MenuItem value={20}>FEMALE</MenuItem>
-                  <MenuItem value={30}>OTHERS</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="city"
-                label="City"
-                name="city"
-                autoComplete="city"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="address"
-                label="Address"
-                type="text"
-                id="address"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="cnic"
-                label="CNIC"
-                type="text"
-                id="cnic"
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <div className={classes.root}>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                />
-                <p style={{ color: 'blue' }}>UPLOAD CNIC IMAGES</p>
-
-                <label htmlFor="contained-button-file">
-                  <Button variant="contained" color="primary" component="span">
-                    Upload
-                </Button>
-                </label>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="icon-button-file"
-                  type="file"
-                />
-                <label htmlFor="icon-button-file">
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                  >
-                    <PhotoCamera />
-                  </IconButton>
-                </label>
-              </div>
-            </Grid> */}
-            {/* <FormControlLabel
-              control={
-                <Switch
-                  // checked={state.checkedB}
-                  // onChange={handleChange}
-                  name="checkedB"
-                  color="primary"
-                />
-              }
-              label="ACTIVE"
-            /> */}
 
             <Grid item xs={12}>
 
