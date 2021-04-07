@@ -126,17 +126,17 @@ const UserPanel = (props) => {
       for (var i = 0; i < getFees.length; i++) {
         fees += parseFloat(getFees[i].plan.fee)
       }
-    console.log(countAllChild, loggedInUser.user.parentId === 'null');
+    // console.log(countAllChild, loggedInUser.user.parentId === 'null');
     if (loggedInUser.user.parentId === 'null') {
       setCardDatas({ noParent: true, username: '', countRefferals: countAllChild, fees: fees })
     }
     else {
       const parentData = await API.graphql(graphqlOperation(getUser, { id: loggedInUser.user.parentId }))
       const parent = parentData.data.getUser
-      console.log(parent);
+      // console.log(parent);
       setCardDatas({ noParent: false, username: loggedInUser.user.username, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
     }
-    console.log(cardData)
+    // console.log(cardData)
   }
 
   const handleClickOpen = () => {

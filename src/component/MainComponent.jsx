@@ -35,6 +35,7 @@ const Main = () => {
             <Route path="/ByPlans" component={ByPlans} />
             <Route path="/MyPlans" component={MyPlans} />
             <Route path="/Profile" component={Profile} />
+            <Route path="/signupform" component={SignupForm} />
             <Redirect to='/' />
         </Switch>
     );

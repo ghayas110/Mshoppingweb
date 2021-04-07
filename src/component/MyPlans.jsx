@@ -41,7 +41,7 @@ const MyPlans = (props) => {
     const { userPlans } = useSelector((state) => state);
 
     const renderPlans = () => {
-        console.log('renderPlans', userPlans);
+        // console.log('renderPlans', userPlans);
         if (userPlans.userPlans.length > 0)
             return userPlans.userPlans.map((item, index) => {
                 return (
@@ -85,7 +85,14 @@ const MyPlans = (props) => {
                         </Grid>
                     </Grid>
                 );
-            });
+            })
+        else {
+            return (
+                <div style={{margin: 20}} >
+                    <h3>You not have buy any Plans yet</h3>
+                </div>
+            )
+        }
     };
 
     return (

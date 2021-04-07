@@ -1,5 +1,6 @@
-import React,{useState} from "react";
-import {useSelector} from 'react-redux'
+import React, { useState } from "react";
+import { useSelector } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -49,25 +50,25 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    marginTop:40,
+    marginTop: 40,
     overflow: "auto",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  con:{
-textAlign:"left",
-fontSize:18
+  con: {
+    textAlign: "left",
+    fontSize: 18
   }
 
 }));
 
-export default function Profile(props) {
+const Profile = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { loggedInUser, userPlans } = useSelector((state) => state);
-  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -80,46 +81,48 @@ export default function Profile(props) {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-      <Header/>
+        <Header />
       </AppBar>
-    <SideBar/>
+      <SideBar />
       <main className={classes.content}>
-         <Toolbar />
-                <br />
-               
-              
+        <Toolbar />
+        <br />
+
+
         <Grid item >
-<div className={classes.iconsize}>
-    <AccountCircleIcon fontSize="large"/>
-    <div >
-    <h2>{loggedInUser.user.userCode}</h2>    
-    <div className={classes.con}>
-    <p>Name:{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</p>
-  
-    <p >Email:{loggedInUser.user.userEmail}</p>
-    <p>Phone No:{loggedInUser.user.phone_number}</p>
-    <p>User Code:{loggedInUser.user.userCode}</p>
-    <p>Invite Link: http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</p>
-    </div>
-    <div>
-    <Button variant="outlined" color="primary" >Edit Profile</Button>
-    </div>
-    </div>
- 
-   
-</div>
+          <div className={classes.iconsize}>
+            <AccountCircleIcon fontSize="large" />
+            <div >
+              <h2>{loggedInUser.user.userCode}</h2>
+              <div className={classes.con}>
+                <p>Name:{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</p>
+
+                <p >Email:{loggedInUser.user.userEmail}</p>
+                <p>Phone No:{loggedInUser.user.phone_number}</p>
+                <p>User Code:{loggedInUser.user.userCode}</p>
+                <p>Invite Link: http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</p>
+              </div>
+              <div>
+                <Button variant="outlined" color="primary" onClick={() => props.history.push('signupform')} >Edit Profile</Button>
+              </div>
+            </div>
+
+
+          </div>
         </Grid>
       </main>
-       {/* whatsapp icon */}
-       <a
-       href="https://wa.me/+447949549043"
+      {/* whatsapp icon */}
+      <a
+        href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
       >
         {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
+        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
     </div>
   );
 }
+
+export default withRouter(Profile)

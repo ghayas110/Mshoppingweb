@@ -126,11 +126,11 @@ const Register = (props) => {
 
   useEffect(async () => {
     var number = await Date.now() // 0.9394456857981651
-    console.log(number);
+    // console.log(number);
     console.log(number.toString(36)); // '0.xtis06h6'
     var id = number.toString(36) // 'xtis06h6'
-    console.log(id.length >= 8); // false
-    console.log(window.location.href.substring(window.location.href.lastIndexOf('/') + 1));
+    // console.log(id.length >= 8); // false
+    // console.log(window.location.href.substring(window.location.href.lastIndexOf('/') + 1));
     const refUsercode = await window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
     if (refUsercode !== 'register')
       setData({
@@ -151,15 +151,15 @@ const Register = (props) => {
   //working
   async function signUp() {
     try {
-      console.log(
-        data.check_UserCodeChange,
-        data.check_NamesChange,
-        data.check_UserNameChange,
-        data.check_EmailChange,
-        data.check_PhoneChange,
-        data.check_ReferalUserCodeChange,
-        data.check_PasswordChange
-      );
+      // console.log(
+      //   data.check_UserCodeChange,
+      //   data.check_NamesChange,
+      //   data.check_UserNameChange,
+      //   data.check_EmailChange,
+      //   data.check_PhoneChange,
+      //   data.check_ReferalUserCodeChange,
+      //   data.check_PasswordChange
+      // );
       if (
         data.check_UserCodeChange === true &&
         data.check_NamesChange === true &&
@@ -205,7 +205,7 @@ const Register = (props) => {
                   // other custom attributes
                 },
               }).then(async (user) => {
-                console.log(user);
+                // console.log(user);
                 const newUser = {
                   firstName: data.firstName,
                   middleName: data.middleName,
@@ -219,7 +219,7 @@ const Register = (props) => {
                 const createdUser = await API.graphql(
                   graphqlOperation(createUser, { input: newUser })
                 );
-                console.log("createdResellerUser", createdUser.data);
+                // console.log("createdResellerUser", createdUser.data);
                 props.history.push("/confirmation", { email: data.email })
               });
             } else
@@ -243,7 +243,7 @@ const Register = (props) => {
           check_ReferalUserCodeChange: data.check_ReferalUserCodeChange === true ? true : false,
           check_PasswordChange: data.check_PasswordChange === true ? true : false
         })
-        console.log("Fill all Fields", data);
+        // console.log("Fill all Fields", data);
         //ToastAndroid.showWithGravity('Fill all Fields', ToastAndroid.LONG, ToastAndroid.CENTER)
       }
     } catch (error) {

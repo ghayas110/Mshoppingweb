@@ -24,6 +24,7 @@ const Signup = (props) => {
     <Formik
       initialValues={{
         firstName: '',
+        middleName: '',
         lastName: '',
         userid:'',
         code:'',
