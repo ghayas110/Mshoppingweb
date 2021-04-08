@@ -95,14 +95,14 @@ const Profile = (props) => {
           <div className={classes.iconsize}>
             <AccountCircleIcon style={{ fontSize: 60 }} />
             <div >
-              <h2>{loggedInUser.user.userCode}</h2>
+              <h2>{loggedInUser.user.userName}</h2>
               <div className={classes.con}>
                 <p>Name:{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</p>
 
                 <p >Email:{loggedInUser.user.userEmail}</p>
                 <p>Phone No:{loggedInUser.user.phone_number}</p>
                 <p>User Code:{loggedInUser.user.userCode}</p>
-                <p>Invite Link: http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</p>
+                <p>Invite Link: <a style={{fontStyle: 'italic'}} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></p>
               </div>
               <div>
                 <Button variant="outlined" color="primary" onClick={() => props.history.push('ProfileEdit')}>Edit Profile</Button>

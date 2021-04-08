@@ -82,7 +82,7 @@ function SideBar(props) {
             </ListItem>
           </List>
 
-          <List>
+          {/* <List>
 
             <ListItem button onClick={() => {
               props.history.push("ReferedBy");
@@ -92,8 +92,7 @@ function SideBar(props) {
               </ListItemIcon>
               <ListItemText primary={"Refered By"} />
             </ListItem>
-
-          </List>
+          </List> */}
 
           <List>
 
@@ -141,16 +140,14 @@ function SideBar(props) {
             <ListItemText primary={"My Profile"} />
           </ListItem>
 
-          <List>
-
+          {/* <List>
             <ListItem button>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"Widthdrawls"} />
             </ListItem>
-
-          </List>
+          </List> */}
 
 
         </div>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -28,6 +29,12 @@ import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import Sidebar from './SideBar';
 import Header from "./Header";
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import { listUsers } from '../graphql/queries'
+import * as ActionTypes from '../redux/ActionTypes'
+import { Table } from 'reactstrap'
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +62,25 @@ const useStyles = makeStyles((theme) => ({
 
 const MyReferals = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const { loggedInUser, childs } = useSelector((state) => state);
+  const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
+  // const [childs, setChilds] = useState({})
+
+  useEffect(async () => {
+    try {
+      const childsData = await API.graphql(graphqlOperation(listUsers, { filter: { parentId: { eq: loggedInUser.user.id } } }))
+      const child = childsData.data.listUsers.items
+      dispatch({
+        type: ActionTypes.ADD_CHILD,
+        payload: child
+      })
+      console.log(child);
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }, [])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -65,65 +90,60 @@ const MyReferals = (props) => {
     setOpen(false);
   };
 
+  const renderChild = () => {
+    if (childs.childs.length > 0)
+      return childs.childs.map((item, index) => {
+        return (
+          <tr>
+            <th scope="row">{index + 1}</th>
+            <td>{item.userName}</td>
+            <td>{item.userCode}</td>
+          </tr>
+        )
+      })
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-<Header/>
+        <Header />
       </AppBar>
-      <Sidebar/>
+      <Sidebar />
       <main className={classes.content}>
-         <Toolbar />
-                <br />
-                <Typography variant="h5" style={{ textAlign: "left" }}>
-              My Referals
+        <Toolbar />
+        <br />
+        <Typography variant="h5" style={{ textAlign: "left" }}>
+          My Referals
               <hr />
-              </Typography>
+        </Typography>
         <Grid item >
-            <Paper >
+          <Paper >
             <Table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>User Name</th>
-          <th>UserCode</th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>the Bird</td>
-       
-        
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-        
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-         
-        </tr>
-      </tbody>
-    </Table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>User Name</th>
+                  <th>User Code</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {renderChild()}
+              </tbody>
+            </Table>
           </Paper>
         </Grid>
       </main>
-       {/* whatsapp icon */}
-       <a
+      {/* whatsapp icon */}
+      <a
         href="https://wa.me/+447949549043"
         class="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
       >
         {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
+        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
     </div>
   );

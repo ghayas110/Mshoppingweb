@@ -4,6 +4,8 @@ export const ADD_PLANS = 'ADD_PLANS'
 export const FAILED_PLANS = 'FAILED_PLANS'
 export const ADD_USERPLANS = 'ADD_USERPLANS'
 export const FAILED_USERPLANS = 'FAILED_USERPLANS'
+export const ADD_CHILD = 'ADD_CHILD'
+export const FAILED_CHILD = 'FAILED_CHILD'
 
 
 

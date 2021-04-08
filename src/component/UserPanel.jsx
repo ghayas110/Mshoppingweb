@@ -147,16 +147,6 @@ const UserPanel = (props) => {
     setOpen(false);
   };
 
-  // const handleCopy = (e) => {
-  //   textAreaRef.current.select();
-  //   console.log(textAreaRef.current.value);
-  //   document.execCommand('copy');
-  //   e.target.focus();
-  //   console.log(navigator.clipboard.readText().then(clipText => console.log(clipText)))
-  //   console.log('sucess!');
-  //   // setCopySuccess('Copied!');
-  // }
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -203,24 +193,24 @@ const UserPanel = (props) => {
                   </Grid>
 
                   <Grid item >
-                    <Paper elevation={5}>
-                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
-                        <Card>
-                          <CardHeader color="info" stats icon>
-                            <CardIcon color="info">
-                              <Accessibility />
-                            </CardIcon>
+                    <Link to='/MyReferals' >
+                      <Paper elevation={5}>
+                        <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                          <Card>
+                            <CardHeader color="info" stats icon>
+                              <CardIcon color="info">
+                                <Accessibility />
+                              </CardIcon>
+                              <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Our Team</p>
+                              <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.countRefferals}</h3>
+                            </CardHeader>
+                            <CardFooter stats>
 
-
-                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Our Team</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.countRefferals}</h3>
-                          </CardHeader>
-                          <CardFooter stats>
-
-                          </CardFooter>
-                        </Card>
-                      </GridItem>
-                    </Paper>
+                            </CardFooter>
+                          </Card>
+                        </GridItem>
+                      </Paper>
+                    </Link>
                   </Grid>
 
                   <Grid item >
