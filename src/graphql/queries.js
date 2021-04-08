@@ -5,6 +5,7 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
+      userName
       firstName
       middleName
       lastName
@@ -19,6 +20,10 @@ export const getUser = /* GraphQL */ `
       address
       city
       CNIC
+      paymentMethod
+      bankName
+      branchCode
+      accountNo
       canRegister
       status
       createdAt
@@ -35,6 +40,7 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        userName
         firstName
         middleName
         lastName
@@ -49,6 +55,10 @@ export const listUsers = /* GraphQL */ `
         address
         city
         CNIC
+        paymentMethod
+        bankName
+        branchCode
+        accountNo
         canRegister
         status
         createdAt
@@ -108,6 +118,7 @@ export const getUserPlans = /* GraphQL */ `
       userId
       user {
         id
+        userName
         firstName
         middleName
         lastName
@@ -122,6 +133,10 @@ export const getUserPlans = /* GraphQL */ `
         address
         city
         CNIC
+        paymentMethod
+        bankName
+        branchCode
+        accountNo
         canRegister
         status
         createdAt
@@ -142,6 +157,7 @@ export const getUserPlans = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      transactionCode
       startingDate
       paymentStatus
       planStatus
@@ -163,6 +179,7 @@ export const listUserPlanss = /* GraphQL */ `
         planId
         user {
         id
+        userName
         firstName
         middleName
         lastName
@@ -177,6 +194,10 @@ export const listUserPlanss = /* GraphQL */ `
         address
         city
         CNIC
+        paymentMethod
+        bankName
+        branchCode
+        accountNo
         canRegister
         status
         createdAt
@@ -196,6 +217,7 @@ export const listUserPlanss = /* GraphQL */ `
         createdAt
         updatedAt
       }
+        transactionCode
         startingDate
         paymentStatus
         planStatus

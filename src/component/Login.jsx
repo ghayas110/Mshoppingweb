@@ -88,7 +88,7 @@ const Login = (props) => {
               CNIC: '',
             },
           });
-          console.log(props);
+          console.log(getId[0]);
           props.history.push("UserPanel");
 
         });

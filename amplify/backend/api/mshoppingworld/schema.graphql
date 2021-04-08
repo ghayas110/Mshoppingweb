@@ -15,7 +15,10 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   address: String
   city: String
   CNIC: String
-  bank: [Bank] 
+  paymentMethod: String
+  bankName: String
+  branchCode: String
+  accountNo: String
   canRegister: Boolean
   status: String
 }

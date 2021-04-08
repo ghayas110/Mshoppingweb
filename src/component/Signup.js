@@ -61,7 +61,7 @@ const Signup = (props) => {
           <Form className="d-flex justify-content-between">
 
             <div className="px-5 bd-highlight">
-              {JSON.stringify(loggedInUser)}
+              {/* {JSON.stringify(loggedInUser)} */}
               <h4 className="my-4 font-weight-bold .display-4">User Details</h4>
               <TextField label="First Name" name="firstName" type="text" />
               <TextField label="last Name" name="lastName" type="text" />
