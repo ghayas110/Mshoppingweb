@@ -13,6 +13,7 @@ export const onCreateUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -43,6 +44,7 @@ export const onUpdateUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -73,6 +75,7 @@ export const onDeleteUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -160,6 +163,7 @@ export const onCreateUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -215,6 +219,7 @@ export const onUpdateUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -270,6 +275,7 @@ export const onDeleteUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender

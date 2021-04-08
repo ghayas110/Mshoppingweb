@@ -16,6 +16,7 @@ export const createUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -49,6 +50,7 @@ export const updateUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -82,6 +84,7 @@ export const deleteUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -181,6 +184,7 @@ export const createUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -239,6 +243,7 @@ export const updateUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -297,6 +302,7 @@ export const deleteUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender

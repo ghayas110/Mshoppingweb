@@ -8,8 +8,10 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ChatIcon from '@material-ui/icons/Chat';
 import { Avatar } from '@material-ui/core';
 import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
-
-function Header() {
+import Login from "./Login";
+import { Link, withRouter } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+function Header(props) {
     return (
         <div className="header">
            
@@ -26,7 +28,7 @@ function Header() {
 
 <div class="header__right"></div>
 <div class="header__info">
-<SettingsPowerIcon/> 
+<Button variant="outlined" color="primary" onClick={() => props.history.push('Login')}>Logout</Button>
 
 </div>
 
@@ -34,4 +36,4 @@ function Header() {
     )
 }
 
-export default Header
+export default withRouter(Header);

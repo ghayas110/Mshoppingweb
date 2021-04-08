@@ -13,6 +13,7 @@ export const getUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -48,6 +49,7 @@ export const listUsers = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -126,6 +128,7 @@ export const getUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -187,6 +190,7 @@ export const listUserPlanss = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender

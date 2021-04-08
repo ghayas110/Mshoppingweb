@@ -8,6 +8,7 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   phone_number: String!
   email: String!
   userCode: String!
+  fs: String
   userType: String
   userRole: String
   gender: String
