@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Formik, Form } from 'formik';
 import { TextField } from './Textfield'
 import * as Yup from 'yup';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { updateUser } from '../graphql/mutations'
 
 
@@ -22,20 +22,21 @@ const Signup = (props) => {
       console.log(updateUserData)
       const updatedUser = API.graphql(graphqlOperation(updateUser, { input: updateUserData }))
       console.log(updatedUser)
-      if (cnic !== undefined)
-        await Storage.put(`${loggedInUser.user.id}/cnic/${cnic.name}`, cnic, {
+      if (cnic !== undefined && typeof(cnic) === 'object')
+        await Storage.put(`${loggedInUser.user.id}/cnic`, cnic, {
           level: 'private'
         })
           .then(async (res) => {
             console.log(res)
           })
-      if (accSlip !== undefined)
-        await Storage.put(`${loggedInUser.user.id}/accountSlip/${accSlip.name}`, accSlip, {
+      if (accSlip !== undefined && typeof(accSlip) === 'object')
+        await Storage.put(`${loggedInUser.user.id}/accountSlip`, accSlip, {
           level: 'private'
         })
           .then(async (res) => {
             console.log(res)
           })
+          props.history.push('Profile')
     }
     catch (err) {
       console.log(err)
@@ -72,8 +73,8 @@ const Signup = (props) => {
         branchCode: '',
         accountNo: '',
         CNIC: '',
-        cnic_upload: '',
-        checkupload: '',
+        cnic_upload: {},
+        checkupload: {},
       }}
       validationSchema={validate}
       onSubmit={async values => {
