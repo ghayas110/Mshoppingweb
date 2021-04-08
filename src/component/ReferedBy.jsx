@@ -27,6 +27,7 @@ import CollapsibleTable from "./UserCurrentPlans";
 import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import SideBar from "./SideBar";
+import { Table } from 'reactstrap'
 
 const drawerWidth = 240;
 

@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage'
 import { loggedInUser } from './loggedInUser'
 import { plans } from './plans'
 import { userPlans } from './userPlans'
+import { childs } from './childs'
 
 export const configureStore = () => {
 
@@ -18,7 +19,8 @@ export const configureStore = () => {
         persistCombineReducers(persistConfig, {
             loggedInUser,
             plans,
-            userPlans
+            userPlans,
+            childs
         }),
         compose(
             applyMiddleware(thunk),

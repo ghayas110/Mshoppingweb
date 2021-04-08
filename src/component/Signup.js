@@ -1,15 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
 import { Formik, Form } from 'formik';
 import { TextField } from './Textfield'
 import * as Yup from 'yup';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { updateUser } from '../graphql/mutations'
+import * as ActionTypes from '../redux/ActionTypes'
 
 
 const Signup = (props) => {
   const { loggedInUser } = useSelector((state) => state);
+  const dispatch = useDispatch()
 
   async function updateUserData(values) {
     try {
@@ -21,22 +23,26 @@ const Signup = (props) => {
       const updateUserData = Object.assign({ id: loggedInUser.user.id }, values)
       console.log(updateUserData)
       const updatedUser = API.graphql(graphqlOperation(updateUser, { input: updateUserData }))
+      dispatch({
+        type: ActionTypes.ADD_LOGUSER,
+        payload: updateUserData
+      })
       console.log(updatedUser)
-      if (cnic !== undefined && typeof(cnic) === 'object')
+      if (cnic !== undefined && typeof (cnic) === 'object')
         await Storage.put(`${loggedInUser.user.id}/cnic`, cnic, {
           level: 'private'
         })
           .then(async (res) => {
             console.log(res)
           })
-      if (accSlip !== undefined && typeof(accSlip) === 'object')
+      if (accSlip !== undefined && typeof (accSlip) === 'object')
         await Storage.put(`${loggedInUser.user.id}/accountSlip`, accSlip, {
           level: 'private'
         })
           .then(async (res) => {
             console.log(res)
           })
-          props.history.push('Profile')
+      props.history.push('Profile')
     }
     catch (err) {
       console.log(err)
@@ -67,12 +73,12 @@ const Signup = (props) => {
         city: loggedInUser.user.city,
         address: loggedInUser.user.address,
         phone_number: loggedInUser.user.phone_number.toString(),
-        fs: '',
-        paymentMethod: '',
-        bankName: '',
-        branchCode: '',
-        accountNo: '',
-        CNIC: '',
+        fs: loggedInUser.user.fs,
+        paymentMethod: loggedInUser.user.paymentMethod,
+        bankName: loggedInUser.user.bankName,
+        branchCode: loggedInUser.user.branchCode,
+        accountNo: loggedInUser.user.accountNo,
+        CNIC: loggedInUser.user.CNIC,
         cnic_upload: {},
         checkupload: {},
       }}
