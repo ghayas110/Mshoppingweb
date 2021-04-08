@@ -94,6 +94,7 @@ const MyReferals = (props) => {
         <tr>
           <th scope="row">1</th>
           <td>Mark</td>
+          <td>the Bird</td>
        
         
         </tr>
