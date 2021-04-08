@@ -497,7 +497,7 @@ const Register = (props) => {
               <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Show</Button>
               {data.check_PasswordChange ? <></> : <div className={classes.err}> Password should contain UPPERCASE, LOWERCASE, NUMERIC AND SPECIAL CHARACTERS only (atleast 8 character long) </div>}
             </Grid>
-            <Alert color='info' style={{fontSize: 11}}>Phone number should be formated like: +92XXXXXXXXXX (12 digits long)</Alert>
+            <Alert color='info' style={{fontSize: 11}}>Phone number must provide like +92XXXXXXXXXX (12 digits long)</Alert>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
