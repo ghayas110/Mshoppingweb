@@ -133,9 +133,7 @@ export default function CollapsibleTable() {
             <TableCell />
             <TableCell>User Code</TableCell>
             <TableCell align="right">Level</TableCell>
-            {/* <TableCell align="right">Main Heading&nbsp;(g)</TableCell>
-            <TableCell align="right">Main Heading&nbsp;(g)</TableCell>
-            <TableCell align="right">Main Heading&nbsp;(g)</TableCell> */}
+          
           </TableRow>
         </TableHead>
         <TableBody>

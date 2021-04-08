@@ -223,7 +223,7 @@ const Register = (props) => {
                 props.history.push("/confirmation", { email: data.email })
               });
             } else
-              console.log("Parent referal Code not correct");
+              alert("Parent referal Code not correct");
           } else {
             setData({ ...data, userNameIsUnique: false })
             console.log("UserName notunique");
@@ -468,7 +468,7 @@ const Register = (props) => {
                 label="Username"
                 onChange={(e) => handleUserName(e.target.value)}
               />
-              { data.check_UserNameChange === false ? <div className={classes.err} >Please fill username field</div> : <></> }
+              { data.check_UserNameChange === false ? <div className={classes.err} >User Name should be 8 Char long, Combination of special char, Alphabets and Numbers</div> : <></> }
               { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
             </Grid>
             <Grid item xs={12}>
@@ -494,7 +494,7 @@ const Register = (props) => {
                 type={data.secureTextEntry === true ? 'password' : 'text'}
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
-              <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Secure</Button>
+              <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Show</Button>
               {data.check_PasswordChange ? <></> : <div className={classes.err}> Password should contain UPPERCASE, LOWERCASE, NUMERIC AND SPECIAL CHARACTERS only (atleast 8 character long) </div>}
             </Grid>
             <Alert color='info' style={{fontSize: 11}}>Phone number should be formated like: +92XXXXXXXXXX (12 digits long)</Alert>
