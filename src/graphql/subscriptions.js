@@ -5,6 +5,7 @@ export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
       id
+      userName
       firstName
       middleName
       lastName
@@ -12,6 +13,7 @@ export const onCreateUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -19,6 +21,10 @@ export const onCreateUser = /* GraphQL */ `
       address
       city
       CNIC
+      paymentMethod
+      bankName
+      branchCode
+      accountNo
       canRegister
       status
       createdAt
@@ -30,6 +36,7 @@ export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
       id
+      userName
       firstName
       middleName
       lastName
@@ -37,6 +44,7 @@ export const onUpdateUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -44,6 +52,10 @@ export const onUpdateUser = /* GraphQL */ `
       address
       city
       CNIC
+      paymentMethod
+      bankName
+      branchCode
+      accountNo
       canRegister
       status
       createdAt
@@ -55,6 +67,7 @@ export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
       id
+      userName
       firstName
       middleName
       lastName
@@ -62,6 +75,7 @@ export const onDeleteUser = /* GraphQL */ `
       phone_number
       email
       userCode
+      fs
       userType
       userRole
       gender
@@ -69,6 +83,10 @@ export const onDeleteUser = /* GraphQL */ `
       address
       city
       CNIC
+      paymentMethod
+      bankName
+      branchCode
+      accountNo
       canRegister
       status
       createdAt
@@ -137,6 +155,7 @@ export const onCreateUserPlans = /* GraphQL */ `
       userId
       user {
         id
+        userName
         firstName
         middleName
         lastName
@@ -144,6 +163,7 @@ export const onCreateUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -151,6 +171,10 @@ export const onCreateUserPlans = /* GraphQL */ `
         address
         city
         CNIC
+        paymentMethod
+        bankName
+        branchCode
+        accountNo
         canRegister
         status
         createdAt
@@ -171,6 +195,7 @@ export const onCreateUserPlans = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      transactionCode
       startingDate
       paymentStatus
       planStatus
@@ -186,6 +211,7 @@ export const onUpdateUserPlans = /* GraphQL */ `
       userId
       user {
         id
+        userName
         firstName
         middleName
         lastName
@@ -193,6 +219,7 @@ export const onUpdateUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -200,6 +227,10 @@ export const onUpdateUserPlans = /* GraphQL */ `
         address
         city
         CNIC
+        paymentMethod
+        bankName
+        branchCode
+        accountNo
         canRegister
         status
         createdAt
@@ -220,6 +251,7 @@ export const onUpdateUserPlans = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      transactionCode
       startingDate
       paymentStatus
       planStatus
@@ -235,6 +267,7 @@ export const onDeleteUserPlans = /* GraphQL */ `
       userId
       user {
         id
+        userName
         firstName
         middleName
         lastName
@@ -242,6 +275,7 @@ export const onDeleteUserPlans = /* GraphQL */ `
         phone_number
         email
         userCode
+        fs
         userType
         userRole
         gender
@@ -249,6 +283,10 @@ export const onDeleteUserPlans = /* GraphQL */ `
         address
         city
         CNIC
+        paymentMethod
+        bankName
+        branchCode
+        accountNo
         canRegister
         status
         createdAt
@@ -269,6 +307,7 @@ export const onDeleteUserPlans = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      transactionCode
       startingDate
       paymentStatus
       planStatus

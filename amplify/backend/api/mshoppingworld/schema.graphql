@@ -8,6 +8,7 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   phone_number: String!
   email: String!
   userCode: String!
+  fs: String
   userType: String
   userRole: String
   gender: String
@@ -15,9 +16,18 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   address: String
   city: String
   CNIC: String
+  paymentMethod: String
+  bankName: String
+  branchCode: String
+  accountNo: String
   canRegister: Boolean
   status: String
 }
+
+# type Bank @model @key(name: '') {
+  
+# }
+
 
 type Plan @model @key(name: "listPlansByFees", fields: ["fee"], queryField: "listPlansByFees") {
   id: ID!
