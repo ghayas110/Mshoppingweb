@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from 'react-redux'
 import { withRouter } from "react-router-dom";
 import rocketImg from '../rocket.png';
 import Signup from './Signup';
@@ -30,6 +31,7 @@ import CollapsibleTable from "./UserCurrentPlans";
 import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import SideBar from "./SideBar";
+import Whatsapp from './WhatsApp'
 
 const drawerWidth = 240;
 
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    marginTop:40,
+    marginTop: 40,
     overflow: "auto",
   },
   content: {
@@ -59,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileEdit = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const { loggedInUser } = useSelector((state) => state);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -73,37 +76,28 @@ const ProfileEdit = (props) => {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-      <Header/>
+        <Header />
       </AppBar>
-    <SideBar/>
+      <SideBar />
       <main className={classes.content}>
-         <Toolbar />
-                <br />
-                <Typography variant="h5" style={{ textAlign: "left" }}>
-            
-              <hr />
-              </Typography>
-              
+        <Toolbar />
+        <br />
+        <Typography variant="h5" style={{ textAlign: "left" }}>
+
+          <hr />
+        </Typography>
+
         <Grid item >
-        <div className="container mt-1 ml-4">
-      <div className="row">
-        <div className="col-md-7.5">
-          <Signup />
-        </div>
-      </div>
-    </div>
+          <div className="container mt-1 ml-4">
+            <div className="row">
+              <div className="col-md-7.5">
+                <Signup />
+              </div>
+            </div>
+          </div>
         </Grid>
       </main>
-       {/* whatsapp icon */}
-       <a
-       href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
-      </a>
+      <Whatsapp />
     </div>
   );
 }

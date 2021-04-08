@@ -1,10 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux'
 import { withRouter } from "react-router-dom";
 import { Formik, Form } from 'formik';
 import { TextField } from './Textfield'
 import * as Yup from 'yup';
+import { API, graphqlOperation } from 'aws-amplify';
+import { updateUser } from '../graphql/mutations'
 
 const Signup = (props) => {
+  const { loggedInUser } = useSelector((state) => state);
+
+  async function updateUserData(values) {
+    const updateUserData = { id: loggedInUser.user.id, firstName: values.firstName, middleName: values.middleName, lastName: values.lastName }
+    const updateUser = API.graphql(graphqlOperation(updateUser, { input: updateUserData }))
+  }
+
   const validate = Yup.object({
     firstName: Yup.string()
       .max(15, 'Must be 15 characters or less')
@@ -18,36 +28,31 @@ const Signup = (props) => {
     password: Yup.string()
       .min(6, 'Password must be at least 6 charaters')
       .required('Password is required'),
-    
+
   })
   return (
     <Formik
       initialValues={{
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        userid:'',
-        code:'',
-        email: '',
-        password: '',
-        gender:'',
-        city:'',
-        address:'',
-        cellno:'',
-        regdate:'',
+        firstName: loggedInUser.user.firstName,
+        middleName: loggedInUser.user.middleName,
+        lastName: loggedInUser.user.lastName,
+        email: loggedInUser.user.userEmail,
+        gender: loggedInUser.user.gender,
+        city: loggedInUser.user.city,
+        address: loggedInUser.user.address,
+        cellno: loggedInUser.user.phone_number,
+        regdate: '',
         cnicno: '',
-        cnic_upload:'',
-        bankname:'',
-        branchcode:'',
-        accountno:'',
-        checkupload:''
-       
-
-
+        cnic_upload: '',
+        bankname: '',
+        branchcode: '',
+        accountno: '',
+        checkupload: '',
       }}
       validationSchema={validate}
       onSubmit={values => {
         console.log(values)
+        updateUserData(values)
       }}
     >
       {formik => (
@@ -56,43 +61,44 @@ const Signup = (props) => {
           <Form className="d-flex justify-content-between">
 
             <div className="px-5 bd-highlight">
-            <h4 className="my-4 font-weight-bold .display-4">User Details</h4>
-            <TextField label="First Name" name="firstName" type="text" />
-            <TextField label="last Name" name="lastName" type="text" />
-            <TextField label="UserID" name="userid" type="text" />
-            <TextField label="Code" name="code" type="text" />
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="Password" name="password" type="password" />
-            <label htmlFor="email" style={{ display: 'block' }}>
-        Gender
+              {JSON.stringify(loggedInUser)}
+              <h4 className="my-4 font-weight-bold .display-4">User Details</h4>
+              <TextField label="First Name" name="firstName" type="text" />
+              <TextField label="last Name" name="lastName" type="text" />
+              <TextField label="UserID" name="userid" type="text" />
+              <TextField label="Code" name="code" type="text" />
+              <TextField label="Email" name="email" type="email" />
+              <TextField label="Password" name="password" type="password" />
+              <label htmlFor="email" style={{ display: 'block' }}>
+                Gender
       </label>
-      <select
-        name="gender"
-        style={{ display: 'block' }}
-      >
-        <option value="" label="Select Gender" />
-        <option value="male" label="Male" />
-        <option value="female" label="Female" />
-        
-      </select>
-            <TextField label="City" name="city" type="text" />
-            <TextField label="Address" name="address" type="text" />
-           
+              <select
+                name="gender"
+                style={{ display: 'block' }}
+              >
+                <option value="" label="Select Gender" />
+                <option value="male" label="Male" />
+                <option value="female" label="Female" />
+
+              </select>
+              <TextField label="City" name="city" type="text" />
+              <TextField label="Address" name="address" type="text" />
+
             </div>
             <div className="px-7 bd-highlight">
-            <h4 className="my-4 font-weight-bold .display-4">Confidential Details</h4>
-            <TextField label="Cell No" name="cellno" type="number" />
-            <TextField label="Registration Date " name="regdate" type="date" />
-            <TextField label="CNIC" name="CNIC" type="number" />
-            <label for="file">CNIC upload</label>
-                  <input id="file" name="file" type="file"  className="form-control" />
-            <TextField label="BankName" name="BankName" type="text" />  
-            <TextField label="BranchCode" name="BranchCode" type="number" />
-            <TextField label="Account No" name="Account No" type="number" />
-            <label for="file">CheckSlip upload</label>
-                  <input id="file" name="file" type="file"  className="form-control" />
-            <button className="btn btn-dark mt-3" type="submit">Save</button>
-            <button className="btn btn-danger mt-3 ml-3" type="reset">Reset</button>
+              <h4 className="my-4 font-weight-bold .display-4">Confidential Details</h4>
+              <TextField label="Cell No" name="cellno" type="number" />
+              <TextField label="Registration Date " name="regdate" type="date" />
+              <TextField label="CNIC" name="CNIC" type="number" />
+              <label for="file">CNIC upload</label>
+              <input id="file" name="file" type="file" className="form-control" />
+              <TextField label="BankName" name="BankName" type="text" />
+              <TextField label="BranchCode" name="BranchCode" type="number" />
+              <TextField label="Account No" name="Account No" type="number" />
+              <label for="file">CheckSlip upload</label>
+              <input id="file" name="file" type="file" className="form-control" />
+              <button className="btn btn-dark mt-3" type="submit">Save</button>
+              <button className="btn btn-danger mt-3 ml-3" type="reset">Reset</button>
             </div>
           </Form>
         </div>

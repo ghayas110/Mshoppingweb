@@ -133,8 +133,8 @@ const UserPanel = (props) => {
     else {
       const parentData = await API.graphql(graphqlOperation(getUser, { id: loggedInUser.user.parentId }))
       const parent = parentData.data.getUser
-      // console.log(parent);
-      setCardDatas({ noParent: false, username: loggedInUser.user.username, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
+      console.log(parent);
+      setCardDatas({ noParent: false, username: parent.username, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
     }
     // console.log(cardData)
   }

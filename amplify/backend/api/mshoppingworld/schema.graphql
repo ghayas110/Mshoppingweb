@@ -15,9 +15,15 @@ type User @model @key(name: "byChildUser", fields: ["parentId"])  {
   address: String
   city: String
   CNIC: String
+  bank: [Bank] 
   canRegister: Boolean
   status: String
 }
+
+# type Bank @model @key(name: '') {
+  
+# }
+
 
 type Plan @model @key(name: "listPlansByFees", fields: ["fee"], queryField: "listPlansByFees") {
   id: ID!

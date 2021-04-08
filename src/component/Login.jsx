@@ -81,6 +81,11 @@ const Login = (props) => {
               middleName: getId[0].middleName,
               lastName: getId[0].lastName,
               userEmail: user.attributes.email,
+              gender: '',
+              dob: '',
+              address: '',
+              city: '',
+              CNIC: '',
             },
           });
           console.log(props);
