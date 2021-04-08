@@ -65,6 +65,8 @@ const Signup = (props) => {
   return (
     <Formik
       initialValues={{
+        id: loggedinUserId,
+        parentId: loggedInUser.user.parentId,
         firstName: loggedInUser.user.firstName,
         middleName: loggedInUser.user.middleName,
         lastName: loggedInUser.user.lastName,
