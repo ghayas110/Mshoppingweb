@@ -176,8 +176,10 @@ const Login = (props) => {
             type="password"
             id="password"
             autoComplete="current-password"
+            type={data.secureTextEntry === true ? 'password' : 'text'}
             onChange={(e) => handlePasswordChange(e.target.value)}
           />
+          <Button style={{ position: 'absolute', marginLeft: -80,marginTop:30, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Show</Button>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

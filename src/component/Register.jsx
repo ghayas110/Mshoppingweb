@@ -195,7 +195,7 @@ const Register = (props) => {
             const parentUser = parentData.data.listUsers.items;
             // console.log("parentUser:", parentUser.length);
             if (parentUser.length == 1) {
-              console.log("Parent Exist");
+              alert("Email Already Exist");
               await Auth.signUp({
                 username: data.email,
                 password: data.password,
@@ -425,13 +425,13 @@ const Register = (props) => {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label="Full Name"
                 autoFocus
 
               />
 
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <TextField
                 onChange={(e) => handleNames(e.target.value, "Lname")}
                 variant="outlined"
@@ -456,7 +456,7 @@ const Register = (props) => {
                 onChange={(e) => handleNames(e.target.value, "Mname")}
               />
 
-            </Grid>
+            </Grid> */}
             {data.check_NamesChange === false ? <div className={classes.err} >Please fill name field from above given fields</div> : <></>}
             <Alert color='info' style={{fontSize: 11}} >Username must be unique and only allowed alphbets digits and underscore</Alert>
             <Grid item xs={12} sm={12}>
@@ -468,7 +468,7 @@ const Register = (props) => {
                 label="Username"
                 onChange={(e) => handleUserName(e.target.value)}
               />
-              { data.check_UserNameChange === false ? <div className={classes.err} >User Name should be 8 Char long, Combination of special char, Alphabets and Numbers</div> : <></> }
+              { data.check_UserNameChange === false ? <div className={classes.err} >User Name should be 8 Char long, </div> : <></> }
               { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
             </Grid>
             <Grid item xs={12}>
@@ -495,7 +495,7 @@ const Register = (props) => {
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
               <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Show</Button>
-              {data.check_PasswordChange ? <></> : <div className={classes.err}> Password should contain UPPERCASE, LOWERCASE, NUMERIC AND SPECIAL CHARACTERS only (atleast 8 character long) </div>}
+              {data.check_PasswordChange ? <></> : <div className={classes.err}> Password Should be 8 character long) </div>}
             </Grid>
             <Alert color='info' style={{fontSize: 11}}>Phone number must provide like +92XXXXXXXXXX (12 digits long)</Alert>
             <Grid item xs={12}>
