@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    marginTop:40,
+    marginTop: 40,
     overflow: "auto",
   },
   content: {
@@ -107,14 +107,13 @@ const BuyPlans = (props) => {
                       </div>
                       <div className="pricing-item-features">
                         <ul className="pricing-item-features-list">
-                          <li className="is-checked">Fees: {item.fee}</li>
-                          <li className="is-checked">Term: {item.term}</li>
-                          <li className="is-checked">Roi {item.ROI}</li>
+                          <li className="is-checked">Fees ($): {item.fee}</li>
+                          <li className="is-checked">Term (Month): {item.term}</li>
+                          <li className="is-checked">ROI: {item.ROI}</li>
                           {/* <li className="is-checked">Start Date : 01/01/21</li> */}
-                          <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li>
-                          {/* <li className="is-checked">Status : Active</li> */}
-                          <li className="is-checked">Subscription : {item.subscription}</li>
-                          <li className="is-checked">Levels : {item.levels}</li>
+                          {/* <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li> */}
+                          {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
+                          {/* <li className="is-checked">Levels : {item.levels}</li> */}
                         </ul>
                       </div>
                     </div>
@@ -164,9 +163,9 @@ const BuyPlans = (props) => {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-        <Header/>
+        <Header />
       </AppBar>
-      <SideBar/>
+      <SideBar />
       <main className={classes.content}>
         <Toolbar />
         <br />

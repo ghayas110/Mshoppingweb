@@ -60,7 +60,7 @@ const MyPlans = (props) => {
                                         </div>
                                         <div className="pricing-item-features">
                                             <ul className="pricing-item-features-list">
-                                                <li className="is-checked">Term: {item.plan.fee}</li>
+                                                <li className="is-checked">Term (Month): {item.plan.term}</li>
                                                 <li className="is-checked">ROI: {item.plan.ROI}</li>
                                                 <li className="is-checked">Status {item.planStatus}</li>
                                                 <li className="is-checked">

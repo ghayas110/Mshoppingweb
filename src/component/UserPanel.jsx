@@ -139,6 +139,20 @@ const UserPanel = (props) => {
     // console.log(cardData)
   }
 
+  const calculateROI = () => {
+    var sumROI = 0
+    let userPlansData = userPlans.userPlans
+    for (const item in userPlansData) {
+      const startDate = new Date(userPlansData[item].startingDate).getTime()
+      const today = new Date().getTime()
+      const diff = Math.round((today - startDate) / (1000 * 60 * 60 * 24))
+      sumROI += parseFloat((((userPlansData[item].plan.ROI * userPlansData[item].plan.fee) / 360) * diff).toFixed(2))
+    }
+    return (
+      <>{sumROI}</>
+    )
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -180,7 +194,7 @@ const UserPanel = (props) => {
                               <Accessibility />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '100%' }}>
                               {cardData.noParent === true ? 'No Parent' : cardData.username}
                             </h3>
                           </CardHeader>
@@ -223,7 +237,8 @@ const UserPanel = (props) => {
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>Rs. {cardData.fees}</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {cardData.fees}</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>ROI($) {calculateROI()}</h3>
                           </CardHeader>
                           <CardFooter stats>
 
