@@ -33,7 +33,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import Header from "./Header";
 import SideBar from "./SideBar";
-
+import  "./ByPlans.css";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({

@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    marginTop: 40,
+    marginTop: 70,
     overflow: "auto",
   },
   content: {
@@ -146,7 +146,7 @@ const UserPanel = (props) => {
       const startDate = new Date(userPlansData[item].startingDate).getTime()
       const today = new Date().getTime()
       const diff = Math.round((today - startDate) / (1000 * 60 * 60 * 24))
-      sumROI += parseFloat((((userPlansData[item].plan.ROI * userPlansData[item].plan.fee) / 360) * diff).toFixed(2))
+      sumROI += parseFloat(((((userPlansData[item].plan.ROI / 100) * userPlansData[item].plan.fee) / 30) * diff).toFixed(2))
     }
     return (
       <>{sumROI}</>
@@ -189,12 +189,12 @@ const UserPanel = (props) => {
                     <Paper elevation={5}>
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
                         <Card>
-                          <CardHeader color="warning" stats icon>
-                            <CardIcon color="warning">
+                          <CardHeader color="danger" stats icon>
+                            <CardIcon color="danger">
                               <Accessibility />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '100%' }}>
+                            <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
                               {cardData.noParent === true ? 'No Parent' : cardData.username}
                             </h3>
                           </CardHeader>
@@ -211,11 +211,11 @@ const UserPanel = (props) => {
                       <Paper elevation={5}>
                         <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
                           <Card>
-                            <CardHeader color="info" stats icon>
-                              <CardIcon color="info">
+                            <CardHeader color="success" stats icon>
+                              <CardIcon color="success">
                                 <Accessibility />
                               </CardIcon>
-                              <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Our Team</p>
+                              <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>My Team</p>
                               <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.countRefferals}</h3>
                             </CardHeader>
                             <CardFooter stats>
@@ -232,13 +232,13 @@ const UserPanel = (props) => {
 
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
                         <Card>
-                          <CardHeader color="success" stats icon>
-                            <CardIcon color="success">
+                          <CardHeader color="rose" stats icon>
+                            <CardIcon color="rose">
                               <Store />
                             </CardIcon>
-                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {cardData.fees}</h3>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>ROI($) {calculateROI()}</h3>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Wallet Balance</p>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(cardData.fees)} <p style={{fontSize: 11}}>Capital Account</p> </h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {calculateROI()} <p style={{fontSize: 11}}>Profit Share</p> </h3>
                           </CardHeader>
                           <CardFooter stats>
 

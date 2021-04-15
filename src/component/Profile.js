@@ -93,7 +93,7 @@ const Profile = (props) => {
 
         <Grid item >
           <div className={classes.iconsize}>
-            <AccountCircleIcon style={{ fontSize: 60 }} />
+            <AccountCircleIcon  style={{ fontSize: 60 }} color="primary" />
             <div >
               <h2>{loggedInUser.user.userName}</h2>
               <div className={classes.con}>

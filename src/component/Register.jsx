@@ -196,7 +196,6 @@ const Register = (props) => {
             const parentUser = parentData.data.listUsers.items;
             // console.log("parentUser:", parentUser.length);
             if (parentUser.length == 1) {
-              alert("Email Already Exist");
               await Auth.signUp({
                 username: data.email,
                 password: data.password,
@@ -405,8 +404,8 @@ const Register = (props) => {
   //ending
 
   return (
-    <Container component="main" maxWidth="xs" >
-      {/* style={{backgroundImage: require('')}} */}
+    <Container component="main" maxWidth="xs">
+      <img src='../assets/img/background.jpg' width='100%' height='100%' />
       <CssBaseline />
       <div className={classes.paper}>
 
@@ -459,7 +458,7 @@ const Register = (props) => {
               />
 
             </Grid> */}
-            {data.check_NamesChange === false ? <div className={classes.err} >Please fill name field from above given fields</div> : <></>}
+            {data.check_NamesChange === false ? <div className={classes.err} >Please enter your full name</div> : <></>}
             <Alert color='info' style={{fontSize: 11}} >Username must be unique and only allowed alphbets digits and underscore</Alert>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -470,7 +469,7 @@ const Register = (props) => {
                 label="Username"
                 onChange={(e) => handleUserName(e.target.value)}
               />
-              { data.check_UserNameChange === false ? <div className={classes.err} >User Name should be 8 Char long, </div> : <></> }
+              { data.check_UserNameChange === false ? <div className={classes.err} >User Name at least 5 characters long </div> : <></> }
               { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
             </Grid>
             <Grid item xs={12}>
@@ -517,7 +516,7 @@ const Register = (props) => {
 
             <Grid item xs={12} sm={9}>
               <FormControlLabel
-                control={<Checkbox name="checkedA" required />}
+                control={<Checkbox name="checkedA" color='primary' required />}
                 label="I accept terms and Conditions"
               />
 
