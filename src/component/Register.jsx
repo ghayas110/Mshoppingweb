@@ -405,7 +405,8 @@ const Register = (props) => {
   //ending
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" >
+      {/* style={{backgroundImage: require('')}} */}
       <CssBaseline />
       <div className={classes.paper}>
 
