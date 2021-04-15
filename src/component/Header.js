@@ -18,7 +18,7 @@ function Header(props) {
            <div class="header__left">
            <img src={logo} alt="Logo" />
            <div class="header__input">
-               <SearchIcon/>
+               <SearchIcon color="primary"/>
                <input placeholder="Search Plan" type="text"/>
            </div>
 </div>
@@ -28,7 +28,7 @@ function Header(props) {
 
 <div class="header__right"></div>
 <div class="header__info">
-<Button variant="outlined" color="primary" onClick={() => props.history.push('Login')}>Logout</Button>
+<Button variant="outlined" color= "secondary" onClick={() => props.history.push('Login')}>Logout</Button>
 
 </div>
 

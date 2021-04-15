@@ -13,6 +13,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -29,6 +30,10 @@ import logo from "../Mshoping.png"
 import Sidebar from './SideBar';
 import Header from "./Header";
 import Profile from "./Profile"
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import AddToQueueIcon from '@material-ui/icons/AddToQueue';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +73,7 @@ function SideBar(props) {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          <List style={{ backgroundColor: "#1A5276", color: "white" }}>
+          <List style={{ backgroundColor: "#cc6c2c", color: "white" }}>
             <ListItem
               button
               onClick={() => {
@@ -76,7 +81,7 @@ function SideBar(props) {
               }}
             >
               <ListItemIcon>
-                <InboxIcon />
+                <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary={"DASHBOARD"} />
             </ListItem>
@@ -100,7 +105,7 @@ function SideBar(props) {
               props.history.push("MyReferals");
             }}>
               <ListItemIcon>
-                <InboxIcon />
+              <AccountBoxIcon/>
               </ListItemIcon>
               <ListItemText primary={"My Referrals"} />
             </ListItem>
@@ -112,7 +117,7 @@ function SideBar(props) {
               props.history.push("ByPlans");
             }}>
               <ListItemIcon>
-                <InboxIcon />
+                <AccountTreeIcon />
               </ListItemIcon>
               <ListItemText primary={"Buy Plans"} />
             </ListItem>
@@ -125,7 +130,7 @@ function SideBar(props) {
               props.history.push("MyPlans");
             }}>
               <ListItemIcon>
-                <InboxIcon />
+                <AddToQueueIcon/>
               </ListItemIcon>
               <ListItemText primary={"My Plans"} />
             </ListItem>
@@ -135,7 +140,7 @@ function SideBar(props) {
             props.history.push("Profile");
           }}>
             <ListItemIcon>
-              <InboxIcon />
+              <AccountCircleIcon/>
             </ListItemIcon>
             <ListItemText primary={"My Profile"} />
           </ListItem>

@@ -459,18 +459,7 @@ const Register = (props) => {
             </Grid> */}
             {data.check_NamesChange === false ? <div className={classes.err} >Please fill name field from above given fields</div> : <></>}
             <Alert color='info' style={{fontSize: 11}} >Username must be unique and only allowed alphbets digits and underscore</Alert>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="userName"
-                label="Username"
-                onChange={(e) => handleUserName(e.target.value)}
-              />
-              { data.check_UserNameChange === false ? <div className={classes.err} >User Name should be 8 Char long, </div> : <></> }
-              { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
-            </Grid>
+           
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -483,6 +472,18 @@ const Register = (props) => {
                 onChange={(e) => handleEmailAddress(e.target.value)}
               />
               {data.check_EmailChange === true ? <></> : <div className={classes.err} >Email Should be Valid</div>}
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="userName"
+                label="Username"
+                onChange={(e) => handleUserName(e.target.value)}
+              />
+              { data.check_UserNameChange === false ? <div className={classes.err} >User Name should be 8 Char long, </div> : <></> }
+              { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
             </Grid>
             <Grid item xs={12}>
               <TextField

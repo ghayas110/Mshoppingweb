@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    marginTop: 40,
+    marginTop: 70,
     overflow: "auto",
   },
   content: {
@@ -175,8 +175,8 @@ const UserPanel = (props) => {
                     <Paper elevation={5}>
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
                         <Card>
-                          <CardHeader color="warning" stats icon>
-                            <CardIcon color="warning">
+                          <CardHeader color="danger" stats icon>
+                            <CardIcon color="danger">
                               <Accessibility />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
@@ -197,8 +197,8 @@ const UserPanel = (props) => {
                       <Paper elevation={5}>
                         <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
                           <Card>
-                            <CardHeader color="info" stats icon>
-                              <CardIcon color="info">
+                            <CardHeader color="success" stats icon>
+                              <CardIcon color="success">
                                 <Accessibility />
                               </CardIcon>
                               <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Our Team</p>
@@ -218,12 +218,12 @@ const UserPanel = (props) => {
 
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
                         <Card>
-                          <CardHeader color="success" stats icon>
-                            <CardIcon color="success">
+                          <CardHeader color="rose" stats icon>
+                            <CardIcon color="rose">
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>Rs. {cardData.fees}</h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$ {cardData.fees}</h3>
                           </CardHeader>
                           <CardFooter stats>
 
