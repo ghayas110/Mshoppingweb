@@ -8,3 +8,10 @@
 .button {
     background-color: #e9ba38;
 }
+
+.backImage {
+    background-image: url('../assets/img/background.jpg');
+    background-size: contain;
+    width: fit-content;
+    height: 100%;
+}

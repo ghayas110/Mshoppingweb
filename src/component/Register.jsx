@@ -139,27 +139,28 @@ const Register = (props) => {
         referalUserCode: refUsercode,
         check_UserCodeChange: true,
         check_ReferalUserCodeChange: true,
-      });
+      })
     else
       setData({
         ...data,
         usercode: id,
         check_UserCodeChange: true,
-      });
+        check_ReferalUserCodeChange: false,
+      })
   }, [])
 
   //working
   async function signUp() {
     try {
-      // console.log(
-      //   data.check_UserCodeChange,
-      //   data.check_NamesChange,
-      //   data.check_UserNameChange,
-      //   data.check_EmailChange,
-      //   data.check_PhoneChange,
-      //   data.check_ReferalUserCodeChange,
-      //   data.check_PasswordChange
-      // );
+      console.log('Ref',
+        data.referalUserCode,
+        // data.check_NamesChange,
+        // data.check_UserNameChange,
+        // data.check_EmailChange,
+        // data.check_PhoneChange,
+        // data.check_ReferalUserCodeChange,
+        // data.check_PasswordChange
+      )
       if (
         data.check_UserCodeChange === true &&
         data.check_NamesChange === true &&
@@ -195,7 +196,6 @@ const Register = (props) => {
             const parentUser = parentData.data.listUsers.items;
             // console.log("parentUser:", parentUser.length);
             if (parentUser.length == 1) {
-              alert("Email Already Exist");
               await Auth.signUp({
                 username: data.email,
                 password: data.password,
@@ -243,7 +243,7 @@ const Register = (props) => {
           check_ReferalUserCodeChange: data.check_ReferalUserCodeChange === true ? true : false,
           check_PasswordChange: data.check_PasswordChange === true ? true : false
         })
-        // console.log("Fill all Fields", data);
+        if (data.check_ReferalUserCodeChange === false ) alert('Referal User Code is not provided in the URL')
         //ToastAndroid.showWithGravity('Fill all Fields', ToastAndroid.LONG, ToastAndroid.CENTER)
       }
     } catch (error) {
@@ -286,7 +286,7 @@ const Register = (props) => {
   };
 
   const handleEmailAddress = (val) => {
-    if (checkcon.test(val)) {
+    if (checkcon.test(val) && data.email !== 0 ) {
       setData({
         ...data,
         email: val,
@@ -405,6 +405,7 @@ const Register = (props) => {
 
   return (
     <Container component="main" maxWidth="xs">
+      <img src='../assets/img/background.jpg' width='100%' height='100%' />
       <CssBaseline />
       <div className={classes.paper}>
 
@@ -457,9 +458,20 @@ const Register = (props) => {
               />
 
             </Grid> */}
-            {data.check_NamesChange === false ? <div className={classes.err} >Please fill name field from above given fields</div> : <></>}
+            {data.check_NamesChange === false ? <div className={classes.err} >Please enter your full name</div> : <></>}
             <Alert color='info' style={{fontSize: 11}} >Username must be unique and only allowed alphbets digits and underscore</Alert>
-           
+            <Grid item xs={12} sm={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="userName"
+                label="Username"
+                onChange={(e) => handleUserName(e.target.value)}
+              />
+              { data.check_UserNameChange === false ? <div className={classes.err} >User Name at least 5 characters long </div> : <></> }
+              { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -471,19 +483,7 @@ const Register = (props) => {
                 autoComplete="email"
                 onChange={(e) => handleEmailAddress(e.target.value)}
               />
-              {data.check_EmailChange === true ? <></> : <div className={classes.err} >Email Should be Valid</div>}
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="userName"
-                label="Username"
-                onChange={(e) => handleUserName(e.target.value)}
-              />
-              { data.check_UserNameChange === false ? <div className={classes.err} >User Name should be 8 Char long, </div> : <></> }
-              { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
+              {data.check_EmailChange === false ? <div className={classes.err} >Email Should be Valid</div> : <></>}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -496,7 +496,7 @@ const Register = (props) => {
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
               <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Show</Button>
-              {data.check_PasswordChange ? <></> : <div className={classes.err}> Password Should be 8 character long) </div>}
+              {data.check_PasswordChange === false ? <div className={classes.err}> Password Should be 8 character long </div> : <></>}
             </Grid>
             <Alert color='info' style={{fontSize: 11}}>Phone number must provide like +92XXXXXXXXXX (12 digits long)</Alert>
             <Grid item xs={12}>
@@ -516,7 +516,7 @@ const Register = (props) => {
 
             <Grid item xs={12} sm={9}>
               <FormControlLabel
-                control={<Checkbox name="checkedA" required />}
+                control={<Checkbox name="checkedA" color='primary' required />}
                 label="I accept terms and Conditions"
               />
 
@@ -537,7 +537,7 @@ const Register = (props) => {
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justify="flex-end" style={{marginTop: 10}}>
             <Grid item>
               <Link
                 href=''

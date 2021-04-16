@@ -139,6 +139,20 @@ const UserPanel = (props) => {
     // console.log(cardData)
   }
 
+  const calculateROI = () => {
+    var sumROI = 0
+    let userPlansData = userPlans.userPlans
+    for (const item in userPlansData) {
+      const startDate = new Date(userPlansData[item].startingDate).getTime()
+      const today = new Date().getTime()
+      const diff = Math.round((today - startDate) / (1000 * 60 * 60 * 24))
+      sumROI += parseFloat(((((userPlansData[item].plan.ROI / 100) * userPlansData[item].plan.fee) / 30) * diff).toFixed(2))
+    }
+    return (
+      <>{sumROI}</>
+    )
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -180,7 +194,7 @@ const UserPanel = (props) => {
                               <Accessibility />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>
+                            <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
                               {cardData.noParent === true ? 'No Parent' : cardData.username}
                             </h3>
                           </CardHeader>
@@ -201,7 +215,7 @@ const UserPanel = (props) => {
                               <CardIcon color="success">
                                 <Accessibility />
                               </CardIcon>
-                              <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Our Team</p>
+                              <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>My Team</p>
                               <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>{cardData.countRefferals}</h3>
                             </CardHeader>
                             <CardFooter stats>
@@ -222,8 +236,9 @@ const UserPanel = (props) => {
                             <CardIcon color="rose">
                               <Store />
                             </CardIcon>
-                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Current Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif" }}>$ {cardData.fees}</h3>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Wallet Balance</p>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(cardData.fees)} <p style={{fontSize: 11}}>Capital Account</p> </h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {calculateROI()} <p style={{fontSize: 11}}>Profit Share</p> </h3>
                           </CardHeader>
                           <CardFooter stats>
 
