@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import {
+  Card, CardImg, CardTitle, CardText, CardDeck,
+  CardSubtitle, CardBody
+} from 'reactstrap';
 import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
@@ -93,8 +97,10 @@ const BuyPlans = (props) => {
       return (
         plans.plans.map((item, index) => {
           return (
-            <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto" }}>
-              <Grid item xs={6} style={{ float: "left" }}>
+
+            <Grid item xs={12} s={12} m={4} style={{ marginLeft: "auto", marginRight: "auto" }}>
+              <Grid item xs={6} s={12} m={4} style={{ float: "left" }}>
+
                 <div className="pricing-item">
                   <div className="pricing-item-inner">
                     <div className="pricing-item-content">
