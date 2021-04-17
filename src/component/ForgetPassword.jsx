@@ -13,7 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Whatsapp from './WhatsApp'
+import Whatsapp from './WhatsApp';
+import Back from "../umbrela.jpeg";
 import Amplify, { Auth } from "aws-amplify";
 import { checkcon } from './reuse';
 
@@ -37,7 +38,9 @@ const ForgetPassword = (props) => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <div className="Login"  style={{ backgroundImage: `url(${Back})`,backgroundSize: 'cover' ,minHeight:"100vh", paddingTop: '50px' }}>
+    
+    <Container component="main" maxWidth="xs"  maxWidth="xs"  style={{ backgroundColor:"white", padding: '20px' }}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -74,6 +77,7 @@ const ForgetPassword = (props) => {
       </div>
       <Whatsapp />
     </Container>
+    </div>
   )
 }
 

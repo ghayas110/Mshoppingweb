@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 function CopyRight() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright © "}
+            {"Copyright ©  "}
             <Link color="inherit" href="https://material-ui.com/">
-                MShoppingWorld
+                M Shopping World
         </Link>{" "}
             {new Date().getFullYear()}
             {"."}

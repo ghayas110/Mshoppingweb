@@ -7,7 +7,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import logos from "../Mshoping.png"
+import logos from "../Mshoping.png";
+import Back from "../umbrela.jpeg";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -24,16 +25,17 @@ import { Link, withRouter } from "react-router-dom";
 import CopyRight from "./CopyRight";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
+  // paper: {
+  // paddingBottom:40,
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   alignItems: "center",
+  // },
   avatar: {
-    margin: theme.spacing(1),
+  
     backgroundColor: theme.palette.secondary.main,
   },
+
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -144,16 +146,20 @@ const Login = (props) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        
-        <img src={logos} alt="logo" width="44px" />
-        
-        <Typography component="h1" variant="h5">
-          Sign in
+    <div className="Login"  style={{ backgroundImage: `url(${Back})`,backgroundSize: 'cover' ,minHeight:"100vh", paddingTop: '50px' }}>
+    
+    <Container  maxWidth="xs"  style={{ backgroundColor:"white", padding: '20px' }} >
+   
+      <div className={classes.paper} style={{ }}  >
+      <div  style={{marginTop:20}}>
+        <img src={logos} alt="logo" width="80px" />
+        </div>
+        <div style={{ marginTop:40}}>
+        <Typography component="h1" variant="h5" width="90px" >
+          Log in
         </Typography>
-        <form className={classes.form} noValidate>
+        </div>
+        <form className={classes.form} noValidate >
           <TextField
             variant="outlined"
             margin="normal"
@@ -191,7 +197,7 @@ const Login = (props) => {
             color="primary"
             onClick={signIn}
           >
-            Sign In
+            LOG IN
           </Button>
           <Grid container style={{marginTop: 10}} >
             <Grid item xs>
@@ -208,9 +214,11 @@ const Login = (props) => {
           </Grid>
         </form>
       </div>
+    
       <Box mt={8}>
         <CopyRight />
       </Box>
+    
       <a
         href="https://wa.me/+447949549043"
         class="whatsapp_float"
@@ -221,6 +229,7 @@ const Login = (props) => {
         <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
     </Container>
+    </div>
   );
 };
 

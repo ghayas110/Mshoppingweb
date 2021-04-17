@@ -15,7 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { FaWhatsapp } from "react-icons/fa";
-
+import Back from "../umbrela.jpeg";
 import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -48,7 +48,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
   root: {
     "& > *": {
-      margin: theme.spacing(1),
+      
     },
   },
   input: {
@@ -404,13 +404,14 @@ const Register = (props) => {
   //ending
 
   return (
-    <Container component="main" maxWidth="xs">
-      <img src='../assets/img/background.jpg' width='100%' height='100%' />
+    <div className="Register" style={{ backgroundImage: `url(${Back})`,backgroundSize: 'cover',  padding: '20px' }}>
+    <Container component="main" maxWidth="xs"  style={{ backgroundColor:"white"}} >
+      {/* <img src= {Back} width='100%' height='100%' /> */}
       <CssBaseline />
       <div className={classes.paper}>
-
+<div  style={{ marginTop:20}}>
         <img src={logos} alt="logo" width="25px" />
-
+        </div>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
@@ -565,7 +566,7 @@ const Register = (props) => {
         <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
       </a>
     </Container>
-
+    </div>
   );
 };
 

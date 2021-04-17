@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import Amplify, { Auth } from 'aws-amplify'
 import Home from './Home';
 import { FaWhatsapp } from "react-icons/fa";
-
+import Back from "../umbrela.jpeg";
 
 function Copyright() {
   return (
@@ -88,7 +88,9 @@ const Confirmation = (props) => {
     }
   }
   return (
-    <Container component="main" maxWidth="xs">
+    <div className="Login"  style={{ backgroundImage: `url(${Back})`,backgroundSize: 'cover' ,minHeight:"100vh", paddingTop: '50px' }}>
+    
+    <Container component="main" maxWidth="xs"  maxWidth="xs"  style={{ backgroundColor:"white", padding: '20px' }}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -145,6 +147,7 @@ const Confirmation = (props) => {
         <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
       </a>
     </Container>
+    </div>
   );
 }
 
