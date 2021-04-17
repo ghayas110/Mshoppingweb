@@ -30,14 +30,14 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { listPlans } from '../graphql/queries'
+import { listPlans, listPlansByFees } from '../graphql/queries'
 import * as ActionTypes from '../redux/ActionTypes'
 import { createUserPlans } from '../graphql/mutations'
 import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import Header from "./Header";
 import SideBar from "./SideBar";
-import  "./ByPlans.css";
+import "./ByPlans.css";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -76,16 +76,17 @@ const BuyPlans = (props) => {
     try {
       const plansData = await API.graphql(graphqlOperation(listPlans))
       const Plans = plansData.data.listPlans.items
+      console.log(Plans);
       dispatch({
         type: ActionTypes.ADD_PLANS,
         payload: Plans
       })
     } catch (err) {
-      console.log('err', err.errors[0]);
+      console.log('err', err.errors);
       if (err.errors.length > 0) {
         dispatch({
           type: ActionTypes.FAILED_PLANS,
-          payload: err.errors[0].message
+          payload: err.errors.message
         })
       }
     }
@@ -97,41 +98,38 @@ const BuyPlans = (props) => {
       return (
         plans.plans.map((item, index) => {
           return (
+            <Grid item xs={12} s={12} m={4} style={{ float: "left" }}>
 
-            <Grid item xs={12} s={12} m={4} style={{ marginLeft: "auto", marginRight: "auto" }}>
-              <Grid item xs={6} s={12} m={4} style={{ float: "left" }}>
-
-                <div className="pricing-item">
-                  <div className="pricing-item-inner">
-                    <div className="pricing-item-content">
-                      <div className="pricing-item-header center-content">
-                        <div className="pricing-item-title"></div>
-                        <div className="pricing-item-price">
-                          <span className="pricing-item-price-currency" />
-                          <span className="pricing-item-price-amount">{item.name}</span>
-                        </div>
-                      </div>
-                      <div className="pricing-item-features">
-                        <ul className="pricing-item-features-list">
-                          <li className="is-checked">Fees ($): {item.fee}</li>
-                          <li className="is-checked">Term (Month): {item.term}</li>
-                          <li className="is-checked">ROI: {item.ROI}</li>
-                          {/* <li className="is-checked">Start Date : 01/01/21</li> */}
-                          {/* <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li> */}
-                          {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
-                          {/* <li className="is-checked">Levels : {item.levels}</li> */}
-                        </ul>
+              <div className="pricing-item">
+                <div className="pricing-item-inner">
+                  <div className="pricing-item-content">
+                    <div className="pricing-item-header center-content">
+                      <div className="pricing-item-title"></div>
+                      <div className="pricing-item-price">
+                        <span className="pricing-item-price-currency" />
+                        <span className="pricing-item-price-amount">{item.name}</span>
                       </div>
                     </div>
-                    <div className="pricing-item-cta">
-                      <a className="button" onClick={() => onBuyClick(item.id)}>
-                        Buy Now
-                  </a>
+                    <div className="pricing-item-features">
+                      <ul className="pricing-item-features-list">
+                        <li className="is-checked">Value ($): {item.fee}</li>
+                        <li className="is-checked">Term (Month): {item.term}</li>
+                        <li className="is-checked">ROI: {item.ROI}</li>
+                        {/* <li className="is-checked">Start Date : 01/01/21</li> */}
+                        {/* <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li> */}
+                        {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
+                        {/* <li className="is-checked">Levels : {item.levels}</li> */}
+                      </ul>
                     </div>
                   </div>
+                  <div className="pricing-item-cta">
+                    <a className="button" onClick={() => onBuyClick(item.id)}>
+                      Buy Now
+                  </a>
+                  </div>
                 </div>
-              </Grid>
-            </Grid>
+              </div>
+            </Grid >
           )
         })
       )
@@ -167,15 +165,12 @@ const BuyPlans = (props) => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Header />
-      </AppBar>
-      <SideBar />
-      <main className={classes.content}>
-        <Toolbar />
+      <main className={classes.content} style={{ padding: 50 }} >
+        {/* <Toolbar /> */}
         <br />
-        {renderPlans()}
+        <Grid item style={{ marginLeft: "auto", marginRight: "auto", display: 'flex', flexWrap: 'nowrap' }}>
+          {renderPlans()}
+        </Grid>
 
       </main>
       {/* whatsapp icon */}

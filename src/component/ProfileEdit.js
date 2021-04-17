@@ -74,11 +74,6 @@ const ProfileEdit = (props) => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Header />
-      </AppBar>
-      <SideBar />
       <main className={classes.content}>
         <Toolbar />
         <br />
