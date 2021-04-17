@@ -27,6 +27,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
+import {
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle
+} from 'reactstrap';
 import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import SideBar from "./SideBar";
@@ -81,19 +85,31 @@ const Profile = (props) => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Header />
-      </AppBar>
-      <SideBar />
+      
       <main className={classes.content}>
         <Toolbar />
         <br />
 
 
         <Grid item >
-          <div className={classes.iconsize}>
-            <AccountCircleIcon  style={{ fontSize: 60 }} color="primary" />
+          <div >
+          <Card>
+          <AccountCircleIcon  style={{ fontSize: 60 ,alignItems:'center',justifyContent:'center' }} color="primary"  />
+        <CardBody>
+          <CardTitle tag="h5">{loggedInUser.user.userName}</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted">{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</CardSubtitle>
+          <CardText>
+            <ul style={{textAlign:"left"}}>
+              <li>Email:{loggedInUser.user.userEmail}</li>
+              <li>Phone No:{loggedInUser.user.phone_number}</li>
+              <li>User Code:{loggedInUser.user.userCode}</li>
+              <li>Invite Link: <a style={{fontStyle: 'italic'}} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></li>
+            </ul>
+          </CardText>
+          <Button variant="outlined" color="primary" onClick={() => props.history.push('ProfileEdit')}>Edit Profile</Button>
+        </CardBody>
+      </Card>
+            {/* <AccountCircleIcon  style={{ fontSize: 60 }} color="primary" />
             <div >
               <h2>{loggedInUser.user.userName}</h2>
               <div className={classes.con}>
@@ -107,7 +123,7 @@ const Profile = (props) => {
               <div>
                 <Button variant="outlined" color="primary" onClick={() => props.history.push('ProfileEdit')}>Edit Profile</Button>
               </div>
-            </div>
+            </div> */}
 
 
           </div>
