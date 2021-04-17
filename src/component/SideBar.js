@@ -124,7 +124,7 @@ const sideBarItems = [
 function SideBar(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [screenSize, setScreenSize] = useState(0)
+  const [screenSize, setScreenSize] = useState(1000)
   let { path, url } = useRouteMatch();
   const theme = useTheme();
 
