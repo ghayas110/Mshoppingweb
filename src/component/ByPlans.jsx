@@ -39,30 +39,30 @@ import Header from "./Header";
 import SideBar from "./SideBar";
 import "./ByPlans.css";
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+      display: "flex",
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer + 1,
   },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+      width: drawerWidth,
+      flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+      width: drawerWidth,
   },
   drawerContainer: {
-    marginTop: 40,
-    overflow: "auto",
+      marginTop: 40,
+      overflow: "auto",
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+      flexGrow: 1,
+      padding: theme.spacing(3),
   },
 }));
+
 
 const BuyPlans = (props) => {
   const classes = useStyles();

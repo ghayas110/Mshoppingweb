@@ -10,6 +10,7 @@ import logos from "../Mshoping.png"
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -496,7 +497,7 @@ const Register = (props) => {
                 type={data.secureTextEntry === true ? 'password' : 'text'}
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
-              <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}>Show</Button>
+              <Button style={{ position: 'absolute',marginTop:10, marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}> <VisibilityIcon/></Button>
               {data.check_PasswordChange === false ? <div className={classes.err}> Password Should be 8 character long </div> : <></>}
             </Grid>
             <Alert color='info' style={{fontSize: 11}}>Phone number must provide like +92XXXXXXXXXX (12 digits long)</Alert>
