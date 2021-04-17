@@ -27,6 +27,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CollapsibleTable from "./UserCurrentPlans";
+import {
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle
+} from 'reactstrap';
 import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import SideBar from "./SideBar";
@@ -99,7 +103,6 @@ const Profile = (props) => {
                 <Button variant="outlined" color="primary" onClick={() => props.history.push('ProfileEdit')}>Edit Profile</Button>
               </div>
             </div>
-
 
           </div>
         </Grid>
