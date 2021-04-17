@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    marginRight: 36,
+    marginRight: 25,
   },
   hide: {
     display: 'none',
@@ -124,6 +124,7 @@ const sideBarItems = [
 function SideBar(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [screenSize, setScreenSize] = useState(0)
   let { path, url } = useRouteMatch();
   const theme = useTheme();
 
@@ -132,6 +133,12 @@ function SideBar(props) {
   }
 
   useEffect(() => {
+
+    window.addEventListener('resize', () => {
+      console.log(window.outerWidth)
+      setScreenSize(window.outerWidth)
+      if (screenSize <= 768) setOpen(false)
+    })
     return () => {
     }
   }, [open])
@@ -181,12 +188,12 @@ function SideBar(props) {
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
-                onClick={handleDrawerToggle}
+                onClick={() => screenSize <= 768 ? '' : handleDrawerToggle()}
                 edge="start"
                 className={clsx(classes.menuButton)}
               >
-                <MenuIcon style={{ color: '#cc6c2c' }} />
-              </IconButton>
+                <MenuIcon style={{ color: screenSize <= 768 ? '#ccc' : '#cc6c2c' }} />
+              </IconButton >
               <Header />
             </Toolbar>
           </AppBar>
@@ -203,21 +210,23 @@ function SideBar(props) {
               }),
             }}
           >
-            <Toolbar />
-            <Toolbar />
-            <div className={classes.drawerContainer}>
+            {/* <Toolbar />
+            <Toolbar /> */}
+            <div className={classes.drawerContainer} style={{ marginTop: screenSize <= 430 ? 142 : 88 }} >
               <Divider />
               {sideBarItems.map((item, index) => {
+                var active = window.location.pathname
+                console.log(active === item.links, active, item.links)
                 return (
-                  <List style={{ color: "#cc6c2c" }}>
-                    <Link to={item.links}>
+                  <List style={{ color: "#cc6c2c", backgroundColor: active === item.links ? '#cc6c2c' : '#fff' }}>
+                    <Link to={item.links} style={{ textDecoration: 'none' }}  >
                       <ListItem
                         button
                       >
                         <ListItemIcon>
                           {item.icon}
                         </ListItemIcon>
-                        <ListItemText primary={item.name} style={{ color: "#cc6c2c", textDecorationStyle: 'none' }} />
+                        <ListItemText primary={item.name} style={{ color: active === item.links ? '#fff' : "#cc6c2c", textDecorationStyle: 'none' }} />
                       </ListItem>
                     </Link>
                   </List>

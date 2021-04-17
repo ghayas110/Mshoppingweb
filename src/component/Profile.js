@@ -85,7 +85,6 @@ const Profile = (props) => {
 
   return (
     <div className={classes.root}>
-      
       <main className={classes.content}>
         <Toolbar />
         <br />
