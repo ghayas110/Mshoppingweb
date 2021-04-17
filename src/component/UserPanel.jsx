@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, withRouter } from 'react-router-dom'
+import { Card, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText } from 'reactstrap';
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -13,7 +14,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import logo from "../Mshoping.png"
@@ -35,9 +36,9 @@ import Accessibility from "@material-ui/icons/Accessibility";
 
 // @material-ui/icons
 import GridItem from "../component/Grid/GridItem";
-import Card from "../component/Card/Card.js";
-import CardHeader from "../component/Card/CardHeader.js";
-import CardIcon from "../component/Card/CardIcon.js";
+// import Card from "../component/Card/Card.js";
+// import CardHeader from "../component/Card/CardHeader.js";
+// import CardIcon from "../component/Card/CardIcon.js";
 import Icon from "@material-ui/core/Icon";
 import { FaWhatsapp } from "react-icons/fa";
 import Store from "@material-ui/icons/Store";
@@ -46,10 +47,10 @@ import DateRange from "@material-ui/icons/DateRange";
 
 import Warning from "@material-ui/icons/Warning";
 // import Danger from "../component/Typography/Danger.js";
-import CardFooter from "../component/Card/CardFooter.js";
+// import CardFooter from "../component/Card/CardFooter.js";
 
 import Danger from "../component/Typography/Danger.js";
-import { card } from "../assets/jss/material-dashboard-react";
+// import { card } from "../assets/jss/material-dashboard-react";
 import Login from "./Login";
 import Header from "./Header";
 import SideBar from "./SideBar";
@@ -163,11 +164,11 @@ const UserPanel = (props) => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      {/* <CssBaseline /> */}
+      {/* <AppBar position="fixed" className={classes.appBar}>
         <Header />
-      </AppBar>
-      <SideBar />
+      </AppBar> */}
+      {/* <SideBar /> */}
       <main className={classes.content}>
         <Toolbar />
 
@@ -189,28 +190,37 @@ const UserPanel = (props) => {
                     <Paper elevation={5}>
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
                         <Card>
+                          <CardHeader tag="h3">Referred By</CardHeader>
+                          <CardBody>
+                            <CardTitle tag="h5"></CardTitle>
+                            <CardText>
+                              {/* <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}> */}
+                              {cardData.noParent === true ? 'No Parent' : cardData.username}
+                              {/* </h3> */}
+                            </CardText>
+                          </CardBody>
+                        </Card>
+
+                        {/* <Card>
                           <CardHeader color="danger" stats icon>
                             <CardIcon color="danger">
                               <Accessibility />
                             </CardIcon>
-                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Referred By</p>
-                            <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
-                              {cardData.noParent === true ? 'No Parent' : cardData.username}
-                            </h3>
+
                           </CardHeader>
                           <CardFooter stats>
 
                           </CardFooter>
-                        </Card>
+                        </Card> */}
                       </GridItem>
                     </Paper>
                   </Grid>
 
                   <Grid item >
-                    <Link to='/MyReferals' >
+                    <Link to='/dashboard/MyReferals' >
                       <Paper elevation={5}>
                         <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
-                          <Card>
+                          {/* <Card>
                             <CardHeader color="success" stats icon>
                               <CardIcon color="success">
                                 <Accessibility />
@@ -221,7 +231,7 @@ const UserPanel = (props) => {
                             <CardFooter stats>
 
                             </CardFooter>
-                          </Card>
+                          </Card> */}
                         </GridItem>
                       </Paper>
                     </Link>
@@ -231,19 +241,19 @@ const UserPanel = (props) => {
                     <Paper elevation={5}>
 
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
-                        <Card>
+                        {/* <Card>
                           <CardHeader color="rose" stats icon>
                             <CardIcon color="rose">
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Wallet Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(cardData.fees)} <p style={{fontSize: 11}}>Capital Account</p> </h3>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {calculateROI()} <p style={{fontSize: 11}}>Profit Share</p> </h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(cardData.fees)} <p style={{ fontSize: 11 }}>Capital Account</p> </h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {calculateROI()} <p style={{ fontSize: 11 }}>Profit Share</p> </h3>
                           </CardHeader>
                           <CardFooter stats>
 
                           </CardFooter>
-                        </Card>
+                        </Card> */}
                       </GridItem>
                     </Paper>
                   </Grid>

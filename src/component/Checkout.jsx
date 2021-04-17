@@ -115,105 +115,6 @@ const Checkout = (props) => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <img src={logo} alt="logo" width="25px" />
-
-          <Button
-            variant="contained"
-            color="secondary"
-            style={{ marginLeft: "auto" }}
-            onClick={() => {
-              props.history.push("Login");
-            }}
-          >
-            LOGOUT
-          </Button>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List style={{ backgroundColor: "#1A5276", color: "white" }}>
-            <ListItem
-              button
-              onClick={() => {
-                props.history.push("UserPanel");
-              }}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"DASHBOARD"} />
-            </ListItem>
-          </List>
-
-          <List>
-            <ListItem
-              button
-              onClick={() => {
-                props.history.push("ReferedBy");
-              }}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Refered By"} />
-            </ListItem>
-          </List>
-
-          <List>
-            <ListItem
-              button
-              onClick={() => {
-                props.history.push("MyReferals");
-              }}
-            >
-
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"My Referrals"} />
-            </ListItem>
-          </List>
-          <List>
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Buy Plans"} />
-            </ListItem>
-          </List>
-          <Divider />
-
-          <List>
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Withdrawls"} />
-            </ListItem>
-          </List>
-
-          <List>
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={"My Profile"} />
-            </ListItem>
-
-          </List>
-
-        </div>
-      </Drawer>
       <main className={classes.content}>
         <Toolbar />
         <Grid item xs={12}>
@@ -225,8 +126,6 @@ const Checkout = (props) => {
             </Typography>
           </Paper>
         </Grid>
-
-
         <Grid container className={classes.root2} spacing={2}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={-5}>

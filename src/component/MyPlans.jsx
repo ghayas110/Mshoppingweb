@@ -78,7 +78,7 @@ const MyPlans = (props) => {
                                         </div>
                                     </div>
                                     <div className="pricing-item-cta">
-                                        {<button className="button" onClick={() => { item.paymentStatus !== 'active' ? props.history.push('checkout', { id: item }) : alert('Payment is submited') }} >Upload</button>}
+                                        {<button className="button" onClick={() => { item.paymentStatus !== 'active' ? props.history.push('/dashboard/Checkout', { id: item }) : alert('Payment is submited') }} >Upload</button>}
                                     </div>
                                 </div>
                             </div>
@@ -97,11 +97,11 @@ const MyPlans = (props) => {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            {/* <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
                 <Header />
             </AppBar>
-            <SideBar />
+            <SideBar /> */}
             <main className={classes.content}>
                 <Toolbar />
 

@@ -92,7 +92,7 @@ const Login = (props) => {
             },
           });
           console.log(getId[0]);
-          props.history.push("UserPanel");
+          props.history.push("dashboard");
 
         });
       } else {
