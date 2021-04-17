@@ -10,7 +10,7 @@ function Whatsapp() {
             rel="noopener noreferrer"
         >
             {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-            <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
+            <FaWhatsapp style={{ textAlign: 'center', height: '2.6em', width: '1.8em' }} />
         </a>
     );
 }

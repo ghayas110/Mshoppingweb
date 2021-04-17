@@ -135,7 +135,7 @@ function SideBar(props) {
   useEffect(() => {
 
     window.addEventListener('resize', () => {
-      console.log(window.outerWidth)
+      // console.log(window.outerWidth)
       setScreenSize(window.outerWidth)
       if (screenSize <= 768) setOpen(false)
     })
@@ -146,7 +146,7 @@ function SideBar(props) {
   // if (props)
 
   const Component = ({ match }) => {
-    console.log(match.params.loc)
+    // console.log(match.params.loc)
     var comp = match.params.loc
     if (comp === 'MyReferals')
       return (
@@ -216,7 +216,7 @@ function SideBar(props) {
               <Divider />
               {sideBarItems.map((item, index) => {
                 var active = window.location.pathname
-                console.log(active === item.links, active, item.links)
+                // console.log(active === item.links, active, item.links)
                 return (
                   <List style={{ color: "#cc6c2c", backgroundColor: active === item.links ? '#cc6c2c' : '#fff' }}>
                     <Link to={item.links} style={{ textDecoration: 'none' }}  >

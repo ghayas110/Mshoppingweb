@@ -34,6 +34,7 @@ import { Avatar } from "@material-ui/core";
 import { loggedInUser } from "../redux/loggedInUser";
 import Signup from "./Signup";
 import ProfileEdit from "./ProfileEdit";
+import Whatsapp from './WhatsApp'
 
 const drawerWidth = 240;
 
@@ -81,23 +82,18 @@ const Profile = (props) => {
 
   return (
     <div className={classes.root}>
-      <main className={classes.content}>
-        <Toolbar />
-        <br />
-
-
+      <main className={classes.content} style={{ paddingTop: 80 }}>
         <Grid item >
-          <div className={classes.iconsize}>
-            <AccountCircleIcon  style={{ fontSize: 60 }} color="primary" />
+          <div className={classes.iconsize} >
+            <AccountCircleIcon style={{ fontSize: 60 }} color="primary" />
             <div >
               <h2>{loggedInUser.user.userName}</h2>
               <div className={classes.con}>
                 <p>Name:{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</p>
-
                 <p >Email:{loggedInUser.user.userEmail}</p>
                 <p>Phone No:{loggedInUser.user.phone_number}</p>
                 <p>User Code:{loggedInUser.user.userCode}</p>
-                <p>Invite Link: <a style={{fontStyle: 'italic'}} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></p>
+                {/* <p>Invite Link: <a style={{ fontStyle: 'italic', fontSize: 14 }} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></p> */}
               </div>
               <div>
                 <Button variant="outlined" color="primary" onClick={() => props.history.push('ProfileEdit')}>Edit Profile</Button>
@@ -109,15 +105,7 @@ const Profile = (props) => {
         </Grid>
       </main>
       {/* whatsapp icon */}
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
-      </a>
+      <Whatsapp />
     </div>
   );
 }

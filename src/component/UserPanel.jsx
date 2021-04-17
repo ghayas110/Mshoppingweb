@@ -32,7 +32,7 @@ import { listUserPlanss, listUsers, getUser } from "../graphql/queries";
 import { listUserPlans } from "../graphql/customQueries";
 import Update from "@material-ui/icons/Update";
 import Accessibility from "@material-ui/icons/Accessibility";
-
+import Whatsapp from './WhatsApp'
 // @material-ui/icons
 import GridItem from "../component/Grid/GridItem";
 import Card from "../component/Card/Card.js";
@@ -133,7 +133,7 @@ const UserPanel = (props) => {
     else {
       const parentData = await API.graphql(graphqlOperation(getUser, { id: loggedInUser.user.parentId }))
       const parent = parentData.data.getUser
-      console.log(parent);
+      // console.log(parent);
       setCardDatas({ noParent: false, username: parent.userName, userCode: parent.userCode, countRefferals: countAllChild, fees: fees })
     }
     // console.log(cardData)
@@ -291,15 +291,7 @@ const UserPanel = (props) => {
         </Dialog>
         <br />
       </main>
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
-      </a>
+      <Whatsapp />
     </div >
   );
 }

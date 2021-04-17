@@ -37,36 +37,39 @@ import { FaWhatsapp } from "react-icons/fa";
 import logo from "../Mshoping.png"
 import Header from "./Header";
 import SideBar from "./SideBar";
+import Whatsapp from './WhatsApp'
 import "./ByPlans.css";
+
+
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
-      display: "flex",
+    display: "flex",
   },
   appBar: {
-      zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 1,
   },
   drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
+    width: drawerWidth,
+    flexShrink: 0,
   },
   drawerPaper: {
-      width: drawerWidth,
+    width: drawerWidth,
   },
   drawerContainer: {
-      marginTop: 40,
-      overflow: "auto",
+    marginTop: 40,
+    overflow: "auto",
   },
   content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
+    flexGrow: 1,
+    padding: theme.spacing(3),
   },
 }));
 
 
 const BuyPlans = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const [plan, setPlan] = useState([])
   const dispatch = useDispatch()
@@ -76,14 +79,14 @@ const BuyPlans = (props) => {
     try {
       const plansData = await API.graphql(graphqlOperation(listPlans))
       const Plans = plansData.data.listPlans.items
-      console.log(Plans);
+      // console.log(Plans);
       dispatch({
         type: ActionTypes.ADD_PLANS,
         payload: Plans
       })
     } catch (err) {
       console.log('err', err.errors);
-      if (err.errors.length > 0) {
+      if (err.errors > 0) {
         dispatch({
           type: ActionTypes.FAILED_PLANS,
           payload: err.errors.message
@@ -93,16 +96,18 @@ const BuyPlans = (props) => {
   }, [])
 
   const renderPlans = () => {
-    console.log(plans);
+    // console.log(plans);
     if (plans.plans.length > 0)
       return (
         plans.plans.map((item, index) => {
           return (
-            <Grid item xs={12} s={12} m={4} style={{ float: "left" }}>
 
-              <div className="pricing-item">
-                <div className="pricing-item-inner">
-                  <div className="pricing-item-content">
+            <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto", float: "left" }}>
+              {/* <Grid item xs={6} s={12} m={4} style={{ float: "left" }}> */}
+
+              <div className="pricing-item center-content">
+                <div className="pricing-item-inner center-content">
+                  <div className="pricing-item-content center-content">
                     <div className="pricing-item-header center-content">
                       <div className="pricing-item-title"></div>
                       <div className="pricing-item-price">
@@ -112,9 +117,9 @@ const BuyPlans = (props) => {
                     </div>
                     <div className="pricing-item-features">
                       <ul className="pricing-item-features-list">
-                        <li className="is-checked">Value ($): {item.fee}</li>
-                        <li className="is-checked">Term (Month): {item.term}</li>
-                        <li className="is-checked">ROI: {item.ROI}</li>
+                        <li className="is-checked">Value ($): {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item.fee)}</li>
+                        <li className="is-checked">Term (Months): {item.term}</li>
+                        <li className="is-checked">Profit Share: {item.ROI}%</li>
                         {/* <li className="is-checked">Start Date : 01/01/21</li> */}
                         {/* <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li> */}
                         {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
@@ -123,13 +128,15 @@ const BuyPlans = (props) => {
                     </div>
                   </div>
                   <div className="pricing-item-cta">
-                    <a className="button" onClick={() => onBuyClick(item.id)}>
+                    <a className="button" onClick={() => { if (window.confirm('Are you sure to buy this Plan?') === true) onBuyClick(item.id); }}>
                       Buy Now
                   </a>
                   </div>
                 </div>
+
               </div>
-            </Grid >
+              {/* </Grid> */}
+            </Grid>
           )
         })
       )
@@ -145,9 +152,9 @@ const BuyPlans = (props) => {
     try {
       const newUserPlanData = { userId: loggedInUser.user.id, planId: planId, planStatus: 'pending', paymentStatus: 'pending', startingDate: d.toISOString() }
       const newUserPlan = await API.graphql(graphqlOperation(createUserPlans, { input: newUserPlanData }))
-      console.log(newUserPlan);
+      // console.log(newUserPlan);
       alert("Your Package is being Processed Successfully");
-      props.history.push("UserPanel");
+      props.history.push('/dashboard');
     }
     catch (err) {
       alert(err.errors)
@@ -165,24 +172,15 @@ const BuyPlans = (props) => {
 
   return (
     <div className={classes.root}>
-      <main className={classes.content} style={{ padding: 50 }} >
-        {/* <Toolbar /> */}
+      <main className={classes.content}>
         <br />
-        <Grid item style={{ marginLeft: "auto", marginRight: "auto", display: 'flex', flexWrap: 'nowrap' }}>
+        <div style={{ padding: 50 }} >
           {renderPlans()}
-        </Grid>
+        </div>
 
       </main>
       {/* whatsapp icon */}
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
-      </a>
+      <Whatsapp />
     </div>
   );
 }

@@ -1,24 +1,28 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import './Header.css'
 import logo from "../Mshoping.png"
 import SearchIcon from '@material-ui/icons/Search';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText, Button } from 'reactstrap';
 import { Link, withRouter } from "react-router-dom";
 function Header(props) {
+    const { loggedInUser, userPlans } = useSelector((state) => state);
+
     return (
         <Navbar color="light" light expand="md" className='w-100 col-11' >
-            <NavbarBrand href="/"><img src={logo} alt="Logo" style={{width: 60, height: 'auto'}} /></NavbarBrand>
+            <NavbarBrand href="/"><img src={logo} alt="Logo" style={{ width: 60, height: 'auto' }} /></NavbarBrand>
             {/* <NavbarToggler /> */}
             {/* <Collapse navbar> */}
-                <Nav className="mr-auto" navbar >
+            {/* <Nav className="mr-auto" navbar >
                     <NavItem className='header__input'>
                         <SearchIcon color="primary" />
                         <input placeholder="Search Plan" type="text" />
                     </NavItem>
-                </Nav>
-                <NavbarText className='ml-auto' >
-                    <Button outline color="danger" onClick={() => props.history.push('Login')}>Logout</Button>
-                </NavbarText>
+                </Nav> */}
+            <NavbarText style={{color: 'black', fontSize: 16}} >{loggedInUser.user.userName}</NavbarText>
+            <NavbarText className='ml-auto' >
+                <Button outline color="danger" onClick={() => props.history.push('Login')}>Logout</Button>
+            </NavbarText>
             {/* </Collapse> */}
         </Navbar>
         // <div className="header" style={{ width: '100%' }} >

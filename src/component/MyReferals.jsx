@@ -33,7 +33,7 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { listUsers } from '../graphql/queries'
 import * as ActionTypes from '../redux/ActionTypes'
 import { Table } from 'reactstrap'
-
+import Whatsapp from './WhatsApp'
 
 const drawerWidth = 240;
 
@@ -75,7 +75,7 @@ const MyReferals = (props) => {
         type: ActionTypes.ADD_CHILD,
         payload: child
       })
-      console.log(child);
+      // console.log(child);
     }
     catch (err) {
       console.log(err)
@@ -131,15 +131,7 @@ const MyReferals = (props) => {
         </Grid>
       </main>
       {/* whatsapp icon */}
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
-      </a>
+      <Whatsapp />
     </div>
   );
 }

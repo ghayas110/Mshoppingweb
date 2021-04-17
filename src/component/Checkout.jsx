@@ -32,7 +32,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { updateUserPlans } from '../graphql/mutations'
 import Amplify, { API, graphqlOperation, Storage } from 'aws-amplify'
 import logo from "../Mshoping.png"
-
+import Whatsapp from './WhatsApp'
 
 const drawerWidth = 240;
 
@@ -97,8 +97,8 @@ const Checkout = (props) => {
             console.error(err.errors)
             // alert(err)
           })
-      else 
-          alert('Provide transaction number or Image of transaction Slip')
+      else
+        alert('Provide transaction number or Image of transaction Slip')
     }
     catch (err) {
       alert(err)
@@ -122,7 +122,6 @@ const Checkout = (props) => {
             <Typography variant="h3" style={{ textAlign: "center" }}>
               Preview Buy Plan
               <hr />
-              {/* <br /> */}
             </Typography>
           </Paper>
         </Grid>
@@ -190,9 +189,9 @@ const Checkout = (props) => {
           </Grid>
         </Grid>
 
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate >
           <Grid container spacing={2}>
-            <Grid item xs={4} sm={4}>
+            <Grid item xs={12} sm={12} md={8} lg={8} >
               <TextField
                 autoComplete="fname"
                 name="firstName"
@@ -221,7 +220,7 @@ const Checkout = (props) => {
               />
             </Grid>
             <br />
-            <Grid item xs={4} sm={4}>
+            <Grid item xs={12} sm={12} md={6} lg={6}>
               <div className={classes.root}>
 
                 <input
@@ -248,30 +247,24 @@ const Checkout = (props) => {
                   }
                   }
                 />
-                <Button
-                  variant="contained"
-                  color="Primary"
-                  style={{ marginLeft: "auto" }}
-                  onClick={() => { if (userPlanID.paymentStatus !== 'active') handleSubmission() }}
-                >
-                  SUBMIT
-          </Button>
               </div>
+            </Grid>
+            <Grid item xs={12} sm={12} md={2} lg={2}>
+              <Button className='w-100'
+                variant="contained"
+                color="Primary"
+                style={{ marginLeft: "auto" }}
+                onClick={() => { if (userPlanID.paymentStatus !== 'active') handleSubmission() }}
+              >
+                SUBMIT
+          </Button>
             </Grid>
           </Grid>
 
         </form>
       </main>
       {/* whatsapp icon */}
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
-      </a>
+      <Whatsapp />
     </div>
   );
 }
