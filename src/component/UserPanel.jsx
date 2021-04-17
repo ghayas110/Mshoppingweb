@@ -220,6 +220,17 @@ const UserPanel = (props) => {
                     <Link to='/dashboard/MyReferals' >
                       <Paper elevation={5}>
                         <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader tag="h3">Team</CardHeader>
+                          <CardBody>
+                            <CardTitle tag="h5"></CardTitle>
+                            <CardText>
+                              {/* <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}> */}
+                              {cardData.countRefferals}
+                              {/* </h3> */}
+                            </CardText>
+                          </CardBody>
+                        </Card>
                           {/* <Card>
                             <CardHeader color="success" stats icon>
                               <CardIcon color="success">
@@ -241,6 +252,17 @@ const UserPanel = (props) => {
                     <Paper elevation={5}>
 
                       <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                      <Card>
+                          <CardHeader tag="h3">Wallet Balance</CardHeader>
+                          <CardBody>
+                            <CardTitle tag="h5"></CardTitle>
+                            <CardText>
+                              {/* <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}> */}
+                              $ {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(cardData.fees)} 
+                              {/* </h3> */}
+                            </CardText>
+                          </CardBody>
+                        </Card>
                         {/* <Card>
                           <CardHeader color="rose" stats icon>
                             <CardIcon color="rose">

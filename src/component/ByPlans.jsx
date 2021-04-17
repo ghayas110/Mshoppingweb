@@ -39,30 +39,30 @@ import Header from "./Header";
 import SideBar from "./SideBar";
 import  "./ByPlans.css";
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+      display: "flex",
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer + 1,
   },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+      width: drawerWidth,
+      flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+      width: drawerWidth,
   },
   drawerContainer: {
-    marginTop: 40,
-    overflow: "auto",
+      marginTop: 40,
+      overflow: "auto",
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+      flexGrow: 1,
+      padding: theme.spacing(3),
   },
 }));
+
 
 const BuyPlans = (props) => {
   const classes = useStyles();
@@ -98,12 +98,12 @@ const BuyPlans = (props) => {
         plans.plans.map((item, index) => {
           return (
 
-            <Grid item xs={12} s={12} m={4} style={{ marginLeft: "auto", marginRight: "auto" }}>
-              <Grid item xs={6} s={12} m={4} style={{ float: "left" }}>
+            <Grid item xs={12} style={{ marginLeft: "auto", marginRight: "auto",float: "left" }}>
+              {/* <Grid item xs={6} s={12} m={4} style={{ float: "left" }}> */}
 
-                <div className="pricing-item">
-                  <div className="pricing-item-inner">
-                    <div className="pricing-item-content">
+                <div className="pricing-item center-content">
+                <div className="pricing-item-inner center-content">
+                    <div className="pricing-item-content center-content">
                       <div className="pricing-item-header center-content">
                         <div className="pricing-item-title"></div>
                         <div className="pricing-item-price">
@@ -113,9 +113,9 @@ const BuyPlans = (props) => {
                       </div>
                       <div className="pricing-item-features">
                         <ul className="pricing-item-features-list">
-                          <li className="is-checked">Fees ($): {item.fee}</li>
-                          <li className="is-checked">Term (Month): {item.term}</li>
-                          <li className="is-checked">ROI: {item.ROI}</li>
+                          <li className="is-checked">Value ($): {item.fee}</li>
+                          <li className="is-checked">Term (Months): {item.term}</li>
+                          <li className="is-checked">Profit Share: {item.ROI}%</li>
                           {/* <li className="is-checked">Start Date : 01/01/21</li> */}
                           {/* <li className="is-checked">Expiry : {new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "2-digit" }).format(new Date(Date.parse(item.endDate)))}</li> */}
                           {/* <li className="is-checked">Subscription : {item.subscription}</li> */}
@@ -129,8 +129,9 @@ const BuyPlans = (props) => {
                   </a>
                     </div>
                   </div>
+
                 </div>
-              </Grid>
+              {/* </Grid> */}
             </Grid>
           )
         })
