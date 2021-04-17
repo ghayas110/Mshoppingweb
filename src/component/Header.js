@@ -21,7 +21,7 @@ function Header(props) {
                 </Nav> */}
             <NavbarText style={{color: 'black', fontSize: 16}} >{loggedInUser.user.userName}</NavbarText>
             <NavbarText className='ml-auto' >
-                <Button outline color="danger" onClick={() => props.history.push('Login')}>Logout</Button>
+                <Button outline color="danger" onClick={() => props.history.push('/Login')}>Logout</Button>
             </NavbarText>
             {/* </Collapse> */}
         </Navbar>
