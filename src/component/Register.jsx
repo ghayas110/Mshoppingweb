@@ -254,6 +254,7 @@ const Register = (props) => {
       }
     } catch (error) {
       console.log("error signing up:", error);
+      alert(error.message)
       // ToastAndroid.showWithGravity(error.message, ToastAndroid.LONG, ToastAndroid.CENTER)
     }
   }
