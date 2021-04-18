@@ -24,6 +24,7 @@ import { render } from "react-dom";
 import { FaWhatsapp } from "react-icons/fa";
 import { Link, withRouter } from "react-router-dom";
 import CopyRight from "./CopyRight";
+import Whatsapp from "./WhatsApp";
 
 const useStyles = makeStyles((theme) => ({
   // paper: {
@@ -220,15 +221,7 @@ const Login = (props) => {
         <CopyRight />
       </Box>
     
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
-      </a>
+  <Whatsapp/>
     </Container>
     </div>
   );

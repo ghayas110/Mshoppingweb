@@ -17,6 +17,7 @@ import Amplify, { Auth } from 'aws-amplify'
 import Home from './Home';
 import { FaWhatsapp } from "react-icons/fa";
 import Back from "../umbrela.jpeg";
+import Whatsapp from './WhatsApp';
 
 function Copyright() {
   return (
@@ -137,15 +138,7 @@ const Confirmation = (props) => {
       <Box mt={8}>
         <Copyright />
       </Box>
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{textAlign:'center',height: '4.5em',width: '2.8em'}} />
-      </a>
+    <Whatsapp/>
     </Container>
     </div>
   );

@@ -5,18 +5,16 @@ import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import logo from "../Mshoping.png"
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import logo from "../Mshoping.png";
 // import table from './Table';
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -32,7 +30,8 @@ import { listUserPlanss, listUsers, getUser } from "../graphql/queries";
 import { listUserPlans } from "../graphql/customQueries";
 import Update from "@material-ui/icons/Update";
 import Accessibility from "@material-ui/icons/Accessibility";
-import Whatsapp from './WhatsApp'
+import MoneyIcon from '@material-ui/icons/Money';
+import Whatsapp from './WhatsApp';
 // @material-ui/icons
 import GridItem from "../component/Grid/GridItem";
 import Card from "../component/Card/Card.js";
@@ -240,6 +239,106 @@ const UserPanel = (props) => {
                             <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(cardData.fees)} <p style={{fontSize: 11}}>Capital Account</p> </h3>
                             <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {calculateROI()} <p style={{fontSize: 11}}>Profit Share</p> </h3>
                           </CardHeader>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="danger" stats icon>
+                            <CardIcon color="danger">
+                            <MoneyIcon/>
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Rank</p>
+                            <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
+                             0
+                            </h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="success" stats icon>
+                            <CardIcon color="success">
+                            <AttachMoneyIcon/>
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Rewards</p>
+                            <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
+                              0
+                            </h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="danger" stats icon>
+                            <CardIcon color="danger">
+                            <AttachMoneyIcon/>
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Commission</p>
+                            <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
+                              0
+                            </h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="danger" stats icon>
+                            <CardIcon color="danger">
+                            <AttachMoneyIcon/>
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>ROI</p>
+                            <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
+                              0
+                            </h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    </Paper>
+                  </Grid>
+                  <Grid item >
+                    <Paper elevation={5}>
+                      <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
+                        <Card>
+                          <CardHeader color="success" stats icon>
+                            <CardIcon color="success">
+                            <AttachMoneyIcon/>
+                            </CardIcon>
+                            <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>PROFIT SHARE</p>
+                            <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
+                            $ {calculateROI()} 
+                            </h3>
+                          </CardHeader>
+                          <CardFooter stats>
+
+                          </CardFooter>
                         </Card>
                       </GridItem>
                     </Paper>

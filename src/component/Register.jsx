@@ -32,6 +32,7 @@ import Login from "./Login";
 import logo from "../Mshoping.png"
 import { Input } from "@material-ui/core";
 import { Alert } from 'reactstrap'
+import Whatsapp from "./WhatsApp";
 
 function Copyright() {
   return (
@@ -557,15 +558,7 @@ const Register = (props) => {
       <Box mt={5}>
         <Copyright />
       </Box>
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
-      </a>
+      <Whatsapp/>
     </Container>
     </div>
   );
