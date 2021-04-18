@@ -32,7 +32,6 @@ import Login from "./Login";
 import logo from "../Mshoping.png"
 import { Input } from "@material-ui/core";
 import { Alert } from 'reactstrap'
-import Whatsapp from "./WhatsApp";
 
 function Copyright() {
   return (
@@ -498,7 +497,7 @@ const Register = (props) => {
                 type={data.secureTextEntry === true ? 'password' : 'text'}
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
-              <Button style={{ position: 'absolute',marginTop:10, marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}> <VisibilityIcon/></Button>
+              <Button style={{ position: 'absolute', marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}> <VisibilityIcon/></Button>
               {data.check_PasswordChange === false ? <div className={classes.err}> Password Should be 8 character long </div> : <></>}
             </Grid>
             <Alert color='info' style={{fontSize: 11}}>Phone number must provide like +92XXXXXXXXXX (12 digits long)</Alert>
@@ -558,7 +557,15 @@ const Register = (props) => {
       <Box mt={5}>
         <Copyright />
       </Box>
-      <Whatsapp/>
+      <a
+        href="https://wa.me/+447949549043"
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
+        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
+      </a>
     </Container>
     </div>
   );
