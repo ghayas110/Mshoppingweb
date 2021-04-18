@@ -49,7 +49,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    
+
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
   root: {
     "& > *": {
-      
+
     },
   },
   input: {
@@ -185,9 +185,14 @@ const Register = (props) => {
               filter: { userName: { eq: data.userName } },
             })
           );
-          const userNameResult = userCode.data.listUsers.items
+          const userNaame = await API.graphql(
+            graphqlOperation(listUsers, {
+              filter: { userName: { eq: data.userName } },
+            })
+          );
+          const userNameResult = userNaame.data.listUsers.items
           console.log("userNameResult", userNameResult, userNameResult.length)
-          if (userNameResult.length == 0) {
+          if (userNameResult.length === 0) {
             setData({ ...data, userNameIsUnique: true })
             const parentData = await API.graphql(
               graphqlOperation(listUsers, {
@@ -244,7 +249,7 @@ const Register = (props) => {
           check_ReferalUserCodeChange: data.check_ReferalUserCodeChange === true ? true : false,
           check_PasswordChange: data.check_PasswordChange === true ? true : false
         })
-        if (data.check_ReferalUserCodeChange === false ) alert('Referal User Code is not provided in the URL')
+        if (data.check_ReferalUserCodeChange === false) alert('Referal User Code is not provided in the URL')
         //ToastAndroid.showWithGravity('Fill all Fields', ToastAndroid.LONG, ToastAndroid.CENTER)
       }
     } catch (error) {
@@ -287,7 +292,7 @@ const Register = (props) => {
   };
 
   const handleEmailAddress = (val) => {
-    if (checkcon.test(val) && data.email !== 0 ) {
+    if (checkcon.test(val) && data.email !== 0) {
       setData({
         ...data,
         email: val,
@@ -405,36 +410,36 @@ const Register = (props) => {
   //ending
 
   return (
-    <div className="Register" style={{ backgroundImage: `url(${Back})`,backgroundSize: 'cover',  padding: '20px' }}>
-    <Container component="main" maxWidth="xs"  style={{ backgroundColor:"white"}} >
-      {/* <img src= {Back} width='100%' height='100%' /> */}
-      <CssBaseline />
-      <div className={classes.paper}>
-<div  style={{ marginTop:20}}>
-        <img src={logos} alt="logo" width="25px" />
-        </div>
-        <Typography component="h1" variant="h5">
-          Sign up
+    <div className="Register" style={{ backgroundImage: `url(${Back})`, backgroundSize: 'cover', padding: '20px' }}>
+      <Container component="main" maxWidth="xs" style={{ backgroundColor: "white" }} >
+        {/* <img src= {Back} width='100%' height='100%' /> */}
+        <CssBaseline />
+        <div className={classes.paper}>
+          <div style={{ marginTop: 20 }}>
+            <img src={logos} alt="logo" width="25px" />
+          </div>
+          <Typography component="h1" variant="h5">
+            Sign up
         </Typography>
-        <form className={classes.form} noValidate>
-          {<Alert color='info'> Please enter your name as per your CNIC. <br /> Leave the field empty that is not relevant </Alert>}
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                onChange={(e) => handleNames(e.target.value, "Fname")}
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="Full Name"
-                autoFocus
+          <form className={classes.form} noValidate>
+            {<Alert color='info'> Please enter your name as per your CNIC. <br /> Leave the field empty that is not relevant </Alert>}
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  onChange={(e) => handleNames(e.target.value, "Fname")}
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="Full Name"
+                  autoFocus
 
-              />
+                />
 
-            </Grid>
-            {/* <Grid item xs={12} sm={6}>
+              </Grid>
+              {/* <Grid item xs={12} sm={6}>
               <TextField
                 onChange={(e) => handleNames(e.target.value, "Lname")}
                 variant="outlined"
@@ -460,113 +465,113 @@ const Register = (props) => {
               />
 
             </Grid> */}
-            {data.check_NamesChange === false ? <div className={classes.err} >Please enter your full name</div> : <></>}
-            <Alert color='info' style={{fontSize: 11}} >Username must be unique and only allowed alphbets digits and underscore</Alert>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="userName"
-                label="Username"
-                onChange={(e) => handleUserName(e.target.value)}
-              />
-              { data.check_UserNameChange === false ? <div className={classes.err} >User Name at least 5 characters long </div> : <></> }
-              { data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></> }
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                onChange={(e) => handleEmailAddress(e.target.value)}
-              />
-              {data.check_EmailChange === false ? <div className={classes.err} >Email Should be Valid</div> : <></>}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type={data.secureTextEntry === true ? 'password' : 'text'}
-                onChange={(e) => handlePasswordChange(e.target.value)}
-              />
-              <Button style={{ position: 'absolute',marginTop:10, marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}> <VisibilityIcon/></Button>
-              {data.check_PasswordChange === false ? <div className={classes.err}> Password Should be 8 character long </div> : <></>}
-            </Grid>
-            <Alert color='info' style={{fontSize: 11}}>Phone number must provide like +92XXXXXXXXXX (12 digits long)</Alert>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="Cellno"
-                label="Cell No"
-                type="textx"
-                id="CellNo"
-                autoComplete="current-password"
-                onChange={(e) => handlePhoneNumber(e.target.value)}
-              />
+              {data.check_NamesChange === false ? <div className={classes.err} >Please enter your full name</div> : <></>}
+              <Alert color='info' style={{ fontSize: 11 }} >Username must be unique and only allowed alphbets digits and underscore</Alert>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="userName"
+                  label="Username"
+                  onChange={(e) => handleUserName(e.target.value)}
+                />
+                {data.check_UserNameChange === false ? <div className={classes.err} >User Name at least 5 characters long </div> : <></>}
+                {data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></>}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={(e) => handleEmailAddress(e.target.value)}
+                />
+                {data.check_EmailChange === false ? <div className={classes.err} >Email Should be Valid</div> : <></>}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type={data.secureTextEntry === true ? 'password' : 'text'}
+                  onChange={(e) => handlePasswordChange(e.target.value)}
+                />
+                <Button style={{ position: 'absolute', marginTop: 10, marginLeft: -80, alignSelf: 'center' }} onClick={updateSecureTextEntry}> <VisibilityIcon /></Button>
+                {data.check_PasswordChange === false ? <div className={classes.err}> Password Should be 8 character long </div> : <></>}
+              </Grid>
+              <Alert color='info' style={{ fontSize: 11 }}>Phone number must provide like +92XXXXXXXXXX (12 digits long)</Alert>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="Cellno"
+                  label="Cell No"
+                  type="textx"
+                  id="CellNo"
+                  autoComplete="current-password"
+                  onChange={(e) => handlePhoneNumber(e.target.value)}
+                />
 
+              </Grid>
+
+              <Grid item xs={12} sm={9}>
+                <FormControlLabel
+                  control={<Checkbox name="checkedA" color='primary' required />}
+                  label="I accept terms and Conditions"
+                />
+
+              </Grid>
+
+              <Grid item xs={12}>
+
+              </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={9}>
-              <FormControlLabel
-                control={<Checkbox name="checkedA" color='primary' required />}
-                label="I accept terms and Conditions"
-              />
-
-            </Grid>
-
-            <Grid item xs={12}>
-
-            </Grid>
-          </Grid>
-
-          <Button
-            // type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            // className={classes.submit}
-            onClick={signUp}
-          >
-            Sign Up
+            <Button
+              // type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              // className={classes.submit}
+              onClick={signUp}
+            >
+              Sign Up
           </Button>
-          <Grid container justify="flex-end" style={{marginTop: 10}}>
-            <Grid item>
-              <Link
-                href=''
-                variant="body2"
-                onClick={() => {
-                  props.history.push("/");
-                }}
-              >
-                Already have an account? Sign in
+            <Grid container justify="flex-end" style={{ marginTop: 10 }}>
+              <Grid item>
+                <Link
+                  href=''
+                  variant="body2"
+                  onClick={() => {
+                    props.history.push("/");
+                  }}
+                >
+                  Already have an account? Sign in
               </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-      <a
-        href="https://wa.me/+447949549043"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
-        <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
-      </a>
-    </Container>
+          </form>
+        </div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+        <a
+          href="https://wa.me/+447949549043"
+          class="whatsapp_float"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {/* <i class="fa fa-whatsapp" aria-hidden="true"></i> */}
+          <FaWhatsapp style={{ textAlign: 'center', height: '4.5em', width: '2.8em' }} />
+        </a>
+      </Container>
     </div>
   );
 };
