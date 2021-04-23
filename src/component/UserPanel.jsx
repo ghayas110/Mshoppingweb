@@ -126,7 +126,7 @@ const UserPanel = (props) => {
         fees += parseFloat(getFees[i].plan.fee)
       }
     // console.log(countAllChild, loggedInUser.user.parentId === 'null');
-    if (loggedInUser.user.parentId === 'null') {
+    if (loggedInUser.user.parentId === 'ROOT') {
       setCardDatas({ noParent: true, username: '', countRefferals: countAllChild, fees: fees })
     }
     else {
