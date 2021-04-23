@@ -93,11 +93,11 @@ const Signup = (props) => {
       }}
     >
       {({ handleSubmit, isSubmitting, handleChange, values, errors, touched }) => (
-        <div className="col px-md-5">
+        <div className="col-12 px-md-5">
           <h1 className="my-4 font-weight-bold .display-4">Profile Information</h1>
           <Form className="d-flex justify-content-between" >
 
-            <div className="px-5 bd-highlight">
+            <div className="col-12 px-5 bd-highlight">
               <h4 className="my-4 font-weight-bold .display-4">User Details</h4>
               <TextField label="First Name" name="firstName" type="text" onChange={handleChange} />
               {/* {errors.firstName && touched.firstName ? (<div>{errors.firstName}</div>): <></>} */}
@@ -121,7 +121,7 @@ const Signup = (props) => {
               <TextField label="Address" name="address" type="text" onChange={handleChange} />
 
             </div>
-            <div className="px-7 bd-highlight">
+            <div className="col-12 col-md-6 px-7 bd-highlight">
               <h4 className="my-4 font-weight-bold .display-4">Payment Method  Details </h4>
 
               {/* <TextField label="Registration Date " name="regdate" type="date" /> */}
