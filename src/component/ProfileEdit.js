@@ -74,7 +74,7 @@ const ProfileEdit = (props) => {
 
   return (
     <div className={classes.root}>
-      <main className={classes.content}>
+      <main className='col-12'>
         <Toolbar />
         <br />
         <Typography variant="h5" style={{ textAlign: "left" }}>
@@ -83,9 +83,9 @@ const ProfileEdit = (props) => {
         </Typography>
 
         <Grid item >
-          <div className="container mt-1 ml-4">
-            <div className="row">
-              <div className="col-md-7.5">
+          <div className="container px-0">
+            <div className="row px-0">
+              <div className="col-12 px-0">
                 <Signup />
               </div>
             </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
 import { withRouter } from "react-router-dom";
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { TextField } from './Textfield'
 import * as Yup from 'yup';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
@@ -93,58 +94,73 @@ const Signup = (props) => {
       }}
     >
       {({ handleSubmit, isSubmitting, handleChange, values, errors, touched }) => (
-        <div className="col-12 px-md-5">
-          <h1 className="my-4 font-weight-bold .display-4">Profile Information</h1>
-          <Form className="d-flex justify-content-between" >
+        <div className="col-12 px-0">
+          <h1 className="col-12 my-4 font-weight-bold .display-4">Profile Information</h1>
+          <Form className="col-12 d-flex justify-content-between flex-wrap" >
 
-            <div className="col-12 px-5 bd-highlight">
-              <h4 className="my-4 font-weight-bold .display-4">User Details</h4>
-              <TextField label="First Name" name="firstName" type="text" onChange={handleChange} />
-              {/* {errors.firstName && touched.firstName ? (<div>{errors.firstName}</div>): <></>} */}
-              <TextField label="Middle Name" name="middleName" type="text" onChange={handleChange} />
-              <TextField label="Last Name" name="lastName" type="text" onChange={handleChange} />
+            <div className="col-12 col-md-6 bd-highlight">
+              <h3 className="my-4 font-weight-bold">User Details</h3>
+              <FormGroup>
+                <Label htmlFor="firstName" className='col-12' >First Name</Label>
+                <Input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              {/* <TextField label="First Name" name="firstName" type="text" onChange={handleChange} /> */}
+              <FormGroup>
+                <Label htmlFor="middleName" className='col-12' >Middle Name</Label>
+                <Input
+                  type="text"
+                  name="middleName"
+                  placeholder="Middle Name"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="lastName" className='col-12' >Last Name</Label>
+                <Input
+                  type="text"
+                  name="lastName"
+                  placeholder="Middle Name"
+                  onChange={handleChange}
+                />
+              </FormGroup>
               <TextField label="Father Name/Spouse Name" name="fs" type="text" onChange={handleChange} />
-              <label htmlFor="email" style={{ display: 'block' }} >
-                Gender
-              </label>
-              <select
-                name="gender"
-                style={{ display: 'block' }}
-                onChange={handleChange}
-              >
-                <option value="" label="Select Gender" />
-                <option value="male" label="Male" />
-                <option value="female" label="Female" />
-              </select>
-
+              <FormGroup>
+                <Label htmlFor="gender">Gender</Label>
+                <CustomInput type="select" id="gender" name="gender" onChange={handleChange} >
+                  <option value="" label="Select Gender" />
+                  <option value="male" label="Male" />
+                  <option value="female" label="Female" />
+                </CustomInput>
+              </FormGroup>
               <TextField label="City" name="city" type="text" onChange={handleChange} />
               <TextField label="Address" name="address" type="text" onChange={handleChange} />
-
             </div>
-            <div className="col-12 col-md-6 px-7 bd-highlight">
-              <h4 className="my-4 font-weight-bold .display-4">Payment Method  Details </h4>
 
+            <div className="col-12 col-md-6 bd-highlight">
+              <h3 className="my-4 font-weight-bold col-12 px-0">Payment Details</h3>
               {/* <TextField label="Registration Date " name="regdate" type="date" /> */}
-              <label htmlFor="email" style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }} >
-                PAYMENT METHOD
-              </label>
-              <select
-                name="paymentMethod"
-                style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}
-                onChange={handleChange}
-              >
-                <option value="" label="Select Payment Method" />
-                <option value="" label="Bank" />
-
-
-
-              </select>
+              <FormGroup>
+                <Label htmlFor="paymentMethod">PAYMENT METHOD</Label>
+                <CustomInput type="select" id="paymentMethod" name="paymentMethod" onChange={handleChange} >
+                  <option value="" label="Select Payment Method" />
+                  <option value="" label="Bank" />
+                </CustomInput>
+              </FormGroup>
               <TextField label="BankName" name="bankName" type="text" onChange={handleChange} />
+
               <TextField label="BranchCode" name="branchCode" type="text" onChange={handleChange} />
               <TextField label="Account No" name="accountNo" type="number" onChange={handleChange} />
 
-              <label htmlFor="file">CheckSlip upload</label>
-              <input id="file" name="checkupload" type="file" accept='image/*' className="form-control" onChange={(e) => { values.checkupload = e.target.files[0] }} />
+              <FormGroup>
+                <Label for="file">CheckSlip upload</Label>
+                <CustomInput type="file" id="file" name="checkupload" accept='image/*' label="CheckSlip upload" onChange={(e) => { values.checkupload = e.target.files[0] }} />
+              </FormGroup>
+              {/* <label htmlFor="file">CheckSlip upload</label>
+              <input id="file" name="checkupload" type="file" accept='image/*' className="form-control" onChange={(e) => { values.checkupload = e.target.files[0] }} /> */}
               <TextField label="CNIC" name="CNIC" type="number" />
               <label htmlFor="file">CNIC upload</label>
               <input id="file" name="cnic_upload" type="file" accept='image/*' className="form-control" onChange={(e) => { values.cnic_upload = e.target.files[0] }} />

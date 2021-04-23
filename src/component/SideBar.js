@@ -19,19 +19,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import CollapsibleTable from "./UserCurrentPlans";
-import { FaWhatsapp } from "react-icons/fa";
-import logo from "../Mshoping.png"
-import Sidebar from './SideBar';
 import Header from "./Header";
 import Profile from "./Profile"
 import DashboardIcon from '@material-ui/icons/Dashboard';
