@@ -145,10 +145,12 @@ const UserPanel = (props) => {
       const startDate = new Date(userPlansData[item].startingDate).getTime()
       const today = new Date().getTime()
       const diff = Math.round((today - startDate) / (1000 * 60 * 60 * 24))
+      console.log(diff, userPlansData[item].startingDate);
+      // console.log(parseFloat(((((userPlansData[item].plan.ROI / 100) * userPlansData[item].plan.fee) / 30) * diff).toFixed(2)))
       sumROI += parseFloat(((((userPlansData[item].plan.ROI / 100) * userPlansData[item].plan.fee) / 30) * diff).toFixed(2))
     }
     return (
-      <>{sumROI}</>
+      <>{sumROI.toFixed(2)}</>
     )
   }
 

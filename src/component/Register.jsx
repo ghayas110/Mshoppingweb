@@ -321,7 +321,7 @@ const Register = (props) => {
 
   const handleNames = (val, changestate) => {
     if (changestate == "Fname") {
-      if (val.length >= 3 && val.length <= 15) {
+      if (val.length >= 3) {
         setData({
           ...data,
           firstName: val,
@@ -472,7 +472,7 @@ const Register = (props) => {
                   label="Username"
                   onChange={(e) => handleUserName(e.target.value)}
                 />
-                {data.check_UserNameChange === false ? <div className={classes.err} >User Name at least 5 characters long </div> : <></>}
+                {data.check_UserNameChange === false ? <div className={classes.err} >User Name at least 5 characters long and as per specified pattern {<br />} only allowed alphbets digits and underscore</div> : <></>}
                 {data.userNameIsUnique === false ? <div className={classes.err} >This Username is not available</div> : <></>}
               </Grid>
               <Grid item xs={12}>

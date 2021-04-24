@@ -87,7 +87,7 @@ const ForgetPasswordSubmit = (props) => {
                         color="primary"
                         onClick={ForgotPasswordSubmit}
                     >
-                        Send Mail
+                        Change Password
             </Button>
                 </form>
             </div>

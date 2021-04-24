@@ -71,7 +71,7 @@ const Signup = (props) => {
         firstName: loggedInUser.user.firstName,
         middleName: loggedInUser.user.middleName,
         lastName: loggedInUser.user.lastName,
-        userEmail: loggedInUser.user.userEmail,
+        email: loggedInUser.user.email,
         gender: loggedInUser.user.gender,
         userCode: loggedInUser.user.userCode,
         userName: loggedInUser.user.userName,
@@ -98,13 +98,14 @@ const Signup = (props) => {
           <h1 className="col-12 my-4 font-weight-bold .display-4">Profile Information</h1>
           <Form className="col-12 d-flex justify-content-between flex-wrap" >
 
-            <div className="col-12 col-md-6 bd-highlight">
+            <div className="col-12 col-md-6 col-lg-5 bd-highlight">
               <h3 className="my-4 font-weight-bold">User Details</h3>
               <FormGroup>
                 <Label htmlFor="firstName" className='col-12' >First Name</Label>
                 <Input
                   type="text"
                   name="firstName"
+                  value={values.firstName}
                   placeholder="First Name"
                   onChange={handleChange}
                 />
@@ -115,7 +116,9 @@ const Signup = (props) => {
                 <Input
                   type="text"
                   name="middleName"
+                  value={values.middleName}
                   placeholder="Middle Name"
+                  onChange={handleChange}
                 />
               </FormGroup>
               <FormGroup>
@@ -123,14 +126,25 @@ const Signup = (props) => {
                 <Input
                   type="text"
                   name="lastName"
-                  placeholder="Middle Name"
+                  placeholder="Last Name"
+                  value={values.lastName}
                   onChange={handleChange}
                 />
               </FormGroup>
-              <TextField label="Father Name/Spouse Name" name="fs" type="text" onChange={handleChange} />
+              <FormGroup>
+                <Label htmlFor="fs" className='col-12' >Father Name/Spouse Name</Label>
+                <Input
+                  type="text"
+                  name="fs"
+                  placeholder="Father Name/Spouse Name"
+                  value={values.fs}
+                  onChange={handleChange}
+                />
+              </FormGroup>
               <FormGroup>
                 <Label htmlFor="gender">Gender</Label>
-                <CustomInput type="select" id="gender" name="gender" onChange={handleChange} >
+                <CustomInput type="select" id="gender" name="gender" onChange={handleChange}
+                value={values.gender} >
                   <option value="" label="Select Gender" />
                   <option value="male" label="Male" />
                   <option value="female" label="Female" />
@@ -140,7 +154,7 @@ const Signup = (props) => {
               <TextField label="Address" name="address" type="text" onChange={handleChange} />
             </div>
 
-            <div className="col-12 col-md-6 bd-highlight">
+            <div className="col-12 col-md-6 col-lg-5 bd-highlight">
               <h3 className="my-4 font-weight-bold col-12 px-0">Payment Details</h3>
               {/* <TextField label="Registration Date " name="regdate" type="date" /> */}
               <FormGroup>

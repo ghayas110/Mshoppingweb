@@ -94,7 +94,7 @@ const Profile = (props) => {
               <h2>{loggedInUser.user.userName}</h2>
               <div className={classes.con}>
                 <p>Name:{loggedInUser.user.firstName + ' ' + loggedInUser.user.lastName}</p>
-                <p >Email:{loggedInUser.user.userEmail}</p>
+                <p >Email:{loggedInUser.user.email}</p>
                 <p>Phone No:{loggedInUser.user.phone_number}</p>
                 <p>User Code:{loggedInUser.user.userCode}</p>
                 {/* <p>Invite Link: <a style={{ fontStyle: 'italic', fontSize: 14 }} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></p> */}
