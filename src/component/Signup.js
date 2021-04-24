@@ -150,8 +150,25 @@ const Signup = (props) => {
                   <option value="female" label="Female" />
                 </CustomInput>
               </FormGroup>
-              <TextField label="City" name="city" type="text" onChange={handleChange} />
-              <TextField label="Address" name="address" type="text" onChange={handleChange} />
+              <FormGroup>
+                <Label htmlFor="city" className='col-12' >City</Label>
+                <Input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="address" className='col-12' >Address</Label>
+                <Input
+                  type="text"
+                  name="address"
+                  placeholder="Address"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              
             </div>
 
             <div className="col-12 col-md-6 col-lg-5 bd-highlight">
@@ -164,21 +181,62 @@ const Signup = (props) => {
                   <option value="" label="Bank" />
                 </CustomInput>
               </FormGroup>
-              <TextField label="BankName" name="bankName" type="text" onChange={handleChange} />
+              <FormGroup>
+                <Label htmlFor="branchname" className='col-12' >BankName</Label>
+                <Input
+                  type="text"
+                  name="bankName"
+                  placeholder="BankName"
+                  onChange={handleChange}
 
-              <TextField label="BranchCode" name="branchCode" type="text" onChange={handleChange} />
-              <TextField label="Account No" name="accountNo" type="number" onChange={handleChange} />
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="branchcode" className='col-12' >BranchCode</Label>
+                <Input
+                  type="text"
+                  name="branchCode"
+                  placeholder="BranchCode"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="Account No" className='col-12' >Account No</Label>
+                <Input
+                  type="text"
+                  name="accountNo"
+                  placeholder="Account No"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              
 
+              
+              
               <FormGroup>
                 <Label for="file">CheckSlip upload</Label>
                 <CustomInput type="file" id="file" name="checkupload" accept='image/*' label="CheckSlip upload" onChange={(e) => { values.checkupload = e.target.files[0] }} />
               </FormGroup>
               {/* <label htmlFor="file">CheckSlip upload</label>
+              
               <input id="file" name="checkupload" type="file" accept='image/*' className="form-control" onChange={(e) => { values.checkupload = e.target.files[0] }} /> */}
-              <TextField label="CNIC" name="CNIC" type="number" />
-              <label htmlFor="file">CNIC upload</label>
-              <input id="file" name="cnic_upload" type="file" accept='image/*' className="form-control" onChange={(e) => { values.cnic_upload = e.target.files[0] }} />
-              <button className="btn btn-dark mt-3 px-5" type="submit" onClick={handleSubmit} >Save</button>
+              <FormGroup>
+                <Label htmlFor="CNIC" className='col-12' >CNIC</Label>
+                <Input
+                  type="number"
+                  name="CNIC"
+                  placeholder="CNIC"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              
+
+              <FormGroup>
+                <Label for="file">CNIC upload</Label>
+                <CustomInput type="file" id="file" name="cnic_upload" accept='image/*' label="CNIC upload" onChange={(e) => { values.checkupload = e.target.files[0] }} />
+              </FormGroup>
+             
+                <button className="btn btn-dark mt-3 px-5" type="submit" onClick={handleSubmit} >Save</button>
               {/* <button className="btn btn-danger mt-3 ml-3" type="reset">Reset</button> */}
             </div>
           </Form>
