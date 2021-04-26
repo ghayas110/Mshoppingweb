@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
 import { withRouter } from "react-router-dom";
@@ -8,9 +8,65 @@ import * as Yup from 'yup';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { updateUser } from '../graphql/mutations'
 import * as ActionTypes from '../redux/ActionTypes'
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PhoneIcon from '@material-ui/icons/Phone';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+// const [count, setCount] = useState(1);
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `scrollable-force-tab-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 const Signup = (props) => {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChanges = (event, newValue) => {
+    setValue(newValue);
+  };
   const { loggedInUser } = useSelector((state) => state);
   const dispatch = useDispatch()
 
@@ -95,7 +151,108 @@ const Signup = (props) => {
     >
       {({ handleSubmit, isSubmitting, handleChange, values, errors, touched }) => (
         <div className="col-12 px-0">
-          <h1 className="col-12 my-4 font-weight-bold .display-4">Profile Information</h1>
+           <AppBar position="static" color="default">
+           <h1 className="col-12 my-4 font-weight-bold .display-4">Profile Information</h1>
+        <Tabs
+          value={value}
+          onChange={handleChanges}
+          variant="scrollable"
+          scrollButtons="on"
+          indicatorColor="primary"
+          textColor="primary"
+          aria-label="scrollable force tabs example"
+        >
+          <Tab label="User Details" icon={<PhoneIcon />} {...a11yProps(0)} />
+          <Tab label="Payment Details" icon={<FavoriteIcon />} {...a11yProps(1)} />
+          {/* <Tab label="Item Three" icon={<PersonPinIcon />} {...a11yProps(2)} />
+          <Tab label="Item Four" icon={<HelpIcon />} {...a11yProps(3)} />
+          <Tab label="Item Five" icon={<ShoppingBasket />} {...a11yProps(4)} />
+          <Tab label="Item Six" icon={<ThumbDown />} {...a11yProps(5)} />
+          <Tab label="Item Seven" icon={<ThumbUp />} {...a11yProps(6)} /> */}
+        </Tabs>
+      </AppBar>
+      <Form className="col-12 d-flex justify-content-between flex-wrap" >
+
+
+      <TabPanel value={value} index={0}>
+      <div className="col-12 col-md-6 col-lg-5 bd-highlight">
+              <h3 className="my-4 font-weight-bold">User Details</h3>
+              <FormGroup>
+                <Label htmlFor="firstName" className='col-12' >First Name</Label>
+                <Input
+                  type="text"
+                  name="firstName"
+                  value={values.firstName}
+                  placeholder="First Name"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              {/* <TextField label="First Name" name="firstName" type="text" onChange={handleChange} /> */}
+              <FormGroup>
+                <Label htmlFor="middleName" className='col-12' >Middle Name</Label>
+                <Input
+                  type="text"
+                  name="middleName"
+                  value={values.middleName}
+                  placeholder="Middle Name"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="lastName" className='col-12' >Last Name</Label>
+                <Input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={values.lastName}
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="fs" className='col-12' >Father Name/Spouse Name</Label>
+                <Input
+                  type="text"
+                  name="fs"
+                  placeholder="Father Name/Spouse Name"
+                  value={values.fs}
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="gender">Gender</Label>
+                <CustomInput type="select" id="gender" name="gender" onChange={handleChange}
+                value={values.gender} >
+                  <option value="" label="Select Gender" />
+                  <option value="male" label="Male" />
+                  <option value="female" label="Female" />
+                </CustomInput>
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="city" className='col-12' >City</Label>
+                <Input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="address" className='col-12' >Address</Label>
+                <Input
+                  type="text"
+                  name="address"
+                  placeholder="Address"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              
+            </div>
+
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        Item Two
+      </TabPanel>
+      </Form>
           <Form className="col-12 d-flex justify-content-between flex-wrap" >
 
             <div className="col-12 col-md-6 col-lg-5 bd-highlight">
@@ -237,6 +394,7 @@ const Signup = (props) => {
               </FormGroup>
              
                 <button className="btn btn-dark mt-3 px-5" type="submit" onClick={handleSubmit} >Save</button>
+           
               {/* <button className="btn btn-danger mt-3 ml-3" type="reset">Reset</button> */}
             </div>
           </Form>
