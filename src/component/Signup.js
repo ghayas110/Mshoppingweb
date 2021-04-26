@@ -155,6 +155,7 @@ const Signup = (props) => {
            <h1 className="col-12 my-4 font-weight-bold .display-4">Profile Information</h1>
         <Tabs
           value={value}
+       
           onChange={handleChanges}
           variant="scrollable"
           scrollButtons="on"
@@ -162,7 +163,7 @@ const Signup = (props) => {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          <Tab label="User Details" icon={<PhoneIcon />} {...a11yProps(0)} />
+          <Tab label="User Details"  icon={<PhoneIcon />} {...a11yProps(0)} />
           <Tab label="Payment Details" icon={<FavoriteIcon />} {...a11yProps(1)} />
           {/* <Tab label="Item Three" icon={<PersonPinIcon />} {...a11yProps(2)} />
           <Tab label="Item Four" icon={<HelpIcon />} {...a11yProps(3)} />
@@ -245,90 +246,13 @@ const Signup = (props) => {
                   onChange={handleChange}
                 />
               </FormGroup>
-              
+              <button className="btn btn-dark mt-3 px-5" type="submit" onClick={handleSubmit} >Save</button>
             </div>
 
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      </Form>
-          <Form className="col-12 d-flex justify-content-between flex-wrap" >
+         <div className="col-12 col-md-6 col-lg-5 bd-highlight">
 
-            <div className="col-12 col-md-6 col-lg-5 bd-highlight">
-              <h3 className="my-4 font-weight-bold">User Details</h3>
-              <FormGroup>
-                <Label htmlFor="firstName" className='col-12' >First Name</Label>
-                <Input
-                  type="text"
-                  name="firstName"
-                  value={values.firstName}
-                  placeholder="First Name"
-                  onChange={handleChange}
-                />
-              </FormGroup>
-              {/* <TextField label="First Name" name="firstName" type="text" onChange={handleChange} /> */}
-              <FormGroup>
-                <Label htmlFor="middleName" className='col-12' >Middle Name</Label>
-                <Input
-                  type="text"
-                  name="middleName"
-                  value={values.middleName}
-                  placeholder="Middle Name"
-                  onChange={handleChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="lastName" className='col-12' >Last Name</Label>
-                <Input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={values.lastName}
-                  onChange={handleChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="fs" className='col-12' >Father Name/Spouse Name</Label>
-                <Input
-                  type="text"
-                  name="fs"
-                  placeholder="Father Name/Spouse Name"
-                  value={values.fs}
-                  onChange={handleChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="gender">Gender</Label>
-                <CustomInput type="select" id="gender" name="gender" onChange={handleChange}
-                value={values.gender} >
-                  <option value="" label="Select Gender" />
-                  <option value="male" label="Male" />
-                  <option value="female" label="Female" />
-                </CustomInput>
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="city" className='col-12' >City</Label>
-                <Input
-                  type="text"
-                  name="city"
-                  placeholder="City"
-                  onChange={handleChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="address" className='col-12' >Address</Label>
-                <Input
-                  type="text"
-                  name="address"
-                  placeholder="Address"
-                  onChange={handleChange}
-                />
-              </FormGroup>
-              
-            </div>
-
-            <div className="col-12 col-md-6 col-lg-5 bd-highlight">
               <h3 className="my-4 font-weight-bold col-12 px-0">Payment Details</h3>
               {/* <TextField label="Registration Date " name="regdate" type="date" /> */}
               <FormGroup>
@@ -392,12 +316,16 @@ const Signup = (props) => {
                 <Label for="file">CNIC upload</Label>
                 <CustomInput type="file" id="file" name="cnic_upload" accept='image/*' label="CNIC upload" onChange={(e) => { values.checkupload = e.target.files[0] }} />
               </FormGroup>
-             
-                <button className="btn btn-dark mt-3 px-5" type="submit" onClick={handleSubmit} >Save</button>
+              <button className="btn btn-dark mt-3 px-5" type="submit" onClick={handleSubmit} >Save</button>
+                
            
               {/* <button className="btn btn-danger mt-3 ml-3" type="reset">Reset</button> */}
             </div>
-          </Form>
+          
+      </TabPanel>
+      
+      </Form>
+          
         </div>
       )}
     </Formik>
