@@ -208,7 +208,7 @@ const UserPanel = (props) => {
                   </Grid>
 
                   <Grid item >
-                    <Link to='/dashboard/MyReferals' style={{textDecoration: 'none'}} >
+                    <Link to='/dashboard/MyReferals' style={{ textDecoration: 'none' }} >
                       <Paper elevation={5}>
                         <GridItem xs={12} sm={12} md={12} style={{ width: "250px", height: "165px" }}>
                           <Card >
@@ -238,8 +238,8 @@ const UserPanel = (props) => {
                               <Store />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Wallet Balance</p>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(cardData.fees)} <p style={{fontSize: 11}}>Capital Account</p> </h3>
-                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {calculateROI()} <p style={{fontSize: 11}}>Profit Share</p> </h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {new Intl.NumberFormat('en-US', { maximumSignificantDigits: 10 }).format(cardData.fees)} <p style={{ fontSize: 11 }}>Capital Account</p> </h3>
+                            <h3 className={classes.cardTitle} style={{ color: "black", fontFamily: "serif", width: '110%' }}>$ {calculateROI()} <p style={{ fontSize: 11 }}>Profit Share</p> </h3>
                           </CardHeader>
                         </Card>
                       </GridItem>
@@ -251,11 +251,11 @@ const UserPanel = (props) => {
                         <Card>
                           <CardHeader color="danger" stats icon>
                             <CardIcon color="danger">
-                            <MoneyIcon/>
+                              <MoneyIcon />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Rank</p>
                             <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
-                             0
+                              0
                             </h3>
                           </CardHeader>
                           <CardFooter stats>
@@ -271,7 +271,7 @@ const UserPanel = (props) => {
                         <Card>
                           <CardHeader color="success" stats icon>
                             <CardIcon color="success">
-                            <AttachMoneyIcon/>
+                              <AttachMoneyIcon />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Rewards</p>
                             <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
@@ -291,7 +291,7 @@ const UserPanel = (props) => {
                         <Card>
                           <CardHeader color="danger" stats icon>
                             <CardIcon color="danger">
-                            <AttachMoneyIcon/>
+                              <AttachMoneyIcon />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>Commission</p>
                             <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
@@ -311,7 +311,7 @@ const UserPanel = (props) => {
                         <Card>
                           <CardHeader color="danger" stats icon>
                             <CardIcon color="danger">
-                            <AttachMoneyIcon/>
+                              <AttachMoneyIcon />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>ROI</p>
                             <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
@@ -331,11 +331,11 @@ const UserPanel = (props) => {
                         <Card>
                           <CardHeader color="success" stats icon>
                             <CardIcon color="success">
-                            <AttachMoneyIcon/>
+                              <AttachMoneyIcon />
                             </CardIcon>
                             <p className={classes.cardCategory} style={{ color: "black", fontFamily: "serif" }}>PROFIT SHARE</p>
                             <h3 style={{ color: "black", fontFamily: "serif", width: '110%' }}>
-                            $ {calculateROI()} 
+                              $ {calculateROI()}
                             </h3>
                           </CardHeader>
                           <CardFooter stats>
@@ -350,7 +350,7 @@ const UserPanel = (props) => {
               </Grid>
             </Grid>
 
-            <Divider style={{margin: 10}} />
+            <Divider style={{ margin: 10 }} />
           </Paper>
         </Grid>
 
